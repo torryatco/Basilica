@@ -6,7 +6,9 @@
 * See how far you can get in [Grid Garden](http://cssgridgarden.com/)
 * Watch [an intro](https://youtu.be/gKyRqFgJt6k) to Node Package Manager
 
-## NPM 
+## NPM
+
+Create a manifest (package.json), install a package and set up a gitignore.
 
 ```bash
 $ npm init
@@ -14,7 +16,7 @@ $ npm install browser-sync --save
 $ touch .gitignore
 ```
 
-Notes
+Note:
 
 * package.json
 * package-lock.json
@@ -26,7 +28,7 @@ Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
 
 ```js
 "scripts": {
-  "startmac": "browser-sync start --directory --server 'app' --files 'app'",
+  "start": "browser-sync start --directory --server 'app' --files 'app'",
   "startpc": "browser-sync start --directory --server \"app\" --files \"app\""
 },
 ```
@@ -39,7 +41,7 @@ npm install
 
 In the terminal:
 
-`$ npm run startmac`
+`$ npm run start`
 
 or, if you're on a PC:
 
@@ -64,7 +66,7 @@ Follow the instructions to create a remote and push the master branch to the rem
 
 ## Basilica
 
-![Image of Basilica](app/img/FINAL.png)
+![Image of Basilica](other/FINAL.png)
 
 Open `app/index.html` and examine code with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
 
