@@ -1,4 +1,4 @@
-# V - Basilica!
+# Basilica!
 
 ## Homework
 
@@ -6,29 +6,7 @@
 * See how far you can get in [Grid Garden](http://cssgridgarden.com/)
 * Watch [an intro](https://youtu.be/gKyRqFgJt6k) to Node Package Manager
 
-## Terminal Basics
-
-Windows users should use the Git Bash terminal (installed along with Git) for best results
-
-Here are some of the shell commands we covered last class:
-
-```sh
-$ cd <PATH> // copy and paste the folder you want to go to
-$ cd ~ // go to your home directory
-$ cd Desk // tab completion
-$ cd .. // go up one level
-$ ls
-$ls -al  // flags expand the command
-$ pwd
-```
-
-## Node Package Manager
-
-[Node Package Manager](https://www.npmjs.com) is an essential part of the web design and development ecosystem.
-
-[Node](https://nodejs.org/en/) includes NPM as part of its install
-
-### NPM Manifest
+## NPM 
 
 ```bash
 $ npm init
@@ -187,8 +165,8 @@ Replace the `img` tag in index.html with the following:
 It consists of:
 
 1. Am image path / filename
-1. A space
-1. The image's inherent width (real size) in pixels using a `w` unit (not `px`).
+2. A space
+3. The image's inherent width (real size) in pixels using a `w` unit (not `px`).
 
 `sizes` defines a set of media conditions (e.g. screen widths) and indicates what image size would be best to choose, when certain media conditions are true. In this case, before each comma we write:
 
