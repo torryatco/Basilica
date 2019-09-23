@@ -1,0 +1,26 @@
+html {
+  --basil-green: #88a308;
+  --dark-gray: #333333;
+  --light-gray: #999999;
+  --max-width: 840px;
+  --breakpoint: 640px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans',
+    'Bitstream Vera Sans', 'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  color: var(--dark-gray);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  margin-top: 24px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}

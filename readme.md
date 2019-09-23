@@ -71,7 +71,22 @@ Follow the instructions to create a remote and push the master branch and inclas
 
 ![Image of Basilica](other/FINAL.png)
 
-Open `app/index.html` in VS Code and examine the HTML with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
+Open `app/index.html` in VS Code and examine the HTML with regards to the overall structure and the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
+
+```txt
+body
+  |
+  header
+  |
+  nav
+  |
+  div.content -----------
+  |   |                 |
+  |   article         aside
+  |
+  footer
+
+```
 
 Here is an [article that addresses the recipe schemas](https://www.foodbloggerpro.com/blog/article/what-is-recipe-schema/) but note that there are [many different kinds](https://schema.org/docs/full.html). 
 
@@ -79,7 +94,7 @@ Have a look at a sample [recipe](https://www.allrecipes.com/recipe/20144/banana-
 
 Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
 
-Normally you will start off with a few known styleguide settings. Let's define a couple [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in `app/css/styles.css`:
+Normally you will start off with a few known styleguide settings. We have a couple [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in `app/css/styles.css`:
 
 ```css
 html {
@@ -97,13 +112,14 @@ CSS variables are applied as follows:
 <property>: var(--basil-green);
 ```
 
-### Starter formatting
+We are using them in the starter formatting in styles.css:
 
 ```css
 * {
   margin: 0;
   padding: 0;
 }
+
 body {
   font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
