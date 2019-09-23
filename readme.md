@@ -12,7 +12,7 @@ Create a manifest (package.json), install a package and set up a gitignore.
 
 ```bash
 $ npm init
-$ npm install browser-sync --save
+$ npm install browser-sync --save-dev
 $ touch .gitignore
 ```
 
@@ -32,12 +32,8 @@ Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
   "startpc": "browser-sync start --directory --server \"app\" --files \"app\""
 },
 ```
-
-If the repo comes with a package.json file (aka 'manifest') run `npm install` to install:
-
-```
-npm install
-```
+ 
+Remember, if the repo comes with a package.json file (aka 'manifest') run `npm install` to install.
 
 In the terminal:
 
@@ -49,7 +45,7 @@ or, if you're on a PC:
 
 Note - the startpc script will work on Macs.
 
-## Initialize a GIT Repo
+## Initialize a GIT Repo and .gitignore
 
 ```sh
 $ touch .gitignore // edit to include 'node_modules'
@@ -58,19 +54,28 @@ $ git add .
 $ git commit -m 'initial commit'
 ```
 
-Create a branch in VS Code.
+Create a branch:
+
+```sh
+$ git branch inclass
+$ git checkout inclass
+```
+
+Create a branch in VS Code and merge it back into another.
 
 Log into [Github](http://github.com) and create a new repo.
 
-Follow the instructions to create a remote and push the master branch to the remote.
+Follow the instructions to create a remote and push the master branch and inclass branch to the remote.
 
 ## Basilica
 
 ![Image of Basilica](other/FINAL.png)
 
-Open `app/index.html` and examine code with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
+Open `app/index.html` in VS Code and examine the HTML with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
 
-Here is an [article that addresses the recipe schemas](https://www.foodbloggerpro.com/blog/article/what-is-recipe-schema/) but note that there are [many different kinds](https://schema.org/docs/full.html).
+Here is an [article that addresses the recipe schemas](https://www.foodbloggerpro.com/blog/article/what-is-recipe-schema/) but note that there are [many different kinds](https://schema.org/docs/full.html). 
+
+Have a look at a sample [recipe](https://www.allrecipes.com/recipe/20144/banana-banana-bread/) and note the schema in the inspector.
 
 Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
 
@@ -132,7 +137,7 @@ Edit the HTML to use `figure` and `figcaption` tags:
 </figure>
 ```
 
-Note: a `<figure>` tag denotes an image, illustration, diagram, code snippet, etc. that is referenced in the main flow of a document, but that can be moved to another part of the document or to an appendix without affecting the main flow.
+Note: a `<figure>` tag denotes an image, illustration, or diagram that is referenced in the main flow of a document, but that can be moved to another part of the document or to an appendix without affecting the main flow.
 
 We want to display identical image content, just larger or smaller depending on the device. The standard `<img>` element only lets you point the browser to a single source file. We will use two new attributes — `srcset` and `sizes` — to provide additional source images along with hints to help the browser pick the right one.
 
@@ -766,10 +771,5 @@ Final:
 }
 ```
 
-Time permitting, configure and use the SASS compiler in VS Code.
-
 ## Notes
 
-```js
-
-```
