@@ -119,11 +119,6 @@ CSS variables are applied as follows:
 We are using them in the starter formatting in styles.css:
 
 ```css
-* {
-  margin: 0;
-  padding: 0;
-}
-
 body {
   font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
     'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
@@ -136,6 +131,18 @@ body {
 
 Note the use of `max-width` on the body selector - we applied these to a div in the past.
 
+Note `li > h4` [selector](https://www.w3schools.com/cssref/css_selectors.asp). It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when they are proceeded by an `li`.
+
+Note also: the transition property on the anchor selector. This is a shortcut for:
+
+```css
+transition-property: color;
+transition-duration: 1s;
+transition-timing-function: linear;
+```
+
+or `transition: color 0.2s linear;`
+
 ## Responsive Images
 
 [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images):
@@ -147,7 +154,7 @@ img {
 }
 ```
 
-At a bare minimum, you will almost always use `width: 100%` on images and videos.
+In a responsive layout you will almost always use `width: 100%` on images and videos.
 
 Edit the HTML to use `figure` and `figcaption` tags:
 
@@ -445,60 +452,6 @@ article {
 Note: Since we are not using floats we no longer need to use clearfix for the content div or `clear: both` for the footer.
 
 Clean up the CSS by removing the clearfix (and its class in the html).
-
-### Format Basic Content
-
-```css
-h2,
-h3 {
-  color: var(--basil-green);
-  margin: 8px 0;
-  font-size: 1.4rem;
-  letter-spacing: -1px;
-}
-
-a {
-  color: #f90;
-  text-decoration: none;
-  transition: color 0.5s linear;
-}
-
-a:hover {
-  color: #f00;
-}
-
-li > h4 {
-  margin-top: 12px;
-}
-
-aside li {
-  list-style: none;
-}
-
-article li,
-article ol {
-  margin-left: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-figcaption {
-  font-size: 0.75rem;
-}
-```
-
-Note `li > h4` [selector](https://www.w3schools.com/cssref/css_selectors.asp). It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when they are proceeded by an `li`.
-
-Take a moment to examine a [complete listing](<https://www.w3schools.com/cssref/trysel.asp?selector=li:nth-child(1)>) of selector types in CSS. Note the `:root` selector. This is the usual selector used for CSS variables.
-
-Note also: the transition property on the anchor selector. This is a shortcut for:
-
-```css
-transition-property: color;
-transition-duration: 1s;
-transition-timing-function: linear;
-```
-
-or `transition: color 0.2s linear;`
 
 ### Animate Links
 

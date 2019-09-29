@@ -20,7 +20,38 @@ body {
   margin-top: 24px;
 }
 
-img {
-  width: 100%;
-  height: auto;
+h2,
+h3 {
+  color: var(--basil-green);
+  margin: 8px 0;
+  font-size: 1.4rem;
+  letter-spacing: -1px;
+}
+
+a {
+  color: #f90;
+  text-decoration: none;
+  transition: color 0.5s linear;
+}
+
+a:hover {
+  color: #f00;
+}
+
+li > h4 {
+  margin-top: 12px;
+}
+
+aside li {
+  list-style: none;
+}
+
+article li,
+article ol {
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+figcaption {
+  font-size: 0.75rem;
 }
