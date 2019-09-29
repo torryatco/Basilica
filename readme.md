@@ -2,11 +2,9 @@
 
 ## Homework
 
-## Reading
-
-- Read [this article](https://medium.freecodecamp.org/learn-css-grid-in-5-minutes-f582e87b1228) (and follow along in your text editor) on CSS Grids
-- See how far you can get in [Grid Garden](http://cssgridgarden.com/)
-- Watch [an intro](https://youtu.be/gKyRqFgJt6k) to Node Package Manager
+* Read [this article](https://medium.freecodecamp.org/learn-css-grid-in-5-minutes-f582e87b1228) (and follow along in your text editor) on CSS Grids
+* See how far you can get in [Grid Garden](http://cssgridgarden.com/)
+* Watch [an intro](https://youtu.be/gKyRqFgJt6k) to Node Package Manager
 
 ## NPM
 
@@ -20,11 +18,11 @@ $ touch .gitignore
 
 Note:
 
-- package.json
-- package-lock.json
-- dependencies
-- node_modules folder
-- discuss the need for `.gitignore`.
+* package.json
+* package-lock.json
+* dependencies
+* node_modules folder
+* discuss the need for `.gitignore`.
 
 Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
 
@@ -34,7 +32,7 @@ Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
   "startpc": "browser-sync start --directory --server \"app\" --files \"app\""
 },
 ```
-
+ 
 Remember, if the repo comes with a package.json file (aka 'manifest') run `npm install` to install.
 
 In the terminal:
@@ -73,32 +71,15 @@ Follow the instructions to create a remote and push the master branch and inclas
 
 ![Image of Basilica](other/FINAL.png)
 
-Open `app/index.html` in VS Code and examine the HTML with regards to the overall structure and the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
+Open `app/index.html` in VS Code and examine the HTML with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
 
-```txt
-body
-  |
-  header
-  |
-  nav
-  |
-  main.content ----------
-  |      |               |
-  |   article         aside
-  |
-  footer
-
-```
-
-Here is an [article that addresses the recipe schemas](https://www.foodbloggerpro.com/blog/article/what-is-recipe-schema/) but note that there are [many different kinds](https://schema.org/docs/full.html).
+Here is an [article that addresses the recipe schemas](https://www.foodbloggerpro.com/blog/article/what-is-recipe-schema/) but note that there are [many different kinds](https://schema.org/docs/full.html). 
 
 Have a look at a sample [recipe](https://www.allrecipes.com/recipe/20144/banana-banana-bread/) and note the schema in the inspector.
 
-Google has a [markup helper](https://www.google.com/webmasters/markup-helper/u/0/?verticalId=4902&sourceId=105484525) that is of interest.
+Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
 
-Note the new `main` and `<abbr>` tag as well as the absence of a wrapper div (even though the design shows a centered document).
-
-Normally you will start off with a few known styleguide settings. We have a couple [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in `app/css/styles.css`:
+Normally you will start off with a few known styleguide settings. Let's define a couple [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) in `app/css/styles.css`:
 
 ```css
 html {
@@ -116,17 +97,15 @@ CSS variables are applied as follows:
 <property>: var(--basil-green);
 ```
 
-We are using them in the starter formatting in styles.css:
+### Starter formatting
 
 ```css
 * {
   margin: 0;
   padding: 0;
 }
-
 body {
-  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
-    'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   margin: 0 auto;
@@ -142,23 +121,19 @@ Note the use of `max-width` on the body selector - we applied these to a div in 
 
 ```css
 img {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    height: auto;
 }
 ```
 
-At a bare minimum, you will almost always use `width: 100%` on images and videos.
+At a bare minimum, you will almost always use `width: 100%` on images and videos. 
 
 Edit the HTML to use `figure` and `figcaption` tags:
 
 ```html
 <figure>
   <img src="img/pesto.jpg" alt="Italian pesto" />
-  <figcaption>
-    Classic, simple basil pesto recipe with fresh basil leaves, pine nuts,
-    garlic, Romano or Parmesan cheese, extra virgin olive oil, and salt and
-    pepper.
-  </figcaption>
+  <figcaption>Classic, simple basil pesto recipe with fresh basil leaves, pine nuts, garlic, Romano or Parmesan cheese, extra virgin olive oil, and salt and pepper.</figcaption>
 </figure>
 ```
 
@@ -166,7 +141,7 @@ Note: a `<figure>` tag denotes an image, illustration, or diagram that is refere
 
 We want to display identical image content, just larger or smaller depending on the device. The standard `<img>` element only lets you point the browser to a single source file. We will use two new attributes — `srcset` and `sizes` — to provide additional source images along with hints to help the browser pick the right one.
 
-- Upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/). Download the zip file and place the unzipped folder in the `img` directory.
+* Upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/). Download the zip file and place the unzipped folder in the `img` directory.
 
 Replace the `img` tag in index.html with the following:
 
@@ -179,15 +154,16 @@ Replace the `img` tag in index.html with the following:
     (max-width: 1024px) 980px, 
     (max-width: 1280px) 100vw, 1280px"
     srcset="
-      img/pesto/pesto_iodywc_c_scale,w_380.jpg   380w,
-      img/pesto/pesto_iodywc_c_scale,w_780.jpg   780w,
-      img/pesto/pesto_iodywc_c_scale,w_1069.jpg 1069w,
-      img/pesto/pesto_iodywc_c_scale,w_1337.jpg 1337w,
-      img/pesto/pesto_iodywc_c_scale,w_1380.jpg 1380w
-    "
+    img/pesto/pesto_iodywc_c_scale,w_380.jpg 380w,
+    img/pesto/pesto_iodywc_c_scale,w_780.jpg 780w,
+    img/pesto/pesto_iodywc_c_scale,w_1069.jpg 1069w,
+    img/pesto/pesto_iodywc_c_scale,w_1337.jpg 1337w,
+    img/pesto/pesto_iodywc_c_scale,w_1380.jpg 1380w"
+
     src="img/pesto/pesto_iodywc_c_scale,w_1380.jpg"
+
     alt="Italian pesto"
-  />
+  >
 </picture>
 ```
 
@@ -220,8 +196,6 @@ You can check the results of your work by viewing the Network tab in the inspect
 
 The `<picture>` tag can be used for cropping or modifying images for different media conditions _or_ offering different image formats when certain formats are not supported by all browsers. See the [example](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) on MDN.
 
-See this technique in the wild on The Guardian
-
 ## Layout
 
 We'll start by using float on the two main content columns:
@@ -240,7 +214,8 @@ Add `box-sizing: border-box;` to the article / aside rule.
 ```css
 article,
 aside {
-  ... box-sizing: border-box;
+    ...
+    box-sizing: border-box;
 }
 ```
 
@@ -248,12 +223,12 @@ Move it to a universal selector so it applies to all the boxes. See [Paul Irish]
 
 ```css
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 ```
 
@@ -287,8 +262,8 @@ Note that we cannot see the background image. The content div has collapsed beca
 
 ```css
 .content {
-  background: url(img/html.png) repeat-y 50% 50%;
-  float: left;
+    background: url(img/html.png) repeat-y 50% 50%;
+    float: left;
 }
 ```
 
@@ -311,8 +286,8 @@ e.g.: Selected text:
 
 ```css
 ::selection {
-  background: var(--basil-green);
-  color: #fff;
+    background: var(--basil-green);
+    color: #fff;
 }
 ```
 
@@ -349,19 +324,19 @@ Update the method to something shorter and more modern and apply the cf classnam
 ```css
 .cf::before,
 .cf::after {
-  content: ' ';
-  display: table;
+    content: ' ';
+    display: table;
 }
 
 .cf::after {
-  clear: both;
+    clear: both;
 }
 ```
 
 Apply it to the content div:
 
 ```html
-<div class="cf content"></div>
+<div class="cf content">
 ```
 
 Examine the html in the inspector. Look for `::before` and `::after` after the content div. We'll return to the :before and :after pseudo-classes later.
@@ -372,12 +347,12 @@ Examine the html in the inspector. Look for `::before` and `::after` after the c
 
 ```css
 .content {
-  /*background : url(img/html.png) repeat-y 50% 50%;*/
+    /*background : url(img/html.png) repeat-y 50% 50%;*/
 }
 
 article,
 aside {
-  padding: 1rem;
+    padding: 1rem;
 }
 ```
 
@@ -403,7 +378,7 @@ Aside: If we try to use a variable as a breakpoint value it won't work:
 
 ```css
 @media only screen and (min-width: var(--breakpoint)) {
-  ...;
+  ...
 }
 ```
 
@@ -436,9 +411,9 @@ Here is the long form:
 
 ```css
 article {
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 60%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 60%;
 }
 ```
 
@@ -486,9 +461,9 @@ figcaption {
 }
 ```
 
-Note `li > h4` [selector](https://www.w3schools.com/cssref/css_selectors.asp). It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when they are proceeded by an `li`.
+Note `li > h4` [selector](https://www.w3schools.com/cssref/css_selectors.asp). It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when they are proceeded by an `li`. 
 
-Take a moment to examine a [complete listing](<https://www.w3schools.com/cssref/trysel.asp?selector=li:nth-child(1)>) of selector types in CSS. Note the `:root` selector. This is the usual selector used for CSS variables.
+Take a moment to examine a [complete listing](https://www.w3schools.com/cssref/trysel.asp?selector=li:nth-child(1)) of selector types in CSS. Note the `:root` selector. This is the usual selector used for CSS variables.
 
 Note also: the transition property on the anchor selector. This is a shortcut for:
 
@@ -506,7 +481,7 @@ Confine this effect to anchors within the content div. Replace the generic hover
 
 ```css
 .content a:hover {
-  color: var(--basil-green);
+    color: var(--basil-green);
 }
 ```
 
@@ -516,10 +491,10 @@ Add the green background to the branding div.
 
 ```css
 header {
-  position: relative;
-  height: 120px;
-  background: var(--basil-green);
-  border-radius: 8px 8px 0px 0px;
+    position: relative;
+    height: 120px;
+    background: var(--basil-green);
+    border-radius: 8px 8px 0px 0px;
 }
 ```
 
@@ -547,7 +522,7 @@ Note: image is 272px by 170px.
 header h1 {
   padding-left: 260px;
   padding-top: 90px;
-  ...;
+    ...;
 }
 ```
 
@@ -557,9 +532,9 @@ We cannot see the text because we have added padding. Use transform to tweak the
 
 ```css
 header h1 {
-  transform: translateX(-100px);
-  transform: translateY(-80px);
-  ...;
+    transform: translateX(-100px);
+    transform: translateY(-80px);
+    ...
 }
 ```
 
@@ -570,7 +545,7 @@ Use this format instead:
 ```css
 header h1 {
   transform: translate(-100px, -80px);
-  ...;
+  ...
 }
 ```
 
@@ -580,8 +555,8 @@ Note the beta link in the header:
 
 ```html
 <header>
-  <h1>Basilica!</h1>
-  <a class="beta" href="#">Beta</a>
+    <h1>Basilica!</h1>
+    <a class="beta" href="#">Beta</a>
 </header>
 ```
 
@@ -589,17 +564,17 @@ Absolutely position the beta element (we can do this in the context of the heade
 
 ```css
 header a.beta {
-  background: url('img/burst.svg') no-repeat;
-  color: #fff;
-  font-size: 1.5rem;
-  position: absolute;
-  top: -20px;
-  right: 10px;
-  width: 85px;
-  height: 85px;
-  line-height: 85px;
-  text-align: center;
-  text-transform: uppercase;
+    background: url('img/burst.svg') no-repeat;
+    color: #fff;
+    font-size: 1.5rem;
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    width: 85px;
+    height: 85px;
+    line-height: 85px;
+    text-align: center;
+    text-transform: uppercase;
 }
 ```
 
@@ -607,14 +582,15 @@ Add a hover, transform and animate:
 
 ```css
 header a.beta:hover {
-  transform: rotate(0deg) scale(1.2);
+    transform: rotate(0deg) scale(1.2);
 }
 ```
 
 ```css
 header a.beta {
-  ... transform: rotate(20deg);
-  transition: all 1s ease;
+    ...
+    transform: rotate(20deg);
+    transition: all 1s ease;
 }
 ```
 
@@ -657,24 +633,24 @@ Basic [usage](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
 ```css
 nav {
-  background: #e4e1d1;
-  border-top: 0.5rem solid #ebbd4e;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
+    background: #e4e1d1;
+    border-top: 0.5rem solid #ebbd4e;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
 }
 
 nav ul {
-  display: flex;
+    display: flex;
 }
 
 nav li {
-  list-style: none;
-  margin-right: 0.5rem;
+    list-style: none;
+    margin-right: 0.5rem;
 }
 
 nav p {
-  margin-right: auto;
+    margin-right: auto;
 }
 ```
 
@@ -684,7 +660,9 @@ Remove it and add `justify-content` to the flex parent:
 
 ```css
 nav {
-  ... justify-content: space-between;
+  ...
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 ```
 
@@ -707,27 +685,27 @@ The [gradients](http://www.colorzilla.com/gradient-editor/) for the buttons:
 
 ```css
 .nav-storeit a {
-  background: linear-gradient(to bottom, #fcde41 1%, #dfa910 100%);
+    background: linear-gradient(to bottom, #fcde41 1%, #dfa910 100%);
 }
 
 .nav-storeit a:hover {
-  background: linear-gradient(to bottom, #dfa910 0%, #fcde41 100%);
+    background: linear-gradient(to bottom, #dfa910 0%, #fcde41 100%);
 }
 
 .nav-pickit a {
-  background: linear-gradient(to bottom, #abc841 0%, #6b861e 100%);
+    background: linear-gradient(to bottom, #abc841 0%, #6b861e 100%);
 }
 
 .nav-pickit a:hover {
-  background: linear-gradient(to bottom, #6b861e 1%, #abc841 100%);
+    background: linear-gradient(to bottom, #6b861e 1%, #abc841 100%);
 }
 
 .nav-cookit a {
-  background: linear-gradient(to bottom, #6f89c7 0%, #344e8b 100%);
+    background: linear-gradient(to bottom, #6f89c7 0%, #344e8b 100%);
 }
 
 .nav-cookit a:hover {
-  background: linear-gradient(to bottom, #344e8b 1%, #6f89c7 100%);
+    background: linear-gradient(to bottom, #344e8b 1%, #6f89c7 100%);
 }
 ```
 
@@ -735,7 +713,8 @@ Make all the buttons the same width. Try with and without the `inline-block`.
 
 ```css
 nav a {
-  ... min-width: 120px;
+  ...
+  min-width: 120px;
   display: inline-block;
 }
 ```
@@ -748,7 +727,7 @@ Our use of Flexbox to style the content columns operates in a single (horizontal
 
 ```css
 @media only screen and (min-width: 640px) {
-  .content {
+  .content{
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
     /*grid-template-rows: 20% 20% 20% 20% 20%;*/
@@ -773,7 +752,7 @@ Final:
 
 ```css
 @media only screen and (min-width: 640px) {
-  .content {
+  .content{
     display: grid;
     grid-template-columns: 20% 20% 20% 20% 20%;
     grid-template-rows: 100%;
@@ -793,1391 +772,72 @@ Final:
 }
 ```
 
-The CSS up to this point is available at [this gist](https://gist.github.com/DannyBoyNYC/4e0065e7b1f542c67a13899f0541bdb6).
-
-## Basilica! Part Two
-
-### JavaScript and SASS
-
-**Important: DO NOT DOWNLOAD THE ZIP.** See the command line instructions below.
-
-## Homework
-
-- Review the steps below, Googling anything that is difficult or unclear to you
-- Change the popover behavior so it displays a different message for each of the three navigation buttons. The popovers that result from clicking on the nav buttons should look different (new CSS) than the popover that results from clicking on the BETA buton.
-- Develop a final project proposal - focus on the content you will need
-
-## Cloning a Repo
-
-Navigate to your Desktop (or wherever you want to work from) in the terminal.
-
-```sh
-$ cd ~ // go to your home directory OR
-$ cd // copy and paste the folder you want to go to OR
-$ cd ~/Desk // tab completion
-$ pwd // print working directory
-```
-
-Next, copy the URI for today's git repo:
-
-<img src="other/clone.png" width="380" />
-
-Finally `clone` the repo into your chosen directory and `cd` into it.
-
-```sh
-$ git clone <paste copied github url>
-$ cd <newly cloned folder>
-```
-
-## Node Package Manager
-
-Since there is an existing `package.json` file we need not run `npm init`.
-
-Examine `package.json`. We are using [Browser Sync](https://www.browsersync.io) as our sample application.
-
-Note the NPM script created using the Browser Sync [Command Line (CLI) documentation](https://www.browsersync.io/docs/command-line):
-
-```js
-  "scripts": {
-    "start": "browser-sync start --directory --server 'app' --files 'app' --browser chrome",
-    "startpc": "browser-sync start --directory --server \"app\" --files \"app\" --browser chrome.exe"
-  },
-```
-
-Note the `.gitignore` file as well.
-
-Run `npm install`:
-
-```sh
-$ npm install
-```
-
-And run the process:
-
-```sh
-$ npm run start // or startpc
-```
-
-## SASS
-
-[Syntactically Awesome Style Sheets](https://sass-lang.com) - SASS [adds features](http://sass-lang.com/guide) to css.
-
-You can use an app, an NPM package, or an editor Extension (e.g. [VS Code Live SASS Compiler](https://github.com/ritwickdey/vscode-live-sass-compiler)) to process SASS.
-
-Apps that allow you to use SASS include:
-
-- [Koala](http://koala-app.com)
-- [Scout app](http://scout-app.io/)
-- and [more](https://sass-lang.com/install)
-
-Setting up SASS includes creating and defining an input folder for scss and an output folder for css.
-
-For VS Code's Live SASS Compiler you need to configure on either a global or a per project basis.
-
-Here is our minimal sample configuration (check out the `.vscode` directory):
-
-```
-{
-  "liveSassCompile.settings.formats": [
-    {
-      "savePath": "/app/css/",
-      "format": "expanded"
-    }
-  ],
-  "liveSassCompile.settings.excludeList": [
-    "**/node_modules/**",
-    ".vscode/**",
-    "**/other/**"
-  ]
-}
-```
-
-We will replicate the SASS structure used by the CSS library [Bootstrap](https://getbootstrap.com/) in their [SASS repo](https://github.com/twbs/bootstrap-sass/tree/master/assets/stylesheets).
-
-- Create a `scss` directory in the project folder
-- Create an imports folder `scss/imports` and a new file `scss/imports/_base.scss`
-- Save or copy `styles.css` into it renamed to `styles.scss` - note the `.scss` suffix
-
-Run the SASS processor and test your setup by temporarily adding the following to the `_base.scss` file:
-
-```css
-* {
-  color: red !important;
-}
-```
-
-And then view the output. Note the auto prefixing in the css output and the effect of the `.map` file in the inspector.
-
-### Sass via NPM
-
-You can also use NPM to install [sass](https://www.npmjs.com/package/sass) and use this via an npm script.
-
-Turn off "Watch Sass" in VS Code if its running.
-
-Stop the server with control-c and install sass via NPM as a developmental dependency.
-
-`npm install sass --save-dev`
-
-Add a script to package.json for processing:
-
-```js
-  "scripts": {
-    ...
-    "startSass": "sass  scss/styles.scss app/css/styles.css --watch --source-map"
-  },
-```
-
-Dart Sass CLI [documentation](https://sass-lang.com/documentation/file.SASS_REFERENCE.html)
-
-To run both scripts at the same time add this to package.json:
-
-```js
-"scripts": {
-  ...
-  "start": "npm run startmac & npm run startSass"
-},
-```
-
-And run `npm start` (the word 'run' is optional in this case).
-
-Test it by re-adding the following to the `_base.scss` file:
-
-```css
-* {
-  color: red !important;
-}
-```
-
-Note that sass is less tolerant of errors than regular css. Try `* { color red !important };`.
-
-#### SASS Variables
-
-E.g.:
-
-```css
-$basil-green: #88a308;
-$breakpoint-med: 640px;
-```
-
-Here is a larger example including variables for breakpoints and more:
-
-Example:
-
-```css
-$break-five: 81.25em;
-// 1300px
-$break-four: 71.25em;
-// 1140
-$break-three: 61.25em;
-// 980
-$break-two: 46.25em;
-// 760
-$break-one: 22.5em;
-// 360
-
-//ADDITIONAL CONVERSIONS
-// 67.5rem    1080px
-// 1.125rem   18px
-// 1rem       16px
-// 0.875rem   14px
-// .75rem     12px
-$radius: 0.25rem;
-
-$fonts: 'Source Sans Pro', Helvetica, Clean, sans-serif;
-
-$basil-green: #88a308;
-$link: #007eb6;
-$cyan: #00aeef;
-$cyan10: #e2f4fd;
-$blue100: #003366;
-$blue50: #5997b1;
-$webdarkcyan: #006991;
-$specialblue: #007eb6;
-$text: #444;
-$caption: #808285;
-$borders: #dcdcdc;
-$borders-callout: #820064;
-$lightgray: #f2f2f1;
-$gray10: #ebeced;
-$gray25: #d0d2d3;
-$gray50: #abacad;
-$gray75: #808285;
-$gray100: #585858;
-$fushia100: #820064;
-$green100: #339548;
-$red100: #cc3333;
-
-$blk-100: rgba(0, 0, 0, 1);
-$blk-095: rgba(0, 0, 0, 0.95);
-$blk-090: rgba(0, 0, 0, 0.9);
-$blk-085: rgba(0, 0, 0, 0.85);
-$blk-080: rgba(0, 0, 0, 0.8);
-$blk-075: rgba(0, 0, 0, 0.75);
-$blk-070: rgba(0, 0, 0, 0.7);
-$blk-065: rgba(0, 0, 0, 0.65);
-$blk-060: rgba(0, 0, 0, 0.6);
-$blk-055: rgba(0, 0, 0, 0.55);
-$blk-050: rgba(0, 0, 0, 0.5);
-$blk-040: rgba(0, 0, 0, 0.4);
-$blk-010: rgba(0, 0, 0, 0.1);
-```
-
-Add the above to a new `imports/_variables.scss` file and include it at the top of `styles.scss`: `@import 'imports/variables';`.
-
-Usage example:
-
-```css
-* {
-  color: $basil-green !important;
-}
-```
-
-#### SASS nesting
-
-Sass will let you nest your CSS selectors in a way that follows the same visual hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
-
-One of the best things about nesting in SASS is how it allows you to simplify media queries and keep them aligned with the selector.
-
-#### SASS Partials and Imports
-
-Sass partials allow you to create separate function or feature specific style sheets using [imports](https://sass-lang.com/guide#topic-4) and helps maintain a large code base.
-
-Examples [Bootstrap](https://getbootstrap.com) and its [SASS roots](https://github.com/twbs/bootstrap-sass)
-
-Create `imports/_nav.scss` and cut the nested **nav** related material from `_base.scss` into it. Add it to the main stylesheet.
-
-Note the underscore in the include. If you add an underscore to the start of the file name, Sass won’t compile it. So, if you don’t want `colors.scss` to compile to `colors.css`, name the file `_colors.scss` instead. Files named this way are called partials in Sass terminology.
-
-Create `imports/_header.scss` and add the following (remove the header related material from `_base.scss`).
-
-```css
-header {
-  position: relative;
-  height: 120px;
-  background: var(--basil-green);
-  border-radius: 8px 8px 0px 0px;
-
-  h1 {
-    background: url(img/basil.png) no-repeat;
-    font-family: FuturaStdLight, sans-serif;
-    font-weight: normal;
-    color: #fff;
-    font-size: 5rem;
-    @media (min-width: 640px) {
-      padding-left: 240px;
-      padding-top: 90px;
-      transform: translate(-100px, -80px);
-      background-position: top left;
-    }
-  }
-
-  a.beta {
-    background: url('img/burst.svg') no-repeat;
-    color: #fff;
-    font-size: 1.5rem;
-    position: absolute;
-    top: -20px;
-    right: 10px;
-    width: 85px;
-    height: 85px;
-    line-height: 85px;
-    text-align: center;
-    text-transform: uppercase;
-    transform: rotate(20deg);
-    transition: all 1s ease;
-  }
-  a.beta:hover {
-    transform: rotate(0deg) scale(1.2);
-  }
-}
-```
-
-Note the use of nesting to perform the media query.
-
-We can also use nesting and an ampersand for the hover pseudo selector:
-
-```css
-a.beta {
-  ... &:hover {
-    transform: rotate(0deg) scale(1.2);
-  }
-}
-```
-
-Note: SASS allows you to use JavaScript style comments - `//`. These comments do not get compiled into the css file. Traditional CSS comments ( `/* ... */` ) do.
-
-<!-- `@import 'app/css/futura/stylesheet.css';` vs `@import url(futura/stylesheet.css);` -->
-
-## CSS Grid
-
-The [CSS Grid Cheatsheet](https://css-tricks.com/snippets/css/complete-guide-grid/) on CSS Tricks.
-
-Flexbox operates in a [single axis](https://hackernoon.com/the-ultimate-css-battle-grid-vs-flexbox-d40da0449faf). CSS Grid operates in both x and y.
-
-Our use of Flexbox to style the content columns operates in a single (horizontal or x) dimension. We can use CSS Grid but only need to specify one dimension.
-
-Note that in our document these are only used in wide screens:
-
-```css
-@media (min-width: 640px) {
-  .content {
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    grid-template-rows: 20% 20% 20% 20% 20%;
-    grid-gap: 20px;
-  }
-  article {
-    grid-row-start: 1;
-    grid-column-start: 1;
-    grid-column-end: span 3;
-  }
-  aside {
-    grid-row-start: 1;
-    grid-column-start: 4;
-    grid-column-end: span 2;
-
-    background: #f5faef;
-    box-shadow: -4px 0px 4px #ddd;
-  }
-}
-```
-
-We have some width problems here due to the use of percentages (`20% * 5 + the grid-gap`).
-
-Create a new partial `_layout.scss` and cut and paste the following code into it.
-
-```css
-article,
-aside {
-  padding: 1rem;
-}
-
-@media (min-width: 600px) {
-  .content {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    grid-column-gap: 1rem;
-  }
-  article {
-    grid-column-start: 1;
-  }
-  aside {
-    grid-column-start: 2;
-    background-color: #f5faef;
-    box-shadow: -4px 0px 4px #ddd;
-    padding: 0.5rem;
-  }
-}
-
-footer {
-  background-color: var(--basil-green);
-  padding: 1rem;
-  border-radius: 0 0 4px 4px;
-  margin-bottom: 2rem;
-}
-```
-
-Edit it to use `fr` - fractional units:
-
-```css
-@media (min-width: 600px) {
-  .content {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    grid-column-gap: 1rem;
-  }
-  article {
-    grid-column-start: 1;
-  }
-  aside {
-    grid-column-start: 2;
-    background-color: #f5faef;
-    box-shadow: -4px 0px 4px #ddd;
-    padding: 0.5rem;
-  }
-}
-```
-
-We can also use the repeat property. The `repeat` property requires a different property for the children:
-
-```css
-@media (min-width: 600px) {
-  .content {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 1rem;
-  }
-  article {
-    grid-column: span 3;
-  }
-  aside {
-    grid-column: span 2;
-    background-color: #f5faef;
-    box-shadow: -4px 0px 4px #ddd;
-    padding: 0.5rem;
-  }
-}
-```
-
-Note: while it is possible to use CSS Grid for the entire layout, it is not really necessary and adds unnecessary complexity.
-
-However we will use `grid-template-areas` in order to show the principle and a nested grid:
-
-```css
-article,
-aside {
-  padding: 1rem;
-}
-
-@media (min-width: 600px) {
-  body {
-    display: grid;
-    grid-template-areas:
-      'header'
-      'nav'
-      'content'
-      'footer';
-  }
-  header {
-    grid-area: header;
-  }
-  nav {
-    grid-area: nav;
-  }
-  .content {
-    grid-area: content;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 1rem;
-  }
-  article {
-    grid-column: span 3;
-  }
-  aside {
-    grid-column: span 2;
-    background-color: #f5faef;
-    box-shadow: -4px 0px 4px #ddd;
-  }
-  footer {
-    grid-area: footer;
-  }
-}
-
-footer {
-  background-color: var(--basil-green);
-  padding: 1rem;
-  border-radius: 0 0 4px 4px;
-  margin-bottom: 2rem;
-}
-```
-
-Try:
-
-```css
-header {
-  grid-area: content;
-}
-```
-
-Commit your changes and checkout the `spring2019-done` branch.
-
-## JavaScript
-
-## Node Demo
-
-In a new temp folder: `basilnode.js`
-
-```sh
-$ mkdir node
-$ cd node
-$ touch basilnode.js
-$ npm init -y
-$ npm install random-number
-```
-
-In `basilnode.js`:
-
-```js
-const randomNumber = require('random-number');
-
-const randomIndex = randomNumber({
-  min: 0,
-  max: 4,
-  integer: true
-});
-
-console.log(randomIndex);
-console.log(typeof randomNumber);
-console.log(typeof randomIndex);
-```
-
-At the command line:
-
-```sh
-$ node basilnode.js
-```
-
-```js
-const randomNumber = require('random-number');
-
-const basilChef = ['mama', 'papa', 'baby'];
-const basilTexture = ['greasy', 'frozen', 'spicy'];
-
-function randomItem(array) {
-  const randomIndex = randomNumber({
-    min: 0,
-    max: array.length - 1,
-    integer: true
-  });
-  return array[randomIndex];
-}
-
-console.log(basilChef);
-console.log(basilChef[0]);
-console.log(basilChef.length);
-
-console.log(randomItem(basilChef));
-```
-
-```sh
-$ node basilnode.js
-```
-
-```js
-const randomNumber = require('random-number');
-
-const basilChef = ['mama', 'papa', 'baby'];
-const basilTexture = ['greasy', 'frozen', 'spicy'];
-
-function randomItem(array) {
-  const randomIndex = randomNumber({
-    min: 0,
-    max: array.length - 1,
-    integer: true
-  });
-  return array[randomIndex];
-}
-
-function makeBasil() {
-  return (
-    randomItem(basilChef) + "'s" + ' ' + randomItem(basilTexture) + ' basil'
-  );
-}
-
-console.log(makeBasil());
-```
-
-```js
-function makeBasil() {
-  return (
-    '<h2>' +
-    randomItem(basilChef) +
-    "'s" +
-    ' ' +
-    randomItem(basilTexture) +
-    ' basil' +
-    '</h2>'
-  );
-}
-```
-
-Template strings:
-
-```js
-function makeBasil() {
-  return `<h2>${randomItem(basilChef)}'s ${randomItem(
-    basilTexture
-  )} basil</h2>`;
-}
-```
-
-Create `scripts.js` in the `js` folder and add it to `index.html`:
-
-```html
-<script src="js/scripts.js"></script>
-```
-
-In `scripts.js`:
-
-```js
-const el = document.querySelector('div.content h2');
-
-function randomName(array) {
-  const min = 0;
-  const max = array.length - 1;
-  const randomIndex = Math.floor(Math.random() * (max + 1));
-  return array[randomIndex];
-}
-
-const makeBasil = () => {
-  const basilChef = ['mama', 'papa', 'baby'];
-  const basilTexture = ['greasy', 'frozen', 'spicy'];
-
-  return `
-  <h2>${randomName(basilChef)}'s ${randomName(basilTexture)} basil</h2>
-  `;
-};
-
-console.log(makeBasil());
-
-el.innerHTML = makeBasil();
-```
-
-```css
-h2 {
-  font-size: 2rem;
-  text-transform: capitalize;
-}
-```
-
-## Popover
-
-Building the popover window.
-
-Create and style a div on the bottom of the page.
-
-```html
-<div class="betainfo">
-  <h2>In Beta</h2>
-  <p>Information about the beta program.</p>
-</div>
-```
-
-In `_header.scss`:
-
-```css
-.betainfo {
-  width: 300px;
-  height: 150px;
-  padding: 0.5rem;
-  background: #fff;
-  border: 4px solid var(--orange);
-  border-radius: 0.25rem;
-  position: fixed;
-  top: calc(50% - 75px);
-  left: calc(50% - 150px);
-  /*display: none;*/
-}
-```
-
-Uncomment `display: none` and add a `show` class:
-
-```css
-.show {
-  display: block;
-}
-```
-
-Test by adding the class in the inspector and make any needed corrections.
-
-Code the `.beta` button to show the window.
-
-Create a variable for the beta button, attach an event listener to it, and create a function to handle the event.
-
-```js
-var popoverWindow = document.querySelector('.betainfo');
-var betaButton = document.querySelector('.beta');
-
-betaButton.addEventListener('click', showPopover);
-
-function showPopover() {
-  popoverWindow.classList.toggle('show');
-  event.preventDefault();
-}
-```
-
-## DOM Scripting Review:
-
-- Use [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to find the first matching element on a page `var popoverWindow = document.querySelector('.betainfo');`
-- Use [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/querySelectorAll) to find all matching elements on a page
-- Use [addEventListener('event', function)](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener), to listen for events on an element. You can find a full list of available events on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Events)
-- Use [Functions](https://developer.mozilla.org/en-US/docs/Glossary/Function) to store and execute your commands
-- Use [classList](https://plainjs.com/javascript/attributes/adding-removing-and-testing-for-classes-9/) to add, remove, toggle, list and test for classes:
-
-### Add Another Close Method
-
-Add html to the betainfo:
-
-```html
-<div class="betainfo">
-  <h2>In Beta</h2>
-  <p>Information about the beta program.</p>
-  <!-- NEW -->
-  <a class="closer" href="#0">✖︎</a>
-</div>
-```
-
-Style it:
-
-```css
-.closer {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #fff;
-  color: var(--orange);
-  border: 3px solid #eabc5a;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 0.25rem;
-  cursor: pointer;
-}
-```
-
-Adjust the line height property to center the ✖︎.
-
-Extend the functionality of the script.
-
-```js
-var popoverWindow = document.querySelector('.betainfo');
-var betaButton = document.querySelector('.beta');
-var popoverCloseButton = document.querySelector('.closer'); // NEW
-
-betaButton.addEventListener('click', showPopover);
-popoverCloseButton.addEventListener('click', showPopover); // NEW
-
-function showPopover() {
-  popoverWindow.classList.toggle('show');
-  event.preventDefault();
-}
-```
-
-Add a shader div after the body tag to block access to the page and make the window modal:
-
-```html
-<div class="shader"></div>
-```
-
-Add styling:
-
-```css
-.shader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  height: 100vh;
-  width: 100vw;
-  display: none;
-}
-```
-
-Add it to the script:
-
-```js
-var popoverWindow = document.querySelector('.betainfo');
-var betaButton = document.querySelector('.beta');
-var popoverCloseButton = document.querySelector('.closer');
-var shader = document.querySelector('.shader'); // NEW
-
-betaButton.addEventListener('click', showPopover);
-popoverCloseButton.addEventListener('click', showPopover);
-shader.addEventListener('click', showPopover); // NEW
-
-function showPopover() {
-  popoverWindow.classList.toggle('show');
-  shader.classList.toggle('show'); // NEW
-  event.preventDefault();
-}
-```
-
-Test. Change `position absolute` to `position fixed` and add a `z-index`.
-
-<!-- Check the cascade and add z-indexes as appropriate.
-
-Aside: Killing the scrollbar
-
-```js
-function showPopover() {
-    popoverWindow.classList.toggle('show'); // NEW
-    shader.classList.toggle('show')  // NEW
-    body.classList.toggle('hidden')
-    event.preventDefault();
-}
-```
-
-```css
-.hidden header,
-.hidden nav,
-.hidden .content,
-.hidden footer
-{
-  display: none;
-}
-``` -->
-
-## A Dynamic Popover
-
-We will recreate the popover HTML using JavaScript. One advantage of making our popover dynamic is that we will be able to reuse it elsewhere on our page.
-
-Delete the betainfo div at the bottom of our page:
-
-```html
-<!-- <div class="betainfo">
-    <h2>In Beta</h2>
-    <p>Information about the beta program.<p>
-    <a class="closer" href="#0">X</a>
-</div> -->
-```
-
-And remove the JavaScript related to it in scripts.js.
-
-We will retain all the CSS in `_header.scss` for use in our new popover:
-
-```css
-.betainfo {
-  width: 300px;
-  height: 150px;
-  padding: 0.5rem;
-  background: #fff;
-  border: 4px solid var(--orange);
-  border-radius: 0.25rem;
-  position: fixed;
-  z-index: 201;
-  top: calc(50% - 75px);
-  left: calc(50% - 150px);
-  display: none;
-}
-
-.closer {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #fff;
-  color: var(--orange);
-  border: 3px solid #eabc5a;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 1.1rem;
-  cursor: pointer;
-}
-
-.shader {
-  position: fixed;
-  z-index: 200;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  height: 100vh;
-  width: 100vw;
-  display: none;
-}
-
-.show {
-  display: block;
-}
-```
-
-### createElement
-
-You use the `document.createElement()` [method](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) to create an HTML element.
-
-In the browser's console e.g.:
-
-```js
-> var div = document.createElement('div');
-> div
-```
-
-You can manipulate an element created with `createElement()` like you would any other element in the DOM. Add classes, attributes, styles, and more.
-
-In the browser's console:
-
-```js
-var div = document.createElement('div');
-div.className = 'new-div';
-div.id = 'new-div';
-div.setAttribute('data-div', 'new');
-div.style.color = '#fff';
-div.style.backgroundColor = 'rebeccapurple';
-// add some text
-div.textContent = 'Nice work, dude!';
-div;
-```
-
-### Appending Content
-
-After you create an element, you need a way to add it to your page. JavaScript provides a handful of methods you can use to add an element before, after, or within some other element in the DOM.
-
-First grab a target:`
-
-```js
-// Get the element to add your new HTML element before, after, or within
-var target = document.querySelector('.content h2');
-```
-
-Then use the appropriate method:
-
-```js
-// Inject the `div` element before the element
-target.before(div);
-
-// Inject the `div` element after the element
-target.after(div);
-
-// Inject the `div` element before the first item *inside* the element
-target.prepend(div);
-
-// Inject the `div` element after the first item *inside* the element
-target.append(div);
-```
-
-Try it again with the `betainfo` class.
-
-**Remove the `display: none` property from the betainfo css first.**
-
-```js
-var div = document.createElement('div');
-div.className = 'betainfo';
-div.style.color = '#fff';
-div.style.backgroundColor = 'rebeccapurple';
-// add some text
-div.textContent = 'Nice work, dude!';
-```
-
-```js
-div;
-var target = document.querySelector('header');
-target.before(div);
-```
-
-### innerHTML
-
-The innerHTML property can be used to both get and set HTML content in an element.
-
-In the console:
-
-```js
-var elem = document.querySelector('.content');
-elem;
-// Get HTML content
-var html = elem.innerHTML;
-html;
-
-// Set HTML content
-elem.innerHTML =
-  '<p>We can dynamically change the HTML including HTML elements like <a href="#">this link</a>.</p>';
-
-// Add += HTML to the end of an element's existing content
-elem.innerHTML =
-  elem.innerHTML + '<p>Add this after what is already there.</p>';
-elem.innerHTML += '<p>Add this after what is already there.</p>';
-
-// Add HTML to the beginning of an element's existing content
-elem.innerHTML = '<p>We can add this to the beginning.</p>' + elem.innerHTML;
-```
-
-Note: there is also an `innerText` property available. It works just like `innerHTML`, but only gets the text of an element and omits the markup.
-
-```js
-var elem = document.querySelector('.content');
-elem.innerText = '<p>Welcome back my friends to the show that never ends.</p>';
-```
-
-Notice how it show the HTML tags as text.
-
-Since we are creating our div dynamically we deleted the 'hardcoded' div:
-
-```html
-<div class="betainfo">
-  <h2>In Beta</h2>
-  <p>Information about the beta program.</p>
-  <p>
-    <a class="closer" href="#0">X</a>
-  </p>
-</div>
-```
-
-Add to `scripts.js`:
-
-```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
-
-function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent =
-    '<h2>Beta Only!</h2><p>Information about the beta program.<p><div class="closer" href="#0"><div>✖︎</div></div>'; // NEW
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
-}
-```
-
-Click on the beta button and note the div in the source html.
-
-Note the long line for the popoverContent variable. Fortunately we can use a template string instead.
-
-Note the use of back ticks:
-
-```js
-var popoverContent = `
-<h2>In Beta</h2>
-<p>Information about the beta program.<p>
-<div class="closer" href="#0">
-<div>✖︎</div>
-</div>
-`;
-```
-
-E.g.:
-
-```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
-
-function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent = `
-  <h2>In Beta</h2>
-  <p>Information about the beta program.<p>
-  <div class="closer" href="#0">
-    <div>✖︎</div>
-  </div>
-  `;
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
-}
-```
-
-Now, let's add the close functionality ('destroyPopover') back in. We cannot use `classList` to toggle the display property here so we will use the opposite of `append()` which is `remove()`:
-
-```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
-
-function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent = `
-  <h2>In Beta</h2>
-  <p>Information about the beta program.<p>
-  <div class="closer" href="#0">
-    <div>✖︎</div>
-  </div>
-  `;
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
-
-  var popoverCloseButton = document.querySelector('.closer'); // NEW
-  popoverCloseButton.addEventListener('click', destroyPopover); // NEW
-}
-// NEW
-function destroyPopover() {
-  document.querySelector('.betainfo').remove();
-  event.preventDefault();
-}
-```
-
-Note that we do not create `var popoverCloseButton` or attach an event listener until we have created a popover. Otherwise we would get an error.
-
-## Event Delegation
-
-We can use 'event delegation' in order to further abstract the click event so we can use it elsewhere on the page.
-
-Replace the event listener and add a new function:
-
-```js
-// betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', decide, false);
-
-function decide() {
-  console.log(event.target);
-}
-```
-
-E.g.:
-
-```js
-// betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', decide, false);
-
-function decide() {
-  console.log(event.target);
-}
-
-function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent = `
-  <h2>In Beta</h2>
-  <p>Information about the beta program.<p>
-  <div class="closer" href="#0">
-    <div>✖︎</div>
-  </div>
-  `;
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
-
-  var popoverCloseButton = document.querySelector('.closer');
-  popoverCloseButton.addEventListener('click', destroyPopover);
-}
-
-function destroyPopover() {
-  document.querySelector('.betainfo').remove();
-  event.preventDefault();
-}
-```
-
-Note that you can see whatever you click on in the console.
-
-### matches
-
-The `matches()` method lets you check if an element would be selected by a particular selector. It returns true if the element is a match, and false when it’s not. It can be an alternative to using `element.classList.contains('.someclass')`.
-
-```js
-var elem = document.querySelector('.click-me');
-
-// Match by an ID
-if (elem.matches('#first-button')) {
-  // Do something...
-}
-
-// Match by a class
-if (elem.matches('.button-submit')) {
-  // Do something...
-}
-
-// Match by a data attribute
-if (elem.matches('[data-click-me]')) {
-  // Do something...
-}
-
-// Match by a data attribute and value
-if (elem.matches('[data-click-me="button-submit"]')) {
-  // Do something...
-}
-
-// Match by multiple selectors
-// Returns true when element contains all selectors
-if (elem.matches('.click-me.button-submit[data-click-me]')) {
-  // Do something...
-}
-
-// Match by one of several selectors
-// Returns true when element contains at least one of the selectors
-if (elem.matches('.click-me, .button-submit, [data-click-me]')) {
-  // Do something...
-}
-```
-
-Add an `if` statement to run `makePopover` if the item clicked on (`event.target`) matches the beta button:
-
-```js
-function decide() {
-  console.log(event.target);
-  if (event.target.matches('.beta')) {
-    makePopover();
-  }
-}
-```
-
-<!-- If clicking on the x isn't working you can add a class to it:
-
-```js
-    var popoverContent = `
-    <h2>In Beta</h2>
-    <p>Information about the beta program.<p>
-    <div class="closer" href="#0">
-    <div class="closex">✖︎</div>
-    </div>
-    `
-```
-
-Then use it in an `else if` to remove the popover:
-
-```js
-function decide() {
-    console.log(event.target);
-    if (event.target.matches('.beta')) {
-        makePopover();
-    } else if (event.target.matches('.closex')) {
-        destroyPopover()
-    }
-}
-``` -->
-
-Let's use our new popover to display a message when the user clicks on any of the three nav buttons:
-
-Add a class `it` to each of the nav bottons:
-
-```html
-<nav>
-  <p>Bonjour Monsieur Ferme</p>
-  <ul>
-    <li class="nav-pickit"><a class="it" href="#">pick it</a></li>
-    <li class="nav-cookit"><a class="it" href="#">cook it</a></li>
-    <li class="nav-storeit"><a class="it" href="#">store it</a></li>
-  </ul>
-</nav>
-```
-
-Create two new variables with the text for our messages:
-
-```js
-// var betaButton = document.querySelector('.beta');
-document.addEventListener('click', decide, false);
-
-var betaContent = `
-<h2>In Beta</h2>
-<p>Information about the beta program.<p>
-<div class="closer" href="#0">
-<div class="closex">✖︎</div>
-</div>
-`;
-
-var itContent = `
-<h2>Coming Soon</h2>
-<p>This feature coming soon.<p>
-<div class="closer" href="#0">
-<div class="closex">✖︎</div>
-</div>
-`;
-```
-
-Use the first new variable as the source for our popover content:
-
-```js
-function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent = betaContent; // NEW
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
-
-  var popoverCloseButton = document.querySelector('.closer');
-  popoverCloseButton.addEventListener('click', destroyPopover);
-}
-```
-
-Now let's decide which item is clicked on and use that to determine the message::
-
-```js
-function decide() {
-  console.log(event.target);
-  if (event.target.matches('.beta')) {
-    makePopover(betaContent); // NEW
-  } else if (event.target.matches('.it')) {
-    // NEW
-    makePopover(itContent); // NEW
-  } else if (event.target.matches('.closex')) {
-    destroyPopover();
-  }
-}
-```
-
-The line `makePopover(itContent);` passes the variable we want to display to the makePopover function.
-
-Let's use that by first catching it or passing it into the function as a variable:
-
-```js
-function makePopover(content) {
-  ...
-}
-```
-
-And then making the contents of the popover dependent on the value of the variable:
-
-```js
-function makePopover(content) {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  popover.innerHTML = content; // NEW
-  document.querySelector('body').append(popover);
-
-  var popoverCloseButton = document.querySelector('.closer');
-  popoverCloseButton.addEventListener('click', destroyPopover);
-}
-```
-
-Because we are using event delegation we can remove the following uneeded lines:
-
-```js
-// var popoverCloseButton = document.querySelector('.closer')
-// popoverCloseButton.addEventListener('click', destroyPopover)
-```
-
-Here is the final script:
-
-```js
-document.addEventListener('click', decide, false);
-
-var betaContent = `
-<h2>In Beta</h2>
-<p>Information about the beta program.<p>
-<div class="closer" href="#0">
-<div class="closex">✖︎</div>
-</div>
-`;
-
-var itContent = `
-<h2>Coming Soon</h2>
-<p>This feature coming soon.<p>
-<div class="closer" href="#0">
-<div class="closex">✖︎</div>
-</div>
-`;
-
-function decide() {
-  console.log(event.target);
-  if (event.target.matches('.beta')) {
-    makePopover(betaContent);
-  } else if (event.target.matches('.it')) {
-    makePopover(itContent);
-  } else if (event.target.matches('.closex')) {
-    destroyPopover();
-  }
-}
-
-function makePopover(content) {
-  if (document.querySelector('.betainfo')) {
-    destroyPopover();
-  }
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-
-  popover.innerHTML = content;
-  document.querySelector('body').append(popover);
-
-  function destroyPopover() {
-    document.querySelector('.betainfo').remove();
-    event.preventDefault();
-  }
-}
-
-function destroyPopover() {
-  event.preventDefault();
-  var targetElem = document.querySelector('.betainfo');
-  targetElem.remove();
-}
-```
-
-## Debugging
-
-Note that the popovers accumulate and become difficult to destroy.
-
-Let's add a test to see if a popover already exists and destroy it before creating a new one:
-
-```js
-function makePopover(content) {
-  if (document.querySelector('.betainfo')) {
-    //NEW
-    destroyPopover(); //NEW
-  } //NEW
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent = content;
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
-
-  var popoverCloseButton = document.querySelector('.closer');
-  popoverCloseButton.addEventListener('click', destroyPopover);
-}
-```
-
 ## Notes
+
+`<h2 itemprop="name"></h2>`
+
+ONE
+
+```js
+const recipeTitle = recipesData[0].name;
+console.log(recipeTitle);
+const figure = document.querySelector('h2');
+console.log(figure);
+figure.innerText = recipeTitle;
+```
+
+`<div id="app"></div>`
+
+ TWO
+
+```js
+const recipe = recipesData[0];
+const recipeOne = '<h2 itemprop="name">' + recipe.name + '</h2>';
+const app = document.querySelector('#app');
+app.innerHTML = recipeOne;
+```
+
+ `<div id="app"></div>`
+
+ THREE
+
+```js
+const recipe = recipesData[0];
+const recipeOne =
+   '<h2>' +
+   recipe.name +
+   '</h2>' +
+   '<figure>' +
+   '<picture>' +
+   '<img src=img/' +
+   recipe.photo +
+   ' alt="' +
+   recipe.name +
+   '" />' +
+   '</picture>' +
+   '<figcaption>' +
+   recipe.description +
+   '</figcaption>' +
+   '</figure>';
+
+const app = document.querySelector('#app');
+app.innerHTML = recipeOne;
+```
+
+FOUR
+
+```js
+const recipe = recipesData[0];
+const recipeOne = `<h2>${recipe.name}</h2>
+  <figure >
+  <picture>
+    <img src="img/${recipe.photo}" alt="${recipe.name}" />
+  </picture>
+    <figcaption>${recipe.description}</figcaption>
+  </figure>`;
+
+console.log(recipeOne);
+
+const app = document.querySelector('#app');
+app.innerHTML = recipeOne;
+```
