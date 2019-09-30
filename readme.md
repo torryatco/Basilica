@@ -2,18 +2,21 @@
 
 ## Homework
 
-- Read [this article](https://medium.freecodecamp.org/learn-css-grid-in-5-minutes-f582e87b1228) (and follow along in your text editor) on CSS Grids
+## Reading
+
 - See how far you can get in [Grid Garden](http://cssgridgarden.com/)
-- Watch [an intro](https://youtu.be/gKyRqFgJt6k) to Node Package Manager
+- MDN on [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
 
 ## NPM
 
-Create a manifest (package.json), install a package and set up a gitignore.
+- Create a manifest (package.json)
+- Install a package
+- set up a gitignore
 
 ```bash
 $ npm init
 $ npm install browser-sync --save-dev
-$ touch .gitignore
+$ touch .gitignore // edit to include 'node_modules'
 ```
 
 Note:
@@ -22,7 +25,7 @@ Note:
 - package-lock.json
 - dependencies
 - node_modules folder
-- discuss the need for `.gitignore`.
+- why the need for `.gitignore`?
 
 Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
 
@@ -48,7 +51,6 @@ Note - the startpc script will work on Macs.
 ## Initialize a GIT Repo and .gitignore
 
 ```sh
-$ touch .gitignore // edit to include 'node_modules'
 $ git init
 $ git add .
 $ git commit -m 'initial commit'
@@ -87,7 +89,7 @@ html {
   --dark-gray: #333333;
   --light-gray: #999999;
   --max-width: 840px;
-  --breakpoint: 640px;
+  --breakpoint: 640px; // warning - this will not work, @media does not inherited
 }
 ```
 
@@ -100,6 +102,10 @@ CSS variables are applied as follows:
 ### Starter formatting
 
 ```css
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
   font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
     'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
@@ -112,18 +118,6 @@ body {
 
 Note the use of `max-width` on the body selector - we applied these to a div in the past.
 
-Note `li > h4` [selector](https://www.w3schools.com/cssref/css_selectors.asp). It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when they are proceeded by an `li`.
-
-Note also: the transition property on the anchor selector. This is a shortcut for:
-
-```css
-transition-property: color;
-transition-duration: 1s;
-transition-timing-function: linear;
-```
-
-or `transition: color 0.2s linear;`
-
 ## Responsive Images
 
 [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images):
@@ -135,7 +129,7 @@ img {
 }
 ```
 
-In a responsive layout you will almost always use `width: 100%` on images and videos.
+At a bare minimum, you will almost always use `width: 100%` on images and videos.
 
 Edit the HTML to use `figure` and `figcaption` tags:
 
@@ -432,6 +426,64 @@ Note: Since we are not using floats we no longer need to use clearfix for the co
 
 Clean up the CSS by removing the clearfix (and its class in the html).
 
+### Format Basic Content
+
+```css
+h2,
+h3 {
+  color: var(--basil-green);
+  margin: 8px 0;
+  font-size: 1.4rem;
+  letter-spacing: -1px;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+a {
+  color: #f90;
+  text-decoration: none;
+  transition: color 0.5s linear;
+}
+
+a:hover {
+  color: #f00;
+}
+
+li > h4 {
+  margin-top: 12px;
+}
+
+aside li {
+  list-style: none;
+}
+
+article li,
+article ol {
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+figcaption {
+  font-size: 0.75rem;
+}
+```
+
+Note `li > h4` [selector](https://www.w3schools.com/cssref/css_selectors.asp). It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when they are proceeded by an `li`.
+
+Take a moment to examine a [complete listing](<https://www.w3schools.com/cssref/trysel.asp?selector=li:nth-child(1)>) of selector types in CSS. Note the `:root` selector. This is the usual selector used for CSS variables.
+
+Note also: the transition property on the anchor selector. This is a shortcut for:
+
+```css
+transition-property: color;
+transition-duration: 1s;
+transition-timing-function: linear;
+```
+
+or `transition: color 0.2s linear;`
+
 ### Animate Links
 
 Confine this effect to anchors within the content div. Replace the generic hover with:
@@ -708,7 +760,7 @@ Final:
 @media only screen and (min-width: 640px) {
   .content {
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 100%;
   }
   article {
