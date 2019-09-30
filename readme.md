@@ -6,6 +6,8 @@
 
 - See how far you can get in [Grid Garden](http://cssgridgarden.com/)
 - MDN on [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
+- The [Absolute Beginners Guide](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/) to NPM
+- [What is GIT?](https://guides.github.com/introduction/git-handbook/)
 
 ## Initialize a GIT Repo and .gitignore
 
@@ -208,21 +210,9 @@ You can check the results of your work by viewing the Network tab in the inspect
 
 The `<picture>` tag can be used for cropping or modifying images for different media conditions _or_ offering different image formats when certain formats are not supported by all browsers. See the [example](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) on MDN.
 
-<!-- Aside: If we try to use a variable as a breakpoint value it won't work:
-
-```css
-@media (min-width: var(--breakpoint)) {
-  ...
-}
-``` -->
-
-<!-- A media query is not an element selector, it does not inherit styles. -->
-
 ## Flex Layout
 
 The two column view applies only to widescreen.
-
-<!-- change the column widths, add column effect via css: -->
 
 We will make the article and aside run side by side by applying flex to their parent container within a mobile first breakpoint:
 
@@ -233,6 +223,16 @@ We will make the article and aside run side by side by applying flex to their pa
   }
 }
 ```
+
+Note: we _cannot_ use a CSS variable as a breakpoint:
+
+```css
+@media (min-width: var(--breakpoint)) {
+  ...
+}
+``` 
+
+A media query is not an element selector so it does not inherit styles.
 
 We can use the flex property on the flex children to manipulate the columns:
 
@@ -665,56 +665,95 @@ Remove the flex statements and use a grid display, define columns, and set the s
 }
 ```
 
-Final:
+Finally, by moving using display grid on the body selector we can use grid areas to define our layout:
 
 ```css
-@media (min-width: 640px) {
+@media (min-width: 600px) {
+  body {
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-areas:
+      'header'
+      'nav'
+      'content'
+      'footer';
+  }
+  header {
+    border-radius: 8px 8px 0px 0px;
+    grid-area: header;
+  }
+  header h1 {
+    padding-left: 240px;
+    padding-top: 90px;
+    transform: translate(-100px, -80px);
+    background-position: top left;
+  }
+  nav {
+    grid-area: nav;
+  }
   .content {
+    grid-area: content;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 1rem;
   }
   article {
-    grid-column: 1 / span 3;
+    grid-column: span 3;
   }
   aside {
-    grid-column: 4 / span 2;
+    grid-column: span 2;
     background: var(--light-green);
     box-shadow: -4px 0px 4px #ddd;
   }
+  footer {
+    grid-area: footer;
+  }
+}
+```
+
+Demo:
+
+```css
+header {
+  grid-area: content;
 }
 ```
 
 There is a complete CSS file available at [this gist](https://gist.github.com/DannyBoyNYC/4e0065e7b1f542c67a13899f0541bdb6)
 
-### Sass
+## Sass
 
-We used use NPM to install [sass](https://www.npmjs.com/package/sass):
+Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass):
 
 `npm install sass --save-dev`
 
-Add a script to package.json for processing:
+Stop the server and add a script to package.json for processing:
 
 ```js
   "scripts": {
     ...
-    "startSass": "sass  scss/styles.scss app/css/styles.css --watch --source-map"
+    "sass": "sass  scss/styles.scss app/css/styles.css --watch --source-map"
   },
 ```
 
 Dart Sass CLI [documentation](https://sass-lang.com/documentation/file.SASS_REFERENCE.html)
 
-To run both scripts at the same time add this to package.json:
+To run both scripts at the same time edit the scripts in package.json:
 
 ```js
-"scripts": {
-  ...
-  "start": "npm run startmac & npm run startSass"
-},
+  "scripts": {
+    "server": "browser-sync start --directory --server 'app' --files 'app'",
+    "sass": "sass  scss/styles.scss app/css/styles.css --watch --source-map",
+    "start": "npm run server & npm run sass"
+  },
 ```
 
-And run `npm start` (the word 'run' is optional in this case).
+Create a `scss` folder at the top level of our repo and copy `styles.css` into it. Rename `scss/styles.css` to `scss/styles.scss`.
 
-Test it by re-adding the following to the `_base.scss` file:
+Run `npm start` (note: the word 'run' is optional when using start).
+
+Test it by re-adding the following to the top of `styles.scss`:
 
 ```css
 * { color: red !important };
@@ -722,16 +761,16 @@ Test it by re-adding the following to the `_base.scss` file:
 
 Note that sass is less tolerant of errors than regular css. Try `* { color red !important };`.
 
-#### SASS Variables
+### SASS Variables
 
-E.g.:
+Sass has its own variables system, e.g.:
 
 ```css
 $basil-green: #88a308;
 $breakpoint-med: 640px;
 ```
 
-Here is a larger example including variables for breakpoints and more:
+Here is an example showing sass variables for breakpoints and more:
 
 Example:
 
@@ -747,115 +786,48 @@ $break-two: 46.25em;
 $break-one: 22.5em;
 // 360
 
-//ADDITIONAL CONVERSIONS
-// 67.5rem    1080px
-// 1.125rem   18px
-// 1rem       16px
-// 0.875rem   14px
-// .75rem     12px
 $radius: .25rem;
 
 $fonts: 'Source Sans Pro', Helvetica, Clean, sans-serif;
 
-$basil-green: #88a308;
-$link: #007eb6;
-$cyan: #00aeef;
-$cyan10: #e2f4fd;
-$blue100: #003366;
-$blue50: #5997b1;
-$webdarkcyan: #006991;
-$specialblue: #007eb6;
-$text: #444;
-$caption: #808285;
-$borders: #dcdcdc;
-$borders-callout: #820064;
-$lightgray: #F2F2F1;
-$gray10: #ebeced;
-$gray25: #d0d2d3;
-$gray50: #abacad;
-$gray75: #808285;
-$gray100: #585858;
-$fushia100: #820064;
-$green100: #339548;
-$red100: #cc3333;
+$red: #f00;
 
-
-$blk-100: rgba(0,0,0,1);
-$blk-095: rgba(0,0,0,0.95);
-$blk-090: rgba(0,0,0,0.90);
-$blk-085: rgba(0,0,0,0.85);
-$blk-080: rgba(0,0,0,0.80);
-$blk-075: rgba(0,0,0,0.75);
-$blk-070: rgba(0,0,0,0.70);
-$blk-065: rgba(0,0,0,0.65);
-$blk-060: rgba(0,0,0,0.60);
-$blk-055: rgba(0,0,0,0.55);
-$blk-050: rgba(0,0,0,0.50);
-$blk-040: rgba(0,0,0,0.40);
-$blk-010: rgba(0,0,0,0.10);
-
-$gray-100: rgba(51,51,51,1);
-$gray-095: rgba(51,51,51,0.95);
-$gray-090: rgba(51,51,51,0.90);
-$gray-085: rgba(51,51,51,0.85);
-$gray-080: rgba(51,51,51,0.80);
-$gray-075: rgba(51,51,51,0.75);
-$gray-070: rgba(51,51,51,0.70);
-$gray-065: rgba(51,51,51,0.65);
-$gray-060: rgba(51,51,51,0.60);
-$gray-055: rgba(51,51,51,0.55);
-$gray-050: rgba(51,51,51,0.50);
-$gray-040: rgba(51,51,51,0.40);
-$gray-010: rgba(51,51,51,0.10);
 ```
-
-Add the above to a new `imports/_variables.scss` file and include it at the top of `styles.scss`: `@import 'imports/variables';`.
 
 Usage example:
 
 ```css
-* { color: $basil-green !important };
+$red: #f00;
+* { color: $red !important };
 ```
 
-#### SASS nesting 
+Add the sample SASS variables to a new file in a new folder `imports/_variables.scss` and include it at the top of `styles.scss`: 
 
-Sass will let you nest your CSS selectors in a way that follows the same visual hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
+`@import 'imports/variables';`.
 
-One of the best things about nesting in SASS is how it allows you to simplify media queries and keep them aligned with the selector.
+Note the underscore in the file name. We will come back to that later.
 
-#### SASS Partials and Imports
+Test using the $red variable.
 
-Sass partials allow you to create separate function or feature specific style sheets using [imports](https://sass-lang.com/guide#topic-4) and helps maintain a large code base.
+### SASS Nesting 
 
-Examples [Bootstrap](https://getbootstrap.com) and its [SASS roots](https://github.com/twbs/bootstrap-sass)
+Sass will let you nest your CSS selectors in a way that mirros the same visual hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
 
-Create `imports/_nav.scss` and cut the nested **nav** related material from `_base.scss` into it. Add it to the main stylesheet.
-
-Note the underscore in the include. If you add an underscore to the start of the file name, Sass won’t compile it. So, if you don’t want `colors.scss` to compile to `colors.css`, name the file `_colors.scss` instead. Files named this way are called partials in Sass terminology.
-
-Create `imports/_header.scss` and add the following (remove the header related material from `_base.scss `).
+Nest the header related styles in `styles.scss`:
 
 ```css
 header {
   position: relative;
   height: 120px;
   background: var(--basil-green);
-  border-radius: 8px 8px 0px 0px;
-  
+
   h1 {
     background: url(img/basil.png) no-repeat;
     font-family: FuturaStdLight, sans-serif;
     font-weight: normal;
     color: #fff;
     font-size: 5rem;
-    @media (min-width: 640px) {
-      padding-left: 240px;
-      padding-top: 90px;
-      transform: translate(-100px, -80px);
-      background-position: top left;
-    }
   }
-  
   a.beta {
     background: url('img/burst.svg') no-repeat;
     color: #fff;
@@ -877,175 +849,271 @@ header {
 }
 ```
 
-Note the use of nesting to perform the media query.
+### SASS Partials
 
-We can also use nesting and an ampersand for the hover pseudo selector:
+Sass partials allow you to create separate function or feature specific style sheets using [imports](https://sass-lang.com/guide#topic-4) and helps maintain a large code base.
 
-```css
-a.beta {
-  ...
-  &:hover {
-    transform: rotate(0deg) scale(1.2);
-  }
-}
-```
+Examples [Bootstrap](https://getbootstrap.com) and its [SASS roots](https://github.com/twbs/bootstrap-sass)
+
+Create `imports/_header.scss` and cut and paste the nested header material from `_styles.scss` into it. Import it to the main stylesheet with:
+
+`@import 'imports/header';`
+
+Note the underscore in the file name. If you add an underscore to the start of the file name, Sass won’t compile it. So, if you don’t want `header.scss` to compile to `header.css`, name the file with an undercore `_header.scss` instead. Files used this way are called partials in Sass.
 
 Note: SASS allows you to use JavaScript style comments - `//`. These comments do not get compiled into the css file. Traditional CSS comments ( `/* ... */` ) do.
 
-<!-- `@import 'app/css/futura/stylesheet.css';` vs `@import url(futura/stylesheet.css);` -->
-
-## CSS Grid
-
-The [CSS Grid Cheatsheet](https://css-tricks.com/snippets/css/complete-guide-grid/) on CSS Tricks.
-
-Flexbox operates in a [single axis](https://hackernoon.com/the-ultimate-css-battle-grid-vs-flexbox-d40da0449faf). CSS Grid operates in both x and y.
-
-Our use of Flexbox to style the content columns operates in a single (horizontal or x) dimension. We can use CSS Grid but only need to specify one dimension.
-
-Note that in our document these are only used in wide screens:
+Create another nested block for the nav:
 
 ```css
-@media (min-width: 640px) {
-  .content{
+nav {
+  background: var(--light-gray);
+  border-top: 0.5rem solid var(--light-orange);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  ul {
+    display: flex;
+  }
+
+  li {
+    list-style: none;
+    margin-right: 0.5rem;
+  }
+
+  a {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 8px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
+    min-width: 120px;
+    display: inline-block;
+  }
+
+  .nav-storeit a {
+    background: linear-gradient(to bottom, #fcde41 1%, #dfa910 100%);
+  }
+
+  .nav-storeit a:hover {
+    background: linear-gradient(to bottom, #dfa910 0%, #fcde41 100%);
+  }
+
+  .nav-pickit a {
+    background: linear-gradient(to bottom, #abc841 0%, #6b861e 100%);
+  }
+
+  .nav-pickit a:hover {
+    background: linear-gradient(to bottom, #6b861e 1%, #abc841 100%);
+  }
+
+  .nav-cookit a {
+    background: linear-gradient(to bottom, #6f89c7 0%, #344e8b 100%);
+  }
+
+  .nav-cookit a:hover {
+    background: linear-gradient(to bottom, #344e8b 1%, #6f89c7 100%);
+  }
+}
+```
+
+Create a partial `_nav.scsss` in the imports folder and cut and paster the nested nav block into it. Import the partial back into `styles.scss` with:
+
+`@import 'imports/nav';`
+
+One of the best things about nesting in SASS is how it allows you to simplify media queries and keep them aligned with the selector.
+
+Cut the body rule from the breakpoint and add the styling to the initial body rule as shown:
+
+```css
+body {
+  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans',
+    'Bitstream Vera Sans', 'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  color: var(--dark-gray);
+  max-width: var(--max-width);
+  @media (min-width: $break-two) {
+    margin: 0 auto;
+    margin-top: 1.5rem;
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    grid-template-rows: 20% 20% 20% 20% 20%;
-    grid-gap: 20px;
-  }
-  article {
-    grid-row-start: 1;
-    grid-column-start: 1;
-    grid-column-end: span 3;
-  }
-  aside {
-    grid-row-start: 1;
-    grid-column-start: 4;
-    grid-column-end: span 2;
-    
-    background: #f5faef;
-    box-shadow: -4px 0px 4px #ddd;
+    grid-template-areas:
+      'header'
+      'nav'
+      'content'
+      'footer';
   }
 }
 ```
 
-We have some width problems here due to the use of percentages (`20% * 5 + the grid-gap`).
+Since SASS is a transpiler we can use variables for break points.
 
-Create a new partial `_layout.scss` and cut and paste the following code into it.
-
-```css
-article,
-aside {
-  padding: 1rem;
-}
-
-@media (min-width: 600px){
-  .content {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      grid-column-gap: 1rem;
-  }
-  article {
-      grid-column-start: 1;
-  }
-  aside {
-      grid-column-start: 2;
-      background-color: #f5faef;
-      box-shadow: -4px 0px 4px #ddd;
-      padding: 0.5rem;
-  } 
-}
-
-footer {
-  background-color: var(--basil-green);
-  padding: 1rem;
-  border-radius: 0 0 4px 4px;
-  margin-bottom: 2rem;
-}
-```
-
-Edit it to use `fr` - fractional units:
+Perform similar actions for the header:
 
 ```css
-@media (min-width: 600px){
-  .content {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      grid-column-gap: 1rem;
-  }
-  article {
-      grid-column-start: 1;
-  }
-  aside {
-      grid-column-start: 2;
-      background-color: #f5faef;
-      box-shadow: -4px 0px 4px #ddd;
-      padding: 0.5rem;
-  } 
-}
-```
-
-We can also use the repeat property. The `repeat` property requires a different property for the children:
-
-```css
-@media (min-width: 600px){
-  .content {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-column-gap: 1rem;
-  }
-  article {
-    grid-column: span 3;
-  }
-  aside {
-    grid-column: span 2;
-    background-color: #f5faef;
-    box-shadow: -4px 0px 4px #ddd;
-    padding: 0.5rem;
-  } 
-}
-```
-
-Note: while it is possible to use CSS Grid for the entire layout, it is not really necessary and adds unnecessary complexity.
-
-However we will use `grid-template-areas` in order to show the principle and a nested grid:
-
-```css
-article,
-aside {
-  padding: 1rem;
-}
-
-@media (min-width: 600px){
-  body {
-    display: grid;
-    grid-template-areas: 
-    "header" 
-    "nav" 
-    "content"
-    "footer";
-  }
-  header {
+header {
+  position: relative;
+  height: 120px;
+  background: var(--basil-green);
+  @media (min-width: $break-two) {
+    border-radius: 8px 8px 0px 0px;
     grid-area: header;
   }
-  nav {
+
+  h1 {
+    background: url(img/basil.png) no-repeat;
+    font-family: FuturaStdLight, sans-serif;
+    font-weight: normal;
+    color: #fff;
+    font-size: 5rem;
+    @media (min-width: $break-two) {
+      padding-left: 240px;
+      padding-top: 90px;
+      transform: translate(-100px, -80px);
+      background-position: top left;
+    }
+  }
+  ...
+}
+
+and the nav:
+
+```css
+nav {
+  background: var(--light-gray);
+  border-top: 0.5rem solid var(--light-orange);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @media (min-width: $break-two) {
     grid-area: nav;
   }
-  .content {
+  ...
+}
+```
+
+Finally, create partials `_base.scss` and `_content.scss`.
+
+In `_base.scss`:
+
+```css
+@import url(futura/stylesheet.css);
+
+html {
+  --basil-green: #88a308;
+  --dark-gray: #333333;
+  --light-gray: #e4e1d1;
+  --light-green: #f5faef;
+  --orange: #f90;
+  --light-orange: #ebbd4e;
+  --red: #f00;
+  --max-width: 840px;
+  --breakpoint: 640px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--basil-green);
+  color: #fff;
+}
+
+body {
+  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans',
+    'Bitstream Vera Sans', 'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  color: var(--dark-gray);
+  max-width: var(--max-width);
+  @media (min-width: $break-two) {
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-areas:
+      'header'
+      'nav'
+      'content'
+      'footer';
+  }
+}
+
+h2,
+h3 {
+  color: var(--basil-green);
+  margin: 8px 0;
+  font-size: 1.4rem;
+  letter-spacing: -1px;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+a {
+  color: var(--orange);
+  text-decoration: none;
+  transition: color 0.5s linear;
+}
+
+li > h4 {
+  margin-top: 12px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+```
+
+In `_content.scss`
+
+```css
+.content {
+  @media (min-width: $break-two) {
     grid-area: content;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-column-gap: 1rem;
   }
-  article {
+  a:hover {
+    color: var(--basil-green);
+  }
+}
+
+article {
+  padding: 1rem;
+  @media (min-width: $break-two) {
     grid-column: span 3;
   }
-  aside {
+  li {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  ol {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  figcaption {
+    font-size: 0.75rem;
+  }
+}
+
+aside {
+  padding: 1rem;
+  @media (min-width: $break-two) {
     grid-column: span 2;
-    background-color: #f5faef;
+    background: var(--light-green);
     box-shadow: -4px 0px 4px #ddd;
-  } 
-  footer {
-    grid-area: footer;
+  }
+  li {
+    list-style: none;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -1054,18 +1122,43 @@ footer {
   padding: 1rem;
   border-radius: 0 0 4px 4px;
   margin-bottom: 2rem;
+  @media (min-width: $break-two) {
+    grid-area: footer;
+  }
 }
 ```
 
-Try:
+And in `styles.scss` all you should need is:
 
 ```css
-header {
-  grid-area: content;
-}
+@import 'imports/variables';
+@import 'imports/base';
+@import 'imports/header';
+@import 'imports/nav';
+@import 'imports/content';
 ```
 
-Commit your changes and checkout the `spring2019-done` branch.
+Test in the browser at various sizes.
+
+Note that we get a horizontal scrollbar at a 375px width. This is due to the size of the navigation buttons.
+
+Try changing them in `_nav.scss`:
+
+```css
+  a {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 8px;
+    min-width: 90px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
+    display: inline-block;
+    @media (min-width: $break-two) {
+      min-width: 120px;
+    }
+  }
+```
 
 ## JavaScript
 
