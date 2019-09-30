@@ -2,6 +2,8 @@ html {
   --basil-green: #88a308;
   --dark-gray: #333333;
   --light-gray: #999999;
+  --orange: #f90;
+  --red: #f00;
   --max-width: 840px;
   --breakpoint: 640px;
 }
@@ -33,13 +35,13 @@ h2 {
 }
 
 a {
-  color: #f90;
+  color: var(--orange);
   text-decoration: none;
   transition: color 0.5s linear;
 }
 
 a:hover {
-  color: #f00;
+  color: var(--red);
 }
 
 li > h4 {
