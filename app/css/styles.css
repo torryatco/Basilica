@@ -28,6 +28,10 @@ h3 {
   letter-spacing: -1px;
 }
 
+h2 {
+  font-size: 2rem;
+}
+
 a {
   color: #f90;
   text-decoration: none;
