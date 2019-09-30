@@ -1,8 +1,10 @@
 html {
   --basil-green: #88a308;
   --dark-gray: #333333;
-  --light-gray: #999999;
+  --light-gray: #e4e1d1;
+  --light-green: #f5faef;
   --orange: #f90;
+  --light-orange: #ebbd4e;
   --red: #f00;
   --max-width: 840px;
   --breakpoint: 640px;
@@ -27,11 +29,11 @@ h3 {
   color: var(--basil-green);
   margin: 8px 0;
   font-size: 1.4rem;
-  letter-spacing: -1px;
 }
 
 h2 {
   font-size: 2rem;
+  letter-spacing: -1px;
 }
 
 a {
