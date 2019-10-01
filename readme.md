@@ -1221,11 +1221,13 @@ Try changing them in `_nav.scss`:
   }
 ```
 
+Note: switching branches at this point will delete styles.css from the css directory. Stop the processes running in the console before switching branches.
+
 ## JavaScript
 
-## Node Demo
+### Node - Demo
 
-In a new temp folder: `basilnode.js`
+Review Node.
 
 ```sh
 $ mkdir node
@@ -1257,6 +1259,8 @@ At the command line:
 $ node basilnode.js
 ```
 
+Add an array:
+
 ```js
 const randomNumber = require('random-number');
 
@@ -1283,6 +1287,8 @@ console.log(randomItem(basilChef));
 $ node basilnode.js
 ```
 
+Call the randomItem function from within another function that uses [concatination](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Strings#Concatenating_strings):
+
 ```js
 const randomNumber = require('random-number');
 
@@ -1305,6 +1311,8 @@ function makeBasil() {
 console.log(makeBasil());
 ```
 
+Elaborate on it to make an HTML element:
+
 ```js
 function makeBasil() {
   return (
@@ -1313,7 +1321,7 @@ function makeBasil() {
 }
 ```
 
-Template strings:
+Use a [template string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals):
 
 ```js
 function makeBasil() {
@@ -1323,7 +1331,17 @@ function makeBasil() {
 }
 ```
 
-Create `scripts.js` in the `js` folder and add it to `index.html`:
+A simple template literal:
+
+```js
+let x = 3;
+let y = 8;
+console.log(`${x} + ${y} = ${x + y}`)
+```
+
+### Add a Script
+
+Note `scripts.js` in the `js` folder and link it to `index.html`:
 
 ```html
 <script src="js/scripts.js"></script>
@@ -1332,7 +1350,7 @@ Create `scripts.js` in the `js` folder and add it to `index.html`:
 In `scripts.js`:
 
 ```js
-const el = document.querySelector('div.content h2')
+const el = document.querySelector('h2')
 
 function randomName(array) {
   const min = 0;
