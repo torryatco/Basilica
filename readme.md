@@ -2,6 +2,11 @@
 
 ## Homework
 
+Examine the files in the `other/homework` of Flexbox repo folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to 
+
+1. Edit `index.html` to it matches the goal. (There are some notes for you to follow [here](https://github.com/front-end-foundations/4-flex-menu#design-with-flexbox)).
+2. Use the JavaScript techniques outlined in the Flexbox repo to add dynamic content to the index page as shown [here](http://oit2.scps.nyu.edu/~devereld/midterm/). 
+
 ## Reading
 
 - See how far you can get in [Grid Garden](http://cssgridgarden.com/)
@@ -39,12 +44,12 @@ Follow the instructions to create a remote and push the master branch and inclas
 
 ```bash
 $ npm init
-$ npm install browser-sync sass --save-dev
+$ npm install browser-sync sass concurrently --save-dev
 ```
 
 Note:
 
-- sass
+- sass, concurrently
 - package.json
 - package-lock.json
 - dependencies
@@ -108,6 +113,12 @@ CSS variables are applied as follows:
 <property>: var(--<variable-name>);
 ```
 
+For example:
+
+```css
+color: var(--basil-green);
+```
+
 Note also: the transition property on the anchor selector. This is a shortcut for:
 
 ```css
@@ -118,7 +129,9 @@ transition-timing-function: linear;
 
 or `transition: color 0.2s linear;`
 
-Confine this effect to anchors within the content div. Replace the generic hover with:
+Confine this effect to anchors within the content div. 
+
+Replace the generic hover with:
 
 ```css
 .content a:hover {
@@ -152,13 +165,13 @@ Replace the lone img tag in the HTML with `figure` and `figcaption` tags:
 </figure>
 ```
 
-A `<figure>` an image, illustration, or diagram that is referenced in the main flow of a document, but that can be moved to another part of the document without affecting the main flow.
+A `<figure>` is an image, illustration, or diagram that is referenced in the main flow of a document, but that can be moved to another part of the document without affecting the main flow.
 
 We want to display identical image content, just larger or smaller depending on the device. The standard `<img>` element only lets you point the browser to a single source file. We will use two new attributes — `srcset` and `sizes` — to provide additional source images along with hints to help the browser pick the right one.
 
 - Upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/). Download the zip file and place the unzipped folder in the `img` directory.
 
-Replace the `img` tag in index.html with the following:
+Replace the `img` tag in index.html with a [picture tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture):
 
 ```html
 <picture>
@@ -191,14 +204,14 @@ It consists of:
 
 `sizes` defines a set of media conditions (e.g. screen widths) and indicates what image size would be best to choose, when certain media conditions are true. In this case, before each comma we write:
 
-1. A media condition `(max-width:480px)` - here "when the viewport width is 480 pixels or less"
+1. A media condition e.g. `(max-width:480px)` - here "when the viewport width is 480 pixels or less"
 1. A space
 1. The width of the slot the image will fill when the media condition is true (440px.). You can get this from the inspector by inspecting the image at a variety of screen widths.
 
 The browser ignores everything after the first matching condition, so be careful how you order the media conditions.
 
 With these attributes in place, the browser will:
-
+ 
 1. Look at its device width.
 1. Work out which media condition in the sizes list is the first one to be true.
 1. Look at the slot size given to that media query.
@@ -259,7 +272,7 @@ article {
 }
 ```
 
-And use a background color and box-shadow to color the aside:
+Use a background color and box-shadow to color the aside:
 
 ```css
 @media (min-width: 640px) {
@@ -461,7 +474,7 @@ header a.beta:hover {
 
 Examine the site for problems in a narrow browser.
 
-Since we are attempting a mobile first design let's edit the css to display for small screen first:
+We will attempt a mobile first design strategy. Edit the css to display for small screen first:
 
 ```css
 header h1 {
@@ -635,11 +648,11 @@ Note: this is a setting which will likely need to be changed to accomodate small
 
 CSS Tricks offers a [guide to CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
-Flexbox operates in a [single dimension](https://hackernoon.com/the-ultimate-css-battle-grid-vs-flexbox-d40da0449faf): x or y. CSS Grid operates in both.
+Flexbox operates in a [single dimension](https://hackernoon.com/the-ultimate-css-battle-grid-vs-flexbox-d40da0449faf): x or y. CSS Grid operates on both the x _and_ y axis.
 
-Our use of Flexbox to style the content columns operates in a single (horizontal or x) dimension so flex is a viable option. 
+Our current use of Flexbox to style the content columns operates in a single (horizontal or x) dimension so flex is a viable option. 
 
-Nevertheless, we will use CSS Grid for the primary layout in order to introduce some of its features in a simple use case.
+Nevertheless, we will use CSS Grid for the primary layout in order to introduce some of its features in this simple use case.
 
 Remove the flex statements and use a grid display, define columns, and set the start and end points for the grid children:
 
@@ -665,7 +678,7 @@ Remove the flex statements and use a grid display, define columns, and set the s
 }
 ```
 
-Finally, by moving using display grid on the body selector we can use grid areas to define our layout:
+Finally, by moving using display grid to the body selector, we can use [grid areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) to define our layout:
 
 ```css
 @media (min-width: 600px) {
@@ -716,7 +729,7 @@ Demo:
 
 ```css
 header {
-  grid-area: content;
+  grid-area: footer;
 }
 ```
 
@@ -731,10 +744,10 @@ Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass):
 Stop the server and add a script to package.json for processing:
 
 ```js
-  "scripts": {
-    ...
-    "sass": "sass  scss/styles.scss app/css/styles.css --watch --source-map"
-  },
+"scripts": {
+  ...
+  "sass": "sass  scss/styles.scss app/css/styles.css --watch --source-map"
+},
 ```
 
 Dart Sass CLI [documentation](https://sass-lang.com/documentation/file.SASS_REFERENCE.html)
@@ -749,7 +762,9 @@ To run both scripts at the same time edit the scripts in package.json:
   },
 ```
 
-Create a `scss` folder at the top level of our repo and copy `styles.css` into it. Rename `scss/styles.css` to `scss/styles.scss`.
+1. Create a `scss` folder at the top level of our repo 
+1. Copy `styles.css` into it
+1. Rename `scss/styles.css` to `scss/styles.scss`.
 
 Run `npm start` (note: the word 'run' is optional when using start).
 
@@ -759,7 +774,9 @@ Test it by re-adding the following to the top of `styles.scss`:
 * { color: red !important };
 ```
 
-Note that sass is less tolerant of errors than regular css. Try `* { color red !important };`.
+Note that sass is less tolerant of errors than regular css. Try 
+
+`* { color red !important };`.
 
 ### SASS Variables
 
@@ -805,13 +822,13 @@ Add the sample SASS variables to a new file in a new folder `imports/_variables.
 
 `@import 'imports/variables';`.
 
-Note the underscore in the file name. We will come back to that later.
+Note the syntax differences between a native CSS import as well as the underscore in the file name. We will come back to that later.
 
-Test using the $red variable.
+Test using the `$red` variable. Try changing it. Remove it.
 
 ### SASS Nesting 
 
-Sass will let you nest your CSS selectors in a way that mirros the same visual hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
+Sass will let you nest your CSS selectors in a way that mirrors the hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
 
 Nest the header related styles in `styles.scss`:
 
@@ -921,9 +938,11 @@ nav {
 }
 ```
 
-Create a partial `_nav.scsss` in the imports folder and cut and paster the nested nav block into it. Import the partial back into `styles.scss` with:
+Create a partial `_nav.scsss` in the imports folder and cut and paste the nested nav block into it. Import the partial back into `styles.scss` with:
 
 `@import 'imports/nav';`
+
+Examine the CSS in the browser's inspector. Note the mapping.
 
 One of the best things about nesting in SASS is how it allows you to simplify media queries and keep them aligned with the selector.
 
@@ -948,9 +967,46 @@ body {
 }
 ```
 
-Since SASS is a transpiler we can use variables for break points.
+Note: since SASS is a transpiler we can use SASS variables - `$beak-two` - for break points.
 
-Perform similar actions for the header:
+Perform similar actions for the header.
+
+- Nest it:
+
+```css
+header {
+  position: relative;
+  height: 120px;
+  background: var(--basil-green);
+  h1 {
+    background: url(img/basil.png) no-repeat;
+    font-family: FuturaStdLight, sans-serif;
+    font-weight: normal;
+    color: #fff;
+    font-size: 5rem;
+  }
+  a.beta {
+    background: url('img/burst.svg') no-repeat;
+    color: #fff;
+    font-size: 1.5rem;
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    width: 85px;
+    height: 85px;
+    line-height: 85px;
+    text-align: center;
+    text-transform: uppercase;
+    transform: rotate(20deg);
+    transition: all 1s ease;
+  }
+  a.beta:hover {
+    transform: rotate(0deg) scale(1.2);
+  }
+}
+```
+
+- Use nesting for the media queries:
 
 ```css
 header {
@@ -977,8 +1033,13 @@ header {
   }
   ...
 }
+```
 
-and the nav:
+- Add it to the imports folder and import it back into `styles.scss` with:
+
+`@import 'imports/header';`
+
+Nest the media query for the nav:
 
 ```css
 nav {
