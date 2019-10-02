@@ -2,6 +2,8 @@
 
 ## Homework
 
+### Midterm
+
 Examine the files in the `other/homework` of Flexbox repo folder. `index.html` is your starting point and `index-done.html` the goal. Your assignment is to 
 
 1. Edit `index.html` to it matches the goal. (There are some notes for you to follow [here](https://github.com/front-end-foundations/4-flex-menu#design-with-flexbox)).
