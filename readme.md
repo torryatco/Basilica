@@ -877,14 +877,6 @@ Note the underscore in the file name. If you add an underscore to the start of t
 
 Note: SASS allows you to use JavaScript style comments - `//`. These comments do not get compiled into the css file. Traditional CSS comments ( `/* ... */` ) do.
 
-## fall-2019-done
-
-<!-- HERE 
-review - CSS Grid 
-bootstrap - above
-package json - scripts and dependencies
--->
-
 Create a nested block for the nav in styles.scss:
 
 ```css
