@@ -77,6 +77,10 @@ Here is an [article that addresses the recipe schemas](https://www.foodbloggerpr
 
 Have a look at a sample [recipe](https://www.allrecipes.com/recipe/20144/banana-banana-bread/) and note the schema in the inspector.
 
+The `description` meta tag.
+
+The `robots` meta tag. (noindex)
+
 Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
 
 ### Starter CSS
@@ -1691,6 +1695,8 @@ We will retain all the CSS in `_popovers.scss` for use in our new popover:
 
 ### createElement
 
+## fall2019-done
+
 You use the `document.createElement()` [method](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) to create an HTML element.
 
 In the browser's console e.g.:
@@ -1797,7 +1803,7 @@ elem.innerText = '<p>Welcome back my friends to the show that never ends.</p>';
 
 Notice how it show the HTML tags as text.
 
-Since we are creating our div dynamically we deleted the 'hardcoded' div:
+Since we are creating our div dynamically we delete the 'hardcoded' div:
 
 ```html
 <div class="betainfo">
@@ -1914,9 +1920,9 @@ Replace the event listener and add a new function:
 
 ```js
 // betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', decide, false);
+document.addEventListener('click', clickHandler, false);
 
-function decide() {
+function clickHandler() {
   console.log(event.target);
 }
 ```
@@ -2003,20 +2009,7 @@ function destroyPopover() {
 }
 ```
 
-As a demostration of the new functionality afforded by a dynamically generated popover, let's use our new popover to display a different message when the user clicks on any of the three nav buttons:
-
-Add a class `it` to each of the nav bottons:
-
-```html
-<nav>
-  <p>Bonjour Monsieur Ferme</p>
-  <ul>
-    <li class="nav-pickit"><a class="it" href="#">pick it</a></li>
-    <li class="nav-cookit"><a class="it" href="#">cook it</a></li>
-    <li class="nav-storeit"><a class="it" href="#">store it</a></li>
-  </ul>
-</nav>
-```
+As a demonstration of the new functionality afforded by a dynamically generated popover, let's use our new popover to display a different message when the user clicks on any of the three nav buttons.
 
 Create two new variables with the text for our messages:
 
@@ -2033,17 +2026,7 @@ var buttonContent = `
 `;
 ```
 
-Use the first new variable as the source for our popover content:
-
-```js
-var popover = document.createElement('div');
-popover.classList.add('betainfo');
-var popoverContent = betaContent; // NEW
-...
-}
-```
-
-Now let's decide which item is clicked on and use that to determine the message::
+Now let's decide which item is clicked on and use that to determine the message:
 
 ```js
 function clickHandler() {
@@ -2061,7 +2044,7 @@ function clickHandler() {
 
 Note the use of [closest](https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/) above. The closest() method looks for the closest matching parent to an element that has a selector that you pass in.
 
-Let's use that by first passing it into the function as a variable:
+Let's use clickHandler by first passing it into the function as a variable:
 
 ```js
 function makePopover(content) {
@@ -2142,72 +2125,216 @@ function destroyPopover() {
 }
 ```
 
-## Notes
+## Template Literals
 
-`<h2 itemprop="name"></h2>`
+Template literals allow embedded expressions. You can use multi-line strings and string interpolation features with them. They were called "template strings" in prior editions of the ES2015 specification.
 
-ONE
-
-```js
-const recipeTitle = recipesData[0].name;
-console.log(recipeTitle);
-const figure = document.querySelector('h2');
-console.log(figure);
-figure.innerText = recipeTitle;
-```
-
-`<div id="app"></div>`
-
-TWO
+Remove the recipe from the HTML file and send it as a template string:
 
 ```js
-const recipe = recipesData[0];
-const recipeOne = '<h2 itemprop="name">' + recipe.name + '</h2>';
-const app = document.querySelector('#app');
-app.innerHTML = recipeOne;
-```
-
-`<div id="app"></div>`
-
-THREE
-
-```js
-const recipe = recipesData[0];
-const recipeOne =
-  '<h2>' +
-  recipe.name +
-  '</h2>' +
-  '<figure>' +
-  '<picture>' +
-  '<img src=img/' +
-  recipe.photo +
-  ' alt="' +
-  recipe.name +
-  '" />' +
-  '</picture>' +
-  '<figcaption>' +
-  recipe.description +
-  '</figcaption>' +
-  '</figure>';
-
-const app = document.querySelector('#app');
-app.innerHTML = recipeOne;
-```
-
-FOUR
-
-```js
-const recipe = recipesData[0];
-const recipeOne = `<h2>${recipe.name}</h2>
-  <figure >
+let recipe = `
+<figure>
   <picture>
-    <img src="img/${recipe.photo}" alt="${recipe.name}" />
+    <img src="img/pesto.jpg" alt="Italian pesto" />
   </picture>
-    <figcaption>${recipe.description}</figcaption>
-  </figure>`;
 
-console.log(recipeOne);
+  <figcaption>
+    Classic, simple basil pesto recipe with fresh basil leaves, pine
+    nuts, garlic, Romano or Parmesan cheese, extra virgin olive oil, and
+    salt and pepper.
+  </figcaption>
+</figure>
 
-const app = document.querySelector('#app');
-app.innerHTML = recipeOne;
+<h2 itemprop="name">Pesto</h2>
+
+<p itemprop="description">
+  A sauce of crushed basil leaves, pine nuts, garlic, Parmesan cheese,
+  and olive oil, typically served with pasta.
+</p>
+
+<h3>Directions</h3>
+
+<ol itemprop="recipeInstructions">
+  <li>
+    Combine the basil, garlic, and pine nuts in a food processor and
+    pulse until coarsely chopped. Add 1/2 cup of the oil and process
+    until fully incorporated and smooth. Season with salt and pepper.
+  </li>
+  <li>
+    If using immediately, add all the remaining oil and pulse until
+    smooth. Transfer the pesto to a large serving bowl and mix in the
+    cheese.
+  </li>
+  <li>
+    If freezing, transfer to an air-tight container and drizzle
+    remaining oil over the top. Freeze for up to 3 months. Thaw and stir
+    in cheese.
+  </li>
+</ol>
+
+<h3>Ingredients</h3>
+<ul>
+  <li itemprop="recipeIngredient">2 cups packed fresh basil leaves</li>
+  <li itemprop="recipeIngredient">2 cloves garlic</li>
+  <li itemprop="recipeIngredient">1/4 cup pine nuts</li>
+  <li itemprop="recipeIngredient">2/3 cup extra-virgin olive oil</li>
+  <li itemprop="recipeIngredient">
+    Kosher salt and freshly ground black pepper, to taste
+  </li>
+  <li itemprop="recipeIngredient">
+    1/2 cup freshly grated Pecorino cheese
+  </li>
+  <li itemprop="recipeIngredient">
+    1 <abbr title="Pounds">lb</abbr> plain pasta
+  </li>
+</ul>
+`;
+
+const article = document.querySelector('article');
+article.innerHTML = recipe;
 ```
+
+### JavaScript Expressions
+
+Any unit of code that can be evaluated to a value is an expression. Since expressions produce values, they can appear anywhere in a program where JavaScript expects a value.
+
+```js
+'string';
+10 + 13;
+'hello' + 'world';
+```
+
+### JavaScript Statements
+
+A statement is an instruction to perform a specific action - creating a variable or a function, looping through an array of elements, and evaluating code based on a specific condition.
+
+```js
+var total = 0;
+
+function greet(message) {
+  console.log(message);
+}
+```
+
+Start building the template string:
+
+```js
+let recipe = `
+<figure>
+  <picture>
+    <img src="img/${currRecipe.photo}" alt="${currRecipe.name}" />
+  </picture>
+
+  <figcaption>
+  ${currRecipe.description}
+  </figcaption>
+</figure>
+
+<h2 itemprop="name">${currRecipe.name}</h2>
+
+<p itemprop="description">
+  ${currRecipe.description}
+</p>`
+...
+```
+
+The directions are arrays and require additional attention.
+
+```js
+let dirs = '';
+
+for (let i = 0; i < currRecipe.directions.length; i++) {
+  dirs += '<li>' + currRecipe.directions[i] + '</li>';
+}
+```
+
+And then use the function in our template literal:
+
+```js
+<ol itemprop='recipeInstructions'>${dirs}</ol>
+```
+
+or we can call a function:
+
+```js
+function createDirections() {
+  let dirs = '';
+  for (let i = 0; i < currRecipe.directions.length; i++) {
+    dirs += '<li>' + currRecipe.directions[i] + '</li>';
+  }
+  return dirs;
+}
+```
+
+And use the function in our template literal:
+
+```js
+<ol itemprop='recipeInstructions'>${createDirections()}</ol>
+```
+
+### Array method .map
+
+We can also use an array method in our template string:
+
+```js
+${currRecipe.directions.map(dir => `<li>${dir}</li>`)}
+```
+
+WIth another method - `join`:
+
+```js
+${currRecipe.directions.map(dir => `<li>${dir}</li>`).join('')}
+```
+
+Note: the below doesn't work in a template string because it is an expression:
+
+```js
+${currRecipe.directions.map(dir => {
+  `<li>${dir}</li>`;
+})}
+```
+
+Here is the final template string and associated code:
+
+```js
+let currRecipe = apiData[0];
+// let dirs = '';
+
+// for (let i = 0; i < currRecipe.directions.length; i++) {
+//   dirs += '<li>' + currRecipe.directions[i] + '</li>';
+// }
+
+let recipe = `
+<figure>
+  <picture>
+    <img src="img/${currRecipe.photo}" alt="${currRecipe.name}" />
+  </picture>
+
+  <figcaption>
+  ${currRecipe.description}
+  </figcaption>
+</figure>
+
+<h2 itemprop="name">${currRecipe.name}</h2>
+
+<p itemprop="description">
+  ${currRecipe.description}
+</p>
+
+<h3>Directions</h3>
+
+<ol itemprop="recipeInstructions">
+${currRecipe.directions.map(dir => `<li>${dir}</li>`).join('')}
+</ol>
+
+<h3>Ingredients</h3>
+<ul>
+${currRecipe.ingredients.map(dir => `<li>${dir}</li>`).join('')}
+</ul>
+`;
+
+const article = document.querySelector('article');
+article.innerHTML = recipe;
+```
+
+## Notes
