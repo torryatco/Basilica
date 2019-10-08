@@ -2,7 +2,7 @@
 
 ## Homework
 
-Create separate popovers for each button in the navigations. The popovers should each have different messages.
+Use the recipes.js file and JavaScript to change the recipe displayed in the left column. You can use the menu or a listing on the right hand column. 
 
 ## Reading
 
