@@ -2,7 +2,7 @@
 
 ## Homework
 
-Use the recipes.js file and JavaScript to change the recipe displayed in the left column. You can use the menu or a listing on the right hand column. 
+Create separate popovers for each button in the navigations. The popovers should each have different messages.
 
 ## Reading
 
@@ -76,10 +76,6 @@ Open `app/index.html` in VS Code and examine the HTML with regards to the [recip
 Here is an [article that addresses the recipe schemas](https://www.foodbloggerpro.com/blog/article/what-is-recipe-schema/) but note that there are [many different kinds](https://schema.org/docs/full.html).
 
 Have a look at a sample [recipe](https://www.allrecipes.com/recipe/20144/banana-banana-bread/) and note the schema in the inspector.
-
-The `description` meta tag.
-
-The `robots` meta tag. (noindex)
 
 Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
 
@@ -223,6 +219,8 @@ You can check the results of your work by viewing the Network tab in the inspect
 
 The `<picture>` tag can be used for cropping or modifying images for different media conditions _or_ offering different image formats when certain formats are not supported by all browsers. See the [example](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) on MDN.
 
+You need a server to output multiple mage sizes and formats. There are specialized services such as Cloudinary available. At a bare minimum, should also run your images through a processor such as imageOptim.
+
 ## Flex Layout
 
 The two column view applies only to widescreen.
@@ -289,7 +287,7 @@ Use a background color and box-shadow to color the aside:
 }
 ```
 
-Add some padding to the two coluns outside the media query so it applies to both large and small screens:
+Add some padding to the two columns outside the media query so it applies to both large and small screens:
 
 ```css
 article,
@@ -362,7 +360,7 @@ Note: this is one of the rare occasions that we will use the height property. We
 Add the custom font (top of the css file):
 
 ```css
-@import url(futura/stylesheet.css);
+@import url(font/stylesheet.css);
 ```
 
 Note - To convert fonts to web formats see [Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator). This requires an additional call to the server to fetch the additional css when the browser renders the file.
@@ -377,7 +375,7 @@ header h1 {
 }
 ```
 
-Note: when using custom fonts like this `font-weight: normal;` is necessary because normally header tags like h1 are bold and we do not have a bold version of the font here.
+Note: when using custom fonts like this `font-weight: normal;` is necessary because by default header tags like h1 are bold and we do not have a bold version of the font here.
 
 The background image is 272px by 170px.
 
@@ -427,7 +425,7 @@ Absolutely position the beta element (we can do this in the context of the heade
 
 ```css
 header a.beta {
-  background: url('img/burst.svg') no-repeat;
+  background: url("img/burst.svg") no-repeat;
   color: #fff;
   font-size: 1.5rem;
   position: absolute;
@@ -506,8 +504,8 @@ Additional tweaks for the small screen might include:
 
 ```css
 body {
-  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
-    'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
+    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   /* margin: 0 auto;
@@ -687,10 +685,10 @@ Finally, by moving using display grid to the body selector, we can use [grid are
     margin-top: 1.5rem;
     display: grid;
     grid-template-areas:
-      'header'
-      'nav'
-      'content'
-      'footer';
+      "header"
+      "nav"
+      "content"
+      "footer";
   }
   header {
     border-radius: 8px 8px 0px 0px;
@@ -807,7 +805,7 @@ $break-one: 22.5em;
 
 $radius: 0.25rem;
 
-$fonts: 'Source Sans Pro', Helvetica, Clean, sans-serif;
+$fonts: "Source Sans Pro", Helvetica, Clean, sans-serif;
 
 $red: #f00;
 ```
@@ -821,9 +819,11 @@ $red: #f00;
 }
 ```
 
-Add the sample SASS variables to a new file in a new folder `imports/_variables.scss` and include it at the top of `styles.scss`:
+Add the sample SASS variables to a new file in a new folder `scss/imports/_variables.scss` and include it at the top of `styles.scss`:
 
-`@import 'imports/variables';`.
+```css
+@import "imports/variables";
+```
 
 Note the syntax differences between a native CSS import as well as the underscore in the file name. We will come back to that later.
 
@@ -849,7 +849,7 @@ header {
     font-size: 5rem;
   }
   a.beta {
-    background: url('img/burst.svg') no-repeat;
+    background: url("img/burst.svg") no-repeat;
     color: #fff;
     font-size: 1.5rem;
     position: absolute;
@@ -877,7 +877,9 @@ Examples [Bootstrap](https://getbootstrap.com) and its [SASS roots](https://gith
 
 Create `imports/_header.scss` and cut and paste the nested header material from `_styles.scss` into it. Import it to the main stylesheet with:
 
-`@import 'imports/header';`
+```css
+@import "imports/header";
+```
 
 Note the underscore in the file name. If you add an underscore to the start of the file name, Sass won’t compile it. So, if you don’t want `header.scss` to compile to `header.css`, name the file with an undercore `_header.scss` instead. Files used this way are called partials in Sass.
 
@@ -953,8 +955,8 @@ Cut the body rule from the breakpoint and add the styling to the initial body ru
 
 ```css
 body {
-  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
-    'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
+    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   @media (min-width: $break-two) {
@@ -962,10 +964,10 @@ body {
     margin-top: 1.5rem;
     display: grid;
     grid-template-areas:
-      'header'
-      'nav'
-      'content'
-      'footer';
+      "header"
+      "nav"
+      "content"
+      "footer";
   }
 }
 ```
@@ -1029,10 +1031,26 @@ nav {
 
 Finally, create partials `_base.scss` and `_content.scss`.
 
+<!-- copied the font css into a new partial and changed the paths
+```
+@font-face {
+  font-family: "FuturaStdLight";
+  src: url("font/futurastd-light-webfont.eot");
+  src: url("font/futurastd-light-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("font/futurastd-light-webfont.woff") format("woff"),
+    url("font/futurastd-light-webfont.ttf") format("truetype"),
+    url("font/futurastd-light-webfont.svg#FuturaStdLight") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+```
+ -->
+
 In `_base.scss`:
 
 ```css
-@import url(futura/stylesheet.css);
+@import url(font/stylesheet.css);
 
 html {
   --basil-green: #88a308;
@@ -1057,8 +1075,8 @@ html {
 }
 
 body {
-  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
-    'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
+    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   @media (min-width: $break-two) {
@@ -1066,10 +1084,10 @@ body {
     margin-top: 1.5rem;
     display: grid;
     grid-template-areas:
-      'header'
-      'nav'
-      'content'
-      'footer';
+      "header"
+      "nav"
+      "content"
+      "footer";
   }
 }
 
@@ -1162,11 +1180,11 @@ footer {
 And in `styles.scss` all you should need is:
 
 ```css
-@import 'imports/variables';
-@import 'imports/base';
-@import 'imports/header';
-@import 'imports/nav';
-@import 'imports/content';
+@import "imports/variables";
+@import "imports/base";
+@import "imports/header";
+@import "imports/nav";
+@import "imports/content";
 ```
 
 Test in the browser at various sizes.
@@ -1214,12 +1232,12 @@ $ npm install random-number
 In `basilnode.js`:
 
 ```js
-const randomNumber = require('random-number');
+const randomNumber = require("random-number");
 
 const randomIndex = randomNumber({
   min: 0,
   max: 4,
-  integer: true
+  integer: true,
 });
 
 console.log(randomIndex);
@@ -1236,15 +1254,15 @@ $ node basilnode.js
 Add some additional variables - arrays:
 
 ```js
-const randomNumber = require('random-number');
+const randomNumber = require("random-number");
 
-const basilChef = ['mama', 'papa', 'baby'];
+const basilChef = ["mama", "papa", "baby"];
 
 function randomItem(array) {
   const randomIndex = randomNumber({
     min: 0,
     max: array.length - 1,
-    integer: true
+    integer: true,
   });
   return array[randomIndex];
 }
@@ -1263,23 +1281,23 @@ $ node basilnode.js
 Call the randomItem function from within another function that uses [concatination](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Strings#Concatenating_strings):
 
 ```js
-const randomNumber = require('random-number');
+const randomNumber = require("random-number");
 
-const basilChef = ['mama', 'papa', 'baby'];
-const basilTexture = ['greasy', 'frozen', 'spicy'];
+const basilChef = ["mama", "papa", "baby"];
+const basilTexture = ["greasy", "frozen", "spicy"];
 
 function randomItem(array) {
   const randomIndex = randomNumber({
     min: 0,
     max: array.length - 1,
-    integer: true
+    integer: true,
   });
   return array[randomIndex];
 }
 
 function makeBasil() {
   return (
-    randomItem(basilChef) + "'s" + ' ' + randomItem(basilTexture) + ' basil'
+    randomItem(basilChef) + "'s" + " " + randomItem(basilTexture) + " basil"
   );
 }
 
@@ -1291,13 +1309,13 @@ Elaborate on it to make an HTML element:
 ```js
 function makeBasil() {
   return (
-    '<h2>' +
+    "<h2>" +
     randomItem(basilChef) +
     "'s" +
-    ' ' +
+    " " +
     randomItem(basilTexture) +
-    ' basil' +
-    '</h2>'
+    " basil" +
+    "</h2>"
   );
 }
 ```
@@ -1348,7 +1366,7 @@ console.log(random());
 Now call our random function passing in an array.
 
 ```js
-const basilChefs = ['mama', 'papa', 'baby'];
+const basilChefs = ["mama", "papa", "baby"];
 
 function random(array) {
   const max = array.length;
@@ -1365,8 +1383,8 @@ We used the random number to select a name from the array and return it to the c
 Add another variable and message the output to product a string:
 
 ```js
-const basilChefs = ['mama', 'papa', 'baby'];
-const basilTexture = ['greasy', 'frozen', 'spicy'];
+const basilChefs = ["mama", "papa", "baby"];
+const basilTexture = ["greasy", "frozen", "spicy"];
 
 function random(array) {
   const max = array.length;
@@ -1375,23 +1393,23 @@ function random(array) {
 }
 
 var recipeName =
-  'My ' + random(basilChefs) + "'s " + random(basilTexture) + ' pesto';
+  "My " + random(basilChefs) + "'s " + random(basilTexture) + " pesto";
 console.log(recipeName);
 ```
 
 Let's use the return value in our layout:
 
 ```js
-const el = document.querySelector('h2');
+const el = document.querySelector("h2");
 ```
 
 Test `el` in the console.
 
 ```js
-const el = document.querySelector('h2');
+const el = document.querySelector("h2");
 
-const basilChefs = ['mama', 'papa', 'baby'];
-const basilTexture = ['greasy', 'frozen', 'spicy'];
+const basilChefs = ["mama", "papa", "baby"];
+const basilTexture = ["greasy", "frozen", "spicy"];
 
 function random(array) {
   const max = array.length;
@@ -1400,7 +1418,7 @@ function random(array) {
 }
 
 var recipeName =
-  'My ' + random(basilChefs) + "'s " + random(basilTexture) + ' pesto';
+  "My " + random(basilChefs) + "'s " + random(basilTexture) + " pesto";
 
 el.innerHTML = recipeName;
 ```
@@ -1464,33 +1482,33 @@ Code the `.beta` button to show the window.
 Create a variable for the beta button, attach an event listener to it, and create a function to handle the event.
 
 ```js
-var popoverWindow = document.querySelector('.betainfo');
-var betaButton = document.querySelector('.beta');
+var popoverWindow = document.querySelector(".betainfo");
+var betaButton = document.querySelector(".beta");
 
 function showPopover() {
-  popoverWindow.classList.toggle('show');
+  popoverWindow.classList.toggle("show");
   event.preventDefault();
 }
 
-betaButton.addEventListener('click', showPopover);
+betaButton.addEventListener("click", showPopover);
 ```
 
 Use event delegation:
 
 ```js
-var popoverWindow = document.querySelector('.betainfo');
+var popoverWindow = document.querySelector(".betainfo");
 // var betaButton = document.querySelector('.beta');
 
 function showPopover() {
   console.log(event.target);
-  if (!event.target.matches('.beta')) {
+  if (!event.target.matches(".beta")) {
     return;
   }
-  popoverWindow.classList.toggle('show');
+  popoverWindow.classList.toggle("show");
   event.preventDefault();
 }
 
-document.addEventListener('click', showPopover);
+document.addEventListener("click", showPopover);
 ```
 
 ## DOM Scripting Methods Used
@@ -1506,21 +1524,21 @@ document.addEventListener('click', showPopover);
 The `matches()` method lets you check if an element would be selected by a particular selector. It returns true if the element is a match, and false when it’s not. It can be an alternative to using `element.classList.contains('.someclass')`.
 
 ```js
-var elem = document.querySelector('.click-me');
+var elem = document.querySelector(".click-me");
 
 // Match by an ID
-if (elem.matches('#first-button')) {
+if (elem.matches("#first-button")) {
   // Do something...
 }
 
 // Match by a class
-if (elem.matches('.button-submit')) {
+if (elem.matches(".button-submit")) {
   // Do something...
 }
 
 // Match by one of several selectors
 // Returns true when element contains at least one of the selectors
-if (elem.matches('.click-me, .button-submit')) {
+if (elem.matches(".click-me, .button-submit")) {
   // Do something...
 }
 ```
@@ -1561,11 +1579,11 @@ Adjust the line height property to center the ✖︎.
 Extend the functionality of the script.
 
 ```js
-var popoverWindow = document.querySelector('.betainfo');
+var popoverWindow = document.querySelector(".betainfo");
 
 function showPopover() {
   console.log(event.target);
-  if (event.target.matches('.beta, .closer')) {
+  if (event.target.matches(".beta, .closer")) {
     pop();
   } else {
     return;
@@ -1573,11 +1591,11 @@ function showPopover() {
 }
 
 function pop() {
-  popoverWindow.classList.toggle('show');
+  popoverWindow.classList.toggle("show");
   event.preventDefault();
 }
 
-document.addEventListener('click', showPopover);
+document.addEventListener("click", showPopover);
 ```
 
 Add a shader div after the body tag to block access to the page and make the window modal:
@@ -1603,12 +1621,12 @@ Add styling:
 Add it to the script:
 
 ```js
-var popoverWindow = document.querySelector('.betainfo');
-var shader = document.querySelector('.shader');
+var popoverWindow = document.querySelector(".betainfo");
+var shader = document.querySelector(".shader");
 
 function showPopover() {
   console.log(event.target);
-  if (event.target.matches('.beta, .closer')) {
+  if (event.target.matches(".beta, .closer")) {
     pop();
   } else {
     return;
@@ -1616,12 +1634,12 @@ function showPopover() {
 }
 
 function pop() {
-  popoverWindow.classList.toggle('show');
-  shader.classList.toggle('show');
+  popoverWindow.classList.toggle("show");
+  shader.classList.toggle("show");
   event.preventDefault();
 }
 
-document.addEventListener('click', showPopover);
+document.addEventListener("click", showPopover);
 ```
 
 Test.
@@ -1695,8 +1713,6 @@ We will retain all the CSS in `_popovers.scss` for use in our new popover:
 
 ### createElement
 
-## fall2019-done
-
 You use the `document.createElement()` [method](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) to create an HTML element.
 
 In the browser's console e.g.:
@@ -1711,14 +1727,14 @@ You can manipulate an element created with `createElement()` like you would any 
 In the browser's console:
 
 ```js
-var div = document.createElement('div');
-div.className = 'new-div';
-div.id = 'new-div';
-div.setAttribute('data-div', 'new');
-div.style.color = '#fff';
-div.style.backgroundColor = 'rebeccapurple';
+var div = document.createElement("div");
+div.className = "new-div";
+div.id = "new-div";
+div.setAttribute("data-div", "new");
+div.style.color = "#fff";
+div.style.backgroundColor = "rebeccapurple";
 // add some text
-div.textContent = 'Nice work, dude!';
+div.textContent = "Nice work, dude!";
 div;
 ```
 
@@ -1730,7 +1746,7 @@ First grab a target:`
 
 ```js
 // Get the element to add your new HTML element before, after, or within
-var target = document.querySelector('.content h2');
+var target = document.querySelector(".content h2");
 ```
 
 Then use the appropriate method:
@@ -1754,17 +1770,17 @@ Try it again with the `betainfo` class.
 **Remove the `display: none` property from the betainfo css first.**
 
 ```js
-var div = document.createElement('div');
-div.className = 'betainfo';
-div.style.color = '#fff';
-div.style.backgroundColor = 'rebeccapurple';
+var div = document.createElement("div");
+div.className = "betainfo";
+div.style.color = "#fff";
+div.style.backgroundColor = "rebeccapurple";
 // add some text
-div.textContent = 'Nice work, dude!';
+div.textContent = "Nice work, dude!";
 ```
 
 ```js
 div;
-var target = document.querySelector('header');
+var target = document.querySelector("header");
 target.before(div);
 ```
 
@@ -1775,7 +1791,7 @@ The innerHTML property can be used to both get and set HTML content in an elemen
 In the console:
 
 ```js
-var elem = document.querySelector('.content');
+var elem = document.querySelector(".content");
 elem;
 // Get HTML content
 var html = elem.innerHTML;
@@ -1787,23 +1803,23 @@ elem.innerHTML =
 
 // Add += HTML to the end of an element's existing content
 elem.innerHTML =
-  elem.innerHTML + '<p>Add this after what is already there.</p>';
-elem.innerHTML += '<p>Add this after what is already there.</p>';
+  elem.innerHTML + "<p>Add this after what is already there.</p>";
+elem.innerHTML += "<p>Add this after what is already there.</p>";
 
 // Add HTML to the beginning of an element's existing content
-elem.innerHTML = '<p>We can add this to the beginning.</p>' + elem.innerHTML;
+elem.innerHTML = "<p>We can add this to the beginning.</p>" + elem.innerHTML;
 ```
 
 Note: there is also an `innerText` property available. It works just like `innerHTML`, but only gets the text of an element and omits the markup.
 
 ```js
-var elem = document.querySelector('.content');
-elem.innerText = '<p>Welcome back my friends to the show that never ends.</p>';
+var elem = document.querySelector(".content");
+elem.innerText = "<p>Welcome back my friends to the show that never ends.</p>";
 ```
 
 Notice how it show the HTML tags as text.
 
-Since we are creating our div dynamically we delete the 'hardcoded' div:
+Since we are creating our div dynamically we deleted the 'hardcoded' div:
 
 ```html
 <div class="betainfo">
@@ -1818,16 +1834,16 @@ Since we are creating our div dynamically we delete the 'hardcoded' div:
 Add to `scripts.js`:
 
 ```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
+var betaButton = document.querySelector(".beta");
+betaButton.addEventListener("click", makePopover);
 
 function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement("div");
+  popover.classList.add("betainfo");
   var popoverContent =
     '<h2>Beta Only!</h2><p>Information about the beta program.<p><div class="closer" href="#0"><div>✖︎</div></div>'; // NEW
   popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
+  document.querySelector("body").append(popover);
 }
 ```
 
@@ -1849,13 +1865,15 @@ var popoverContent = `
 
 E.g.:
 
+## DONE
+
 ```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
+var betaButton = document.querySelector(".beta");
+betaButton.addEventListener("click", makePopover);
 
 function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement("div");
+  popover.classList.add("betainfo");
   var popoverContent = `
   <h2>In Beta</h2>
   <p>Information about the beta program.<p>
@@ -1864,7 +1882,7 @@ function makePopover() {
   </div>
   `;
   popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
+  document.querySelector("body").append(popover);
 }
 ```
 
@@ -1873,12 +1891,12 @@ Examine the elements in the dev tools. We are creating multiple popovers.
 Now, let's add the close functionality ('destroyPopover') in. We cannot use `classList` to toggle the display property here so we will use the opposite of `append()` which is `remove()`:
 
 ```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
+var betaButton = document.querySelector(".beta");
+betaButton.addEventListener("click", makePopover);
 
 function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement("div");
+  popover.classList.add("betainfo");
   var popoverContent = `
   <h2>In Beta</h2>
   <p>Information about the beta program.<p>
@@ -1887,14 +1905,14 @@ function makePopover() {
   </div>
   `;
   popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
+  document.querySelector("body").append(popover);
 
-  var popoverCloseButton = document.querySelector('.closer'); // NEW
-  popoverCloseButton.addEventListener('click', destroyPopover); // NEW
+  var popoverCloseButton = document.querySelector(".closer"); // NEW
+  popoverCloseButton.addEventListener("click", destroyPopover); // NEW
 }
 // NEW
 function destroyPopover() {
-  document.querySelector('.betainfo').remove();
+  document.querySelector(".betainfo").remove();
   event.preventDefault();
 }
 ```
@@ -1920,9 +1938,9 @@ Replace the event listener and add a new function:
 
 ```js
 // betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', clickHandler, false);
+document.addEventListener("click", decide, false);
 
-function clickHandler() {
+function decide() {
   console.log(event.target);
 }
 ```
@@ -1931,29 +1949,29 @@ E.g.:
 
 ```js
 // betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', clickHandler, false);
+document.addEventListener("click", clickHandler, false);
 
 function clickHandler() {
   console.log(event.target);
 }
 
 function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement("div");
+  popover.classList.add("betainfo");
   var popoverContent = `
     <h2>In Beta</h2>
     <p>Information about the beta program.<p>
     <a class="closer" href="#0">✖︎</a>
   `;
   popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
+  document.querySelector("body").append(popover);
 
-  var popoverCloseButton = document.querySelector('.closer');
-  popoverCloseButton.addEventListener('click', destroyPopover);
+  var popoverCloseButton = document.querySelector(".closer");
+  popoverCloseButton.addEventListener("click", destroyPopover);
 }
 
 function destroyPopover() {
-  document.querySelector('.betainfo').remove();
+  document.querySelector(".betainfo").remove();
   event.preventDefault();
 }
 ```
@@ -1965,7 +1983,7 @@ Add an `if` statement to run `makePopover` if the item clicked on (`event.target
 ```js
 function clickHandler() {
   console.log(event.target);
-  if (event.target.matches('.beta')) {
+  if (event.target.matches(".beta")) {
     makePopover();
   }
 }
@@ -1974,42 +1992,55 @@ function clickHandler() {
 We can also add our shader div:
 
 ```js
-var betaButton = document.querySelector('.beta');
-document.addEventListener('click', clickHandler, false);
+var betaButton = document.querySelector(".beta");
+document.addEventListener("click", clickHandler, false);
 
 function clickHandler() {
   console.log(event.target);
-  if (event.target.matches('.beta')) {
+  if (event.target.matches(".beta")) {
     makePopover();
   }
 }
 function makePopover() {
-  if (document.querySelector('.betainfo')) {
+  if (document.querySelector(".betainfo")) {
     destroyPopover();
   }
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement("div");
+  popover.classList.add("betainfo");
   var popoverContent = `
   <h2>In Beta</h2>
   <p>Information about the beta program.<p>
   <a class="closer" href="#0">✖︎</a>
   `;
   popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
+  document.querySelector("body").append(popover);
 
-  var popoverCloseButton = document.querySelector('.closer'); // NEW
-  popoverCloseButton.addEventListener('click', destroyPopover); // NEW
-  document.querySelector('.shader').classList.add('show');
+  var popoverCloseButton = document.querySelector(".closer"); // NEW
+  popoverCloseButton.addEventListener("click", destroyPopover); // NEW
+  document.querySelector(".shader").classList.add("show");
 }
 
 function destroyPopover() {
-  document.querySelector('.betainfo').remove();
-  document.querySelector('.shader').classList.remove('show');
+  document.querySelector(".betainfo").remove();
+  document.querySelector(".shader").classList.remove("show");
   event.preventDefault();
 }
 ```
 
-As a demonstration of the new functionality afforded by a dynamically generated popover, let's use our new popover to display a different message when the user clicks on any of the three nav buttons.
+As a demostration of the new functionality afforded by a dynamically generated popover, let's use our new popover to display a different message when the user clicks on any of the three nav buttons:
+
+Add a class `it` to each of the nav bottons:
+
+```html
+<nav>
+  <p>Bonjour Monsieur Ferme</p>
+  <ul>
+    <li class="nav-pickit"><a class="it" href="#">pick it</a></li>
+    <li class="nav-cookit"><a class="it" href="#">cook it</a></li>
+    <li class="nav-storeit"><a class="it" href="#">store it</a></li>
+  </ul>
+</nav>
+```
 
 Create two new variables with the text for our messages:
 
@@ -2026,17 +2057,27 @@ var buttonContent = `
 `;
 ```
 
-Now let's decide which item is clicked on and use that to determine the message:
+Use the first new variable as the source for our popover content:
+
+```js
+var popover = document.createElement('div');
+popover.classList.add('betainfo');
+var popoverContent = betaContent; // NEW
+...
+}
+```
+
+Now let's decide which item is clicked on and use that to determine the message::
 
 ```js
 function clickHandler() {
   console.log(event.target);
-  if (event.target.matches('.beta')) {
+  if (event.target.matches(".beta")) {
     makePopover(betaContent); // NEW
-  } else if (event.target.closest('nav ul')) {
+  } else if (event.target.closest("nav ul")) {
     // NEW
     makePopover(buttonContent); // NEW
-  } else if (event.target.matches('.close')) {
+  } else if (event.target.matches(".close")) {
     destroyPopover();
   }
 }
@@ -2044,7 +2085,7 @@ function clickHandler() {
 
 Note the use of [closest](https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/) above. The closest() method looks for the closest matching parent to an element that has a selector that you pass in.
 
-Let's use clickHandler by first passing it into the function as a variable:
+Let's use that by first passing it into the function as a variable:
 
 ```js
 function makePopover(content) {
@@ -2056,13 +2097,13 @@ And then making the contents of the popover dependent on the value of the variab
 
 ```js
 function makePopover(content) {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement("div");
+  popover.classList.add("betainfo");
   popover.innerHTML = content; // NEW
-  document.querySelector('body').append(popover);
+  document.querySelector("body").append(popover);
 
-  var popoverCloseButton = document.querySelector('.close');
-  popoverCloseButton.addEventListener('click', destroyPopover);
+  var popoverCloseButton = document.querySelector(".close");
+  popoverCloseButton.addEventListener("click", destroyPopover);
 }
 ```
 
@@ -2091,16 +2132,16 @@ var buttonContent = `
 <a class="closer" href="#0">✖︎</a>
 `;
 
-var betaButton = document.querySelector('.beta');
-document.addEventListener('click', clickHandler, false);
+var betaButton = document.querySelector(".beta");
+document.addEventListener("click", clickHandler, false);
 
 function clickHandler() {
   console.log(event.target);
-  if (event.target.matches('.beta')) {
+  if (event.target.matches(".beta")) {
     makePopover(betaContent);
-  } else if (event.target.closest('nav ul ')) {
+  } else if (event.target.closest("nav ul ")) {
     makePopover(buttonContent);
-  } else if (event.target.matches('.closer')) {
+  } else if (event.target.matches(".closer")) {
     destroyPopover();
   } else {
     return;
@@ -2108,28 +2149,26 @@ function clickHandler() {
 }
 
 function makePopover(content) {
-  if (document.querySelector('.betainfo')) {
+  if (document.querySelector(".betainfo")) {
     destroyPopover();
   }
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement("div");
+  popover.classList.add("betainfo");
   popover.innerHTML = content;
-  document.querySelector('body').append(popover);
-  document.querySelector('.shader').classList.add('show');
+  document.querySelector("body").append(popover);
+  document.querySelector(".shader").classList.add("show");
 }
 
 function destroyPopover() {
-  document.querySelector('.betainfo').remove();
-  document.querySelector('.shader').classList.remove('show');
+  document.querySelector(".betainfo").remove();
+  document.querySelector(".shader").classList.remove("show");
   event.preventDefault();
 }
 ```
 
-## Template Literals
+## Notes
 
 Template literals allow embedded expressions. You can use multi-line strings and string interpolation features with them. They were called "template strings" in prior editions of the ES2015 specification.
-
-Remove the recipe from the HTML file and send it as a template string:
 
 ```js
 let recipe = `
@@ -2190,21 +2229,20 @@ let recipe = `
 </ul>
 `;
 
-const article = document.querySelector('article');
+const article = document.querySelector("article");
 article.innerHTML = recipe;
 ```
 
-### JavaScript Expressions
+## Expressions
 
 Any unit of code that can be evaluated to a value is an expression. Since expressions produce values, they can appear anywhere in a program where JavaScript expects a value.
 
 ```js
-'string';
 10 + 13;
-'hello' + 'world';
+"hello" + "world";
 ```
 
-### JavaScript Statements
+## Statements
 
 A statement is an instruction to perform a specific action - creating a variable or a function, looping through an array of elements, and evaluating code based on a specific condition.
 
@@ -2216,77 +2254,17 @@ function greet(message) {
 }
 ```
 
-Start building the template string:
-
 ```js
-let recipe = `
-<figure>
-  <picture>
-    <img src="img/${currRecipe.photo}" alt="${currRecipe.name}" />
-  </picture>
+let dirs = "";
 
-  <figcaption>
-  ${currRecipe.description}
-  </figcaption>
-</figure>
-
-<h2 itemprop="name">${currRecipe.name}</h2>
-
-<p itemprop="description">
-  ${currRecipe.description}
-</p>`
-...
-```
-
-The directions are arrays and require additional attention.
-
-```js
-let dirs = '';
-
-for (let i = 0; i < currRecipe.directions.length; i++) {
-  dirs += '<li>' + currRecipe.directions[i] + '</li>';
-}
-```
-
-And then use the function in our template literal:
-
-```js
-<ol itemprop='recipeInstructions'>${dirs}</ol>
-```
-
-or we can call a function:
-
-```js
 function createDirections() {
-  let dirs = '';
   for (let i = 0; i < currRecipe.directions.length; i++) {
-    dirs += '<li>' + currRecipe.directions[i] + '</li>';
+    dirs += "<li>" + currRecipe.directions[i] + "</li>";
   }
-  return dirs;
 }
+
+createDirections();
 ```
-
-And use the function in our template literal:
-
-```js
-<ol itemprop='recipeInstructions'>${createDirections()}</ol>
-```
-
-### Array method .map
-
-We can also use an array method in our template string:
-
-```js
-${currRecipe.directions.map(dir => `<li>${dir}</li>`)}
-```
-
-WIth another method - `join`:
-
-```js
-${currRecipe.directions.map(dir => `<li>${dir}</li>`).join('')}
-```
-
-Note: the below doesn't work in a template string because it is an expression:
 
 ```js
 ${currRecipe.directions.map(dir => {
@@ -2294,47 +2272,76 @@ ${currRecipe.directions.map(dir => {
 })}
 ```
 
-Here is the final template string and associated code:
-
 ```js
-let currRecipe = apiData[0];
-// let dirs = '';
-
-// for (let i = 0; i < currRecipe.directions.length; i++) {
-//   dirs += '<li>' + currRecipe.directions[i] + '</li>';
-// }
-
-let recipe = `
-<figure>
-  <picture>
-    <img src="img/${currRecipe.photo}" alt="${currRecipe.name}" />
-  </picture>
-
-  <figcaption>
-  ${currRecipe.description}
-  </figcaption>
-</figure>
-
-<h2 itemprop="name">${currRecipe.name}</h2>
-
-<p itemprop="description">
-  ${currRecipe.description}
-</p>
-
-<h3>Directions</h3>
-
-<ol itemprop="recipeInstructions">
-${currRecipe.directions.map(dir => `<li>${dir}</li>`).join('')}
-</ol>
-
-<h3>Ingredients</h3>
-<ul>
-${currRecipe.ingredients.map(dir => `<li>${dir}</li>`).join('')}
-</ul>
-`;
-
-const article = document.querySelector('article');
-article.innerHTML = recipe;
+${currRecipe.directions.map(dir => `<li>${dir}</li>`)}
 ```
 
-## Notes
+```js
+${currRecipe.directions.map(dir => `<li>${dir}</li>`).join('')}
+```
+
+ONE
+
+```js
+const recipeTitle = recipesData[0].name;
+console.log(recipeTitle);
+const figure = document.querySelector("h2");
+console.log(figure);
+figure.innerText = recipeTitle;
+```
+
+`<div id="app"></div>`
+
+TWO
+
+```js
+const recipe = recipesData[0];
+const recipeOne = '<h2 itemprop="name">' + recipe.name + "</h2>";
+const app = document.querySelector("#app");
+app.innerHTML = recipeOne;
+```
+
+`<div id="app"></div>`
+
+THREE
+
+```js
+const recipe = recipesData[0];
+const recipeOne =
+  "<h2>" +
+  recipe.name +
+  "</h2>" +
+  "<figure>" +
+  "<picture>" +
+  "<img src=img/" +
+  recipe.photo +
+  ' alt="' +
+  recipe.name +
+  '" />' +
+  "</picture>" +
+  "<figcaption>" +
+  recipe.description +
+  "</figcaption>" +
+  "</figure>";
+
+const app = document.querySelector("#app");
+app.innerHTML = recipeOne;
+```
+
+FOUR
+
+```js
+const recipe = recipesData[0];
+const recipeOne = `<h2>${recipe.name}</h2>
+  <figure >
+  <picture>
+    <img src="img/${recipe.photo}" alt="${recipe.name}" />
+  </picture>
+    <figcaption>${recipe.description}</figcaption>
+  </figure>`;
+
+console.log(recipeOne);
+
+const app = document.querySelector("#app");
+app.innerHTML = recipeOne;
+```
