@@ -1,8 +1,59 @@
 # Basilica!
 
+## Table of Contents
+
+- [Basilica!](#basilica)
+  - [Table of Contents](#table-of-contents)
+  - [Homework](#homework)
+  - [Midterm](#midterm)
+  - [Reading](#reading)
+  - [Goals](#goals)
+  - [Initialize GIT with .gitignore](#initialize-git-with-gitignore)
+  - [NPM Initialization and Installs](#npm-initialization-and-installs)
+  - [Basilica Project](#basilica-project)
+    - [Starter CSS](#starter-css)
+  - [Responsive Images](#responsive-images)
+  - [Flex Layout](#flex-layout)
+  - [JavaScript](#javascript)
+    - [Aside: Node](#aside-node)
+    - [Add a Script](#add-a-script)
+  - [JavaScript Popover](#javascript-popover)
+  - [DOM Scripting Methods Used](#dom-scripting-methods-used)
+    - [matches](#matches)
+    - [Add Another Close Method](#add-another-close-method)
+  - [A Dynamic Popover](#a-dynamic-popover)
+    - [createElement](#createelement)
+    - [Appending Content](#appending-content)
+    - [innerHTML](#innerhtml)
+  - [DONE](#done)
+  - [Event Delegation](#event-delegation)
+  - [Notes](#notes)
+  - [Expressions](#expressions)
+  - [Statements](#statements)
+
 ## Homework
 
 Create separate popovers for each button in the navigations. The popovers should each have different messages.
+
+## Midterm
+
+Copy the `other/homework` folder from the previous section (Flexnav) into a stand alone project.
+
+- `index.html` is your starting point
+- `index-done.html` the goal
+- edit `index.html` so it matches the goal
+- try not to copy directly, use `index-done.html` only when you get stuck
+
+One task you will have to perform is not in the `index-done.html` file. Using the notes in Basilica:
+
+- add an empty div to the page
+- use JavaScript to change the content of the div when the user clicks on the tabs
+
+Make sure to create a local Git repo.
+
+When you are done push your local repo to Github and use Netlify to deploy your assignment.
+
+Send me a link to the Github repo as well as the Netlify site
 
 ## Reading
 
@@ -11,7 +62,16 @@ Create separate popovers for each button in the navigations. The popovers should
 - The [Absolute Beginners Guide](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/) to NPM
 - [What is GIT?](https://guides.github.com/introduction/git-handbook/)
 
-## Initialize a GIT Repo and .gitignore
+## Goals
+
+- Review GIT and Github set up and branching
+- Review NPM set up and installing
+- Continue working with Flexbox and introduce CSS Grids
+- Understand and set up a CSS toolchain using SASS
+- Review basic DOM manipulation techiques
+- Understand how to create an element and insert it into the DOM
+
+## Initialize GIT with .gitignore
 
 ```sh
 $ git init
@@ -33,7 +93,7 @@ Log into [Github](http://github.com) and create a new repo.
 
 Follow the instructions to create a remote and push the master branch and inclass branch to the remote.
 
-## NPM
+## NPM Initialization and Installs
 
 - Create a manifest (package.json)
 - Install a package
@@ -67,7 +127,7 @@ In the terminal:
 
 `$ npm run start`
 
-## Basilica
+## Basilica Project
 
 ![Image of Basilica](other/FINAL.png)
 
@@ -1212,13 +1272,13 @@ a {
 }
 ```
 
-<!-- Note: switching branches at this point will delete styles.css from the css directory. Stop the processes running in the console before switching branches. -->
+Note: switching branches at this point will delete styles.css from the css directory. Stop the processes running in the console before switching branches.
 
 ## JavaScript
 
 Let's ease into JavaScript with a demonstration and a simple DOM manipulation.
 
-### Node - Demo
+### Aside: Node
 
 Review Node:
 
@@ -1273,7 +1333,6 @@ function randomItem(array) {
 console.log(basilChef);
 console.log(basilChef[0]);
 console.log(basilChef.length);
-
 console.log(randomItem(basilChef));
 ```
 
@@ -1307,7 +1366,7 @@ function makeBasil() {
 console.log(makeBasil());
 ```
 
-Elaborate on it to make an HTML element:
+We could use concatenation to make an HTML element:
 
 ```js
 function makeBasil() {
@@ -1323,7 +1382,7 @@ function makeBasil() {
 }
 ```
 
-Use a [template string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals):
+But we'll use a [template string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) instead:
 
 ```js
 function makeBasil() {
@@ -1331,14 +1390,6 @@ function makeBasil() {
     basilTexture
   )} basil</h2>`;
 }
-```
-
-A simple template literal (use Quokka):
-
-```js
-let x = 3;
-let y = 8;
-console.log(`${x} + ${y} = ${x + y}`);
 ```
 
 ### Add a Script
