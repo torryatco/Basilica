@@ -5,7 +5,6 @@
 - [Basilica!](#basilica)
   - [Table of Contents](#table-of-contents)
   - [Homework](#homework)
-  - [Midterm](#midterm)
   - [Reading](#reading)
   - [Goals](#goals)
   - [Initialize GIT with .gitignore](#initialize-git-with-gitignore)
@@ -34,26 +33,6 @@
 ## Homework
 
 Create separate popovers for each button in the navigations. The popovers should each have different messages.
-
-## Midterm
-
-Copy the `other/homework` folder from the previous section (Flexnav) into a stand alone project.
-
-- `index.html` is your starting point
-- `index-done.html` the goal
-- edit `index.html` so it matches the goal
-- try not to copy directly, use `index-done.html` only when you get stuck
-
-One task you will have to perform is not in the `index-done.html` file. Using the notes in Basilica:
-
-- add an empty div to the page
-- use JavaScript to change the content of the div when the user clicks on the tabs
-
-Make sure to create a local Git repo.
-
-When you are done push your local repo to Github and use Netlify to deploy your assignment.
-
-Send me a link to the Github repo as well as the Netlify site
 
 ## Reading
 
@@ -280,6 +259,18 @@ You can check the results of your work by viewing the Network tab in the inspect
 The `<picture>` tag can be used for cropping or modifying images for different media conditions _or_ offering different image formats when certain formats are not supported by all browsers. See the [example](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) on MDN.
 
 You need a server to output multiple mage sizes and formats. There are specialized services such as Cloudinary available. At a bare minimum, should also run your images through a processor such as imageOptim.
+
+```html
+<img
+  src="https://res.cloudinary.com/deedee/image/upload/w_200,h_200,c_crop/v1623521871/samples/pesto.jpg"
+  alt="basil"
+/>
+
+<img
+  src="https://res.cloudinary.com/deedee/image/upload/w_200,e_grayscale/v1623521871/samples/pesto.jpg"
+  alt="basil"
+/>
+```
 
 ## Flex Layout
 
@@ -2066,7 +2057,7 @@ function destroyPopover() {
 
 As a demostration of the new functionality afforded by a dynamically generated popover, let's use our new popover to display a different message when the user clicks on any of the three nav buttons:
 
-Add a class `it` to each of the nav bottons:
+Add a class `it` to each of the nav buttons:
 
 ```html
 <nav>
@@ -2384,3 +2375,5 @@ app.innerHTML = recipeOne;
 ```
 
 <!-- "start": "concurrently \"npm run sass:process -- --watch\" \"npm run cms:bundle -- --watch\" -->
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules

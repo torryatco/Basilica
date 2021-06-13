@@ -1,4 +1,4 @@
-var apiData = [
+export var apiData = [
   {
     name: 'Pesto',
     regions: ['Italy', 'France', 'Greece'],
