@@ -1,49 +1,59 @@
-# Basilica!
+# 1. Basilica!
 
-## Table of Contents
+## 1.1. Table of Contents
 
-- [Basilica!](#basilica)
-  - [Table of Contents](#table-of-contents)
-  - [Homework](#homework)
-  - [Reading](#reading)
-  - [Goals](#goals)
-  - [Initialize GIT with .gitignore](#initialize-git-with-gitignore)
-  - [NPM Initialization and Installs](#npm-initialization-and-installs)
-  - [Basilica Project](#basilica-project)
-    - [Starter CSS](#starter-css)
-  - [Responsive Images](#responsive-images)
-  - [Flex Layout](#flex-layout)
-  - [JavaScript](#javascript)
-    - [Aside: Node](#aside-node)
-    - [Add a Script](#add-a-script)
-  - [JavaScript Popover](#javascript-popover)
-  - [DOM Scripting Methods Used](#dom-scripting-methods-used)
-    - [matches](#matches)
-    - [Add Another Close Method](#add-another-close-method)
-  - [A Dynamic Popover](#a-dynamic-popover)
-    - [createElement](#createelement)
-    - [Appending Content](#appending-content)
-    - [innerHTML](#innerhtml)
-  - [DONE](#done)
-  - [Event Delegation](#event-delegation)
-  - [Notes](#notes)
-  - [Expressions](#expressions)
-  - [Statements](#statements)
+- [1. Basilica!](#1-basilica)
+  - [1.1. Table of Contents](#11-table-of-contents)
+  - [1.2. Homework](#12-homework)
+  - [1.3. Reading](#13-reading)
+  - [1.4. Goals](#14-goals)
+  - [1.5. Initialize GIT with .gitignore](#15-initialize-git-with-gitignore)
+  - [1.6. NPM Initialization and Installs](#16-npm-initialization-and-installs)
+  - [1.7. Basilica Project](#17-basilica-project)
+    - [1.7.1. Starter CSS](#171-starter-css)
+  - [1.8. Responsive Images](#18-responsive-images)
+  - [1.9. Flex Layout](#19-flex-layout)
+    - [1.9.1. Review: Pseudo-elements vs Pseudo-classes](#191-review-pseudo-elements-vs-pseudo-classes)
+  - [1.10. The Branding Header](#110-the-branding-header)
+    - [1.10.1. Header: Responsive Design](#1101-header-responsive-design)
+  - [1.11. Navigation](#111-navigation)
+    - [1.11.1. Button and Gradients](#1111-button-and-gradients)
+  - [1.12. CSS Grid](#112-css-grid)
+  - [1.13. Sass](#113-sass)
+    - [1.13.1. SASS Variables](#1131-sass-variables)
+    - [1.13.2. SASS Nesting](#1132-sass-nesting)
+    - [1.13.3. SASS Partials](#1133-sass-partials)
+  - [1.14. JavaScript](#114-javascript)
+    - [1.14.1. Aside: Node](#1141-aside-node)
+    - [1.14.2. Add a Script](#1142-add-a-script)
+  - [1.15. JavaScript Popover](#115-javascript-popover)
+  - [1.16. DOM Scripting Methods Used](#116-dom-scripting-methods-used)
+    - [1.16.1. matches](#1161-matches)
+    - [1.16.2. Add Another Close Method](#1162-add-another-close-method)
+  - [1.17. A Dynamic Popover](#117-a-dynamic-popover)
+    - [1.17.1. createElement](#1171-createelement)
+    - [1.17.2. Appending Content](#1172-appending-content)
+    - [1.17.3. innerHTML](#1173-innerhtml)
+  - [1.18. DONE](#118-done)
+  - [1.19. Event Delegation](#119-event-delegation)
+  - [1.20. Notes](#120-notes)
+  - [1.21. Expressions](#121-expressions)
+  - [1.22. Statements](#122-statements)
 
-## Homework
+## 1.2. Homework
 
 Complete your midterm assignment.
 
 <!-- Create separate popovers for each button in the navigations. The popovers should each have different messages. -->
 
-## Reading
+## 1.3. Reading
 
 - See how far you can get in [Grid Garden](http://cssgridgarden.com/)
 - MDN on [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
 - The [Absolute Beginners Guide](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/) to NPM
 - [What is GIT?](https://guides.github.com/introduction/git-handbook/)
 
-## Goals
+## 1.4. Goals
 
 - Review GIT and Github set up and branching
 - Review NPM set up and installing
@@ -52,7 +62,7 @@ Complete your midterm assignment.
 - Review basic DOM manipulation techiques
 - Understand how to create an element and insert it into the DOM
 
-## Initialize GIT with .gitignore
+## 1.5. Initialize GIT with .gitignore
 
 ```sh
 $ git init
@@ -74,7 +84,7 @@ Log into [Github](http://github.com) and create a new repo.
 
 Follow the instructions to create a remote and push the master branch and inclass branch to the remote.
 
-## NPM Initialization and Installs
+## 1.6. NPM Initialization and Installs
 
 - Create a manifest (package.json)
 - Install a package
@@ -108,7 +118,7 @@ In the terminal:
 
 `$ npm run start`
 
-## Basilica Project
+## 1.7. Basilica Project
 
 ![Image of Basilica](other/FINAL.png)
 
@@ -120,7 +130,7 @@ Have a look at a sample [recipe](https://www.allrecipes.com/recipe/20144/banana-
 
 Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
 
-### Starter CSS
+### 1.7.1. Starter CSS
 
 Examine the starter CSS. Note the use of `max-width` on the body selector - we applied these to a div in the past.
 
@@ -176,7 +186,7 @@ Replace the generic hover with:
 }
 ```
 
-## Responsive Images
+## 1.8. Responsive Images
 
 [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) are a critical component of responsive design:
 
@@ -274,7 +284,7 @@ You need a server to output multiple mage sizes and formats. There are specializ
 />
 ```
 
-## Flex Layout
+## 1.9. Flex Layout
 
 The two column view applies only to widescreen.
 
@@ -359,20 +369,7 @@ footer {
 }
 ```
 
-<!-- Create a box sizing CSS rule for all the boxes. See [Paul Irish](https://www.paulirish.com/2012/box-sizing-border-box-ftw/) on box-sizing.
-
-```css
-html {
-  box-sizing: border-box;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-``` -->
-
-### Review: Pseudo-elements vs Pseudo-classes
+### 1.9.1. Review: Pseudo-elements vs Pseudo-classes
 
 ```txt
 Pseudo-elements:    Pseudo-classes:
@@ -395,7 +392,7 @@ e.g.: Selected text:
 }
 ```
 
-## The Branding Header
+## 1.10. The Branding Header
 
 Add the green background to the branding div.
 
@@ -520,7 +517,7 @@ header a.beta:hover {
 }
 ```
 
-### Header: Responsive Design
+### 1.10.1. Header: Responsive Design
 
 Examine the site for problems in a narrow browser.
 
@@ -597,7 +594,7 @@ header {
 
 Remember: there is no hover in touch screen devices.
 
-## Navigation
+## 1.11. Navigation
 
 Add the code below one rule at a time:
 
@@ -641,7 +638,7 @@ nav {
 
 Note: the flex-wrap property allows the paragraph to stack on small screens.
 
-### Button and Gradients
+### 1.11.1. Button and Gradients
 
 ```css
 nav a {
@@ -694,7 +691,7 @@ nav a {
 
 Note: this is a setting which will likely need to be changed to accomodate small screens.
 
-## CSS Grid
+## 1.12. CSS Grid
 
 CSS Tricks offers a [guide to CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
@@ -785,7 +782,7 @@ header {
 
 There is a complete CSS file available at [this gist](https://gist.github.com/DannyBoyNYC/4e0065e7b1f542c67a13899f0541bdb6)
 
-## Sass
+## 1.13. Sass
 
 Examine [this branch](https://github.com/front-end-foundations/Basilica/tree/sass-done) on the repo.
 Note the `scss` folder and its contents.
@@ -833,7 +830,7 @@ Note that sass is less tolerant of errors than regular css. Try
 
 `* { color red !important };`.
 
-### SASS Variables
+### 1.13.1. SASS Variables
 
 Sass has its own variables system, e.g.:
 
@@ -884,7 +881,7 @@ Note the syntax differences between a native CSS import as well as the underscor
 
 Test using the `$red` variable. Try changing it. Remove it.
 
-### SASS Nesting
+### 1.13.2. SASS Nesting
 
 Sass will let you nest your CSS selectors in a way that mirrors the hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
 
@@ -924,7 +921,7 @@ header {
 }
 ```
 
-### SASS Partials
+### 1.13.3. SASS Partials
 
 Sass partials allow you to create separate function or feature specific style sheets using [imports](https://sass-lang.com/guide#topic-4) and helps maintain a large code base.
 
@@ -1086,7 +1083,8 @@ nav {
 
 Finally, create partials `_base.scss` and `_content.scss`.
 
-<!-- copied the font css into a new partial and changed the paths
+copied the font css into a new partial and changed the paths
+
 ```
 @font-face {
   font-family: "FuturaStdLight";
@@ -1100,7 +1098,6 @@ Finally, create partials `_base.scss` and `_content.scss`.
   font-style: normal;
 }
 ```
- -->
 
 In `_base.scss`:
 
@@ -1266,11 +1263,11 @@ a {
 
 Note: switching branches at this point will delete styles.css from the css directory. Stop the processes running in the console before switching branches.
 
-## JavaScript
+## 1.14. JavaScript
 
 Let's ease into JavaScript with a demonstration and a simple DOM manipulation.
 
-### Aside: Node
+### 1.14.1. Aside: Node
 
 Review Node:
 
@@ -1384,7 +1381,7 @@ function makeBasil() {
 }
 ```
 
-### Add a Script
+### 1.14.2. Add a Script
 
 Note `index.js` in the `js` folder and link it to `index.html`:
 
@@ -1484,7 +1481,7 @@ h2 {
 }
 ```
 
-## JavaScript Popover
+## 1.15. JavaScript Popover
 
 Building the popover window.
 
@@ -1557,7 +1554,7 @@ function showPopover(event) {
 document.addEventListener('click', showPopover);
 ```
 
-## DOM Scripting Methods Used
+## 1.16. DOM Scripting Methods Used
 
 - Use [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to find the first matching element on a page `var popoverWindow = document.querySelector('.betainfo');`
 - Use [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/querySelectorAll) to find all matching elements on a page
@@ -1565,7 +1562,7 @@ document.addEventListener('click', showPopover);
 - Use [Functions](https://developer.mozilla.org/en-US/docs/Glossary/Function) to store and execute your commands
 - Use [classList](https://plainjs.com/javascript/attributes/adding-removing-and-testing-for-classes-9/) to add, remove, toggle, list and test for classes
 
-### matches
+### 1.16.1. matches
 
 The `matches()` method lets you check if an element would be selected by a particular selector. It returns true if the element is a match, and false when it’s not. It can be an alternative to using `element.classList.contains('.someclass')`.
 
@@ -1589,7 +1586,7 @@ if (elem.matches('.click-me, .button-submit')) {
 }
 ```
 
-### Add Another Close Method
+### 1.16.2. Add Another Close Method
 
 Add html to the betainfo:
 
@@ -1677,7 +1674,7 @@ Add `z-index`s to the header and popover as appropriate.
 
 Remove the popover css into its own partial.
 
-## A Dynamic Popover
+## 1.17. A Dynamic Popover
 
 We will recreate the popover HTML using JavaScript. One advantage of making our popover dynamic is that we will be able to reuse it elsewhere on our page.
 
@@ -1740,7 +1737,7 @@ We will retain all the CSS in `_popovers.scss` for use in our new popover:
 }
 ```
 
-### createElement
+### 1.17.1. createElement
 
 You use the `document.createElement()` [method](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) to create an HTML element.
 
@@ -1767,7 +1764,7 @@ div.textContent = 'Nice work, dude!';
 div;
 ```
 
-### Appending Content
+### 1.17.2. Appending Content
 
 After you create an element, you need a way to add it to your page. JavaScript provides a handful of methods you can use to add an element before, after, or within some other element in the DOM.
 
@@ -1813,7 +1810,7 @@ var target = document.querySelector('header');
 target.before(div);
 ```
 
-### innerHTML
+### 1.17.3. innerHTML
 
 The innerHTML property can be used to both get and set HTML content in an element.
 
@@ -1894,7 +1891,7 @@ var popoverContent = `
 
 E.g.:
 
-## DONE
+## 1.18. DONE
 
 ```js
 var betaButton = document.querySelector('.beta');
@@ -1959,7 +1956,7 @@ function makePopover() {
 
 Note that we do not create `var popoverCloseButton` or attach an event listener until we have created a popover. Otherwise we would get an error.
 
-## Event Delegation
+## 1.19. Event Delegation
 
 We can use 'event delegation' in order to further abstract the click event so we can use it elsewhere on the page.
 
@@ -2195,7 +2192,7 @@ function destroyPopover() {
 }
 ```
 
-## Notes
+## 1.20. Notes
 
 Template literals allow embedded expressions. You can use multi-line strings and string interpolation features with them. They were called "template strings" in prior editions of the ES2015 specification.
 
@@ -2262,7 +2259,7 @@ const article = document.querySelector('article');
 article.innerHTML = recipe;
 ```
 
-## Expressions
+## 1.21. Expressions
 
 Any unit of code that can be evaluated to a value is an expression. Since expressions produce values, they can appear anywhere in a program where JavaScript expects a value.
 
@@ -2271,7 +2268,7 @@ Any unit of code that can be evaluated to a value is an expression. Since expres
 'hello' + 'world';
 ```
 
-## Statements
+## 1.22. Statements
 
 A statement is an instruction to perform a specific action - creating a variable or a function, looping through an array of elements, and evaluating code based on a specific condition.
 
