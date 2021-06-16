@@ -32,7 +32,9 @@
 
 ## Homework
 
-Create separate popovers for each button in the navigations. The popovers should each have different messages.
+Complete your midterm assignment.
+
+<!-- Create separate popovers for each button in the navigations. The popovers should each have different messages. -->
 
 ## Reading
 
@@ -290,7 +292,6 @@ Note: we _cannot_ use a CSS variable as a breakpoint:
 
 ```css
 @media (min-width: var(--breakpoint)) {
-  ...;
 }
 ```
 
