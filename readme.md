@@ -23,6 +23,7 @@
     - [1.13.1. SASS Variables](#1131-sass-variables)
     - [1.13.2. SASS Nesting](#1132-sass-nesting)
     - [1.13.3. SASS Partials](#1133-sass-partials)
+    - [A Note on Refactoring](#a-note-on-refactoring)
   - [1.14. JavaScript](#114-javascript)
     - [1.14.1. Aside: Demo Arrays in Node](#1141-aside-demo-arrays-in-node)
     - [1.14.2. Add a Script](#1142-add-a-script)
@@ -34,7 +35,6 @@
     - [1.17.1. createElement](#1171-createelement)
     - [1.17.2. Appending Content](#1172-appending-content)
     - [1.17.3. innerHTML](#1173-innerhtml)
-  - [1.18. DONE](#118-done)
   - [1.19. Event Delegation](#119-event-delegation)
   - [1.20. Notes](#120-notes)
   - [1.21. Expressions](#121-expressions)
@@ -1001,7 +1001,7 @@ Create a partial `_nav.scss` in the imports folder and cut and paste the nested 
 
 Examine the CSS in the browser's inspector. Note the mapping.
 
-One of the best things about nesting in SASS is how it allows you to simplify media queries and keep them aligned with the selector.
+One of the best things about nesting in SASS is how it allows you to organize media queries and keep them aligned with the selector.
 
 Cut the body rule from the breakpoint and add the styling to the initial body rule as shown:
 
@@ -1081,23 +1081,9 @@ nav {
 }
 ```
 
+<!-- Copy and Paste -->
+
 Finally, create partials `_base.scss` and `_content.scss`.
-
-copied the font css into a new partial and changed the paths
-
-```
-@font-face {
-  font-family: "FuturaStdLight";
-  src: url("font/futurastd-light-webfont.eot");
-  src: url("font/futurastd-light-webfont.eot?#iefix")
-      format("embedded-opentype"),
-    url("font/futurastd-light-webfont.woff") format("woff"),
-    url("font/futurastd-light-webfont.ttf") format("truetype"),
-    url("font/futurastd-light-webfont.svg#FuturaStdLight") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-```
 
 In `_base.scss`:
 
@@ -1263,6 +1249,45 @@ a {
 
 Note: switching branches at this point will delete styles.css from the css directory. Stop the processes running in the console before switching branches.
 
+Finally, copy the font css into a new partial and change the paths:
+
+```css
+@font-face {
+  font-family: 'FuturaStdLight';
+  src: url('futura/futurastd-light-webfont.eot');
+  src: url('futura/futurastd-light-webfont.eot?#iefix') format('embedded-opentype'),
+    url('futura/futurastd-light-webfont.woff') format('woff'),
+    url('futura/futurastd-light-webfont.ttf') format('truetype'), url('futura/futurastd-light-webfont.svg#FuturaStdLight')
+      format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+```
+
+### A Note on Refactoring
+
+Once you have everything visually working and start using your template with live data you typically find issues with the design.
+
+Note `index.js` in the `js` folder and link it to `index.html`:
+
+```html
+<script src="js/index.js"></script>
+```
+
+```js
+var API = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes'
+
+fetch(API)
+  .then(function (response) {
+    return response.json()
+  })
+  .then(function (data) {
+    document.querySelector('.quote').innerText = data[0]
+  })
+```
+
+Add class "quote" to the lone paragraph in the navigation.
+
 ## 1.14. JavaScript
 
 Let's ease into JavaScript with a demonstration and a simple DOM manipulation.
@@ -1284,17 +1309,17 @@ $ npm install random-number
 In `basilnode.js`:
 
 ```js
-const randomNumber = require('random-number');
+const randomNumber = require('random-number')
 
 const randomIndex = randomNumber({
   min: 0,
   max: 4,
   integer: true,
-});
+})
 
-console.log(randomIndex);
-console.log(typeof randomNumber);
-console.log(typeof randomIndex);
+console.log(randomIndex)
+console.log(typeof randomNumber)
+console.log(typeof randomIndex)
 ```
 
 At the command line:
@@ -1306,23 +1331,23 @@ $ node basilnode.js
 Add some additional variables - arrays:
 
 ```js
-const randomNumber = require('random-number');
+const randomNumber = require('random-number')
 
-const basilChef = ['mama', 'papa', 'baby'];
+const basilChef = ['mama', 'papa', 'baby']
 
 function randomItem(array) {
   const randomIndex = randomNumber({
     min: 0,
     max: array.length - 1,
     integer: true,
-  });
-  return array[randomIndex];
+  })
+  return array[randomIndex]
 }
 
-console.log(basilChef);
-console.log(basilChef[0]);
-console.log(basilChef.length);
-console.log(randomItem(basilChef));
+console.log(basilChef)
+console.log(basilChef[0])
+console.log(basilChef.length)
+console.log(randomItem(basilChef))
 ```
 
 ```sh
@@ -1332,38 +1357,30 @@ $ node basilnode.js
 Call the randomItem function from within another function and use a [template string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) to construct a bit of HTML::
 
 ```js
-const randomNumber = require('random-number');
+const randomNumber = require('random-number')
 
-const basilChef = ['mama', 'papa', 'baby'];
-const basilTexture = ['greasy', 'frozen', 'spicy'];
+const basilChef = ['mama', 'papa', 'baby']
+const basilTexture = ['greasy', 'frozen', 'spicy']
 
 function randomItem(array) {
   const randomIndex = randomNumber({
     min: 0,
     max: array.length - 1,
     integer: true,
-  });
-  return array[randomIndex];
+  })
+  return array[randomIndex]
 }
 
 function makeBasil() {
-  return `<h2>${randomItem(basilChef)}'s ${randomItem(
-    basilTexture
-  )} basil</h2>`;
+  return `<h2>${randomItem(basilChef)}'s ${randomItem(basilTexture)} basil</h2>`
 }
 
-console.log(makeBasil());
+console.log(makeBasil())
 ```
 
 ### 1.14.2. Add a Script
 
 We'll do something similar to the node demo above in our app - replacing the recipe title with a random one.
-
-Note `index.js` in the `js` folder and link it to `index.html`:
-
-```html
-<script src="js/index.js"></script>
-```
 
 In `index.js`:
 
@@ -1371,29 +1388,29 @@ Evolve a function that uses JavaScript's built-in [Math methods](https://develop
 
 ```js
 function random() {
-  const max = 3;
+  const max = 3
   // const randomIndex = Math.random();
   // const randomIndex = Math.random() * max;
-  const randomIndex = Math.floor(Math.random() * max);
-  return randomIndex;
+  const randomIndex = Math.floor(Math.random() * max)
+  return randomIndex
 }
 
-console.log(random());
+console.log(random())
 ```
 
 Now call our random function passing in an array.
 
 ```js
-const basilChefs = ['mama', 'papa', 'baby'];
+const basilChefs = ['mama', 'papa', 'baby']
 
 function random(array) {
-  const max = array.length;
-  const randomIndex = Math.floor(Math.random() * max);
-  return array[randomIndex];
+  const max = array.length
+  const randomIndex = Math.floor(Math.random() * max)
+  return array[randomIndex]
 }
 
-var name = random(basilChefs);
-console.log(name);
+var name = random(basilChefs)
+console.log(name)
 ```
 
 We used the random number to select a name from the array and return it to the calling function.
@@ -1401,43 +1418,43 @@ We used the random number to select a name from the array and return it to the c
 Add another variable `basilTexture` and massage the output to product a string:
 
 ```js
-const basilChefs = ['mama', 'papa', 'baby'];
-const basilTexture = ['greasy', 'frozen', 'spicy'];
+const basilChefs = ['mama', 'papa', 'baby']
+const basilTexture = ['greasy', 'frozen', 'spicy']
 
 function random(array) {
-  const max = array.length;
-  const randomIndex = Math.floor(Math.random() * max);
-  return array[randomIndex];
+  const max = array.length
+  const randomIndex = Math.floor(Math.random() * max)
+  return array[randomIndex]
 }
 
 var recipeName =
-  'My ' + random(basilChefs) + "'s " + random(basilTexture) + ' pesto';
-console.log(recipeName);
+  'My ' + random(basilChefs) + "'s " + random(basilTexture) + ' pesto'
+console.log(recipeName)
 ```
 
 Let's use the return value in our layout:
 
 ```js
-const el = document.querySelector('h2');
+const el = document.querySelector('h2')
 ```
 
 Test `el` in the console.
 
 ```js
-const el = document.querySelector('h2');
+const el = document.querySelector('h2')
 
-const basilChefs = ['mama', 'papa', 'baby'];
-const basilTexture = ['greasy', 'frozen', 'spicy'];
+const basilChefs = ['mama', 'papa', 'baby']
+const basilTexture = ['greasy', 'frozen', 'spicy']
 
 function random(array) {
-  const max = array.length;
-  const randomIndex = Math.floor(Math.random() * max);
-  return array[randomIndex];
+  const max = array.length
+  const randomIndex = Math.floor(Math.random() * max)
+  return array[randomIndex]
 }
 
-var recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`;
+var recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`
 
-el.innerHTML = recipeName;
+el.innerHTML = recipeName
 ```
 
 and format it in `_base.scss`:
@@ -1493,33 +1510,34 @@ Code the `.beta` button to show the window.
 Create a variable for the beta button, attach an event listener to it, and create a function to handle the event.
 
 ```js
-var popoverWindow = document.querySelector('.betainfo');
-var betaButton = document.querySelector('.beta');
+var popoverWindow = document.querySelector('.betainfo')
+var betaButton = document.querySelector('.beta')
 
-function showPopover() {
-  popoverWindow.classList.toggle('show');
-  event.preventDefault();
+function showPopover(event) {
+  popoverWindow.classList.toggle('show')
+  event.preventDefault()
 }
 
-betaButton.addEventListener('click', showPopover);
+betaButton.addEventListener('click', showPopover)
 ```
 
 Use event delegation:
 
 ```js
-var popoverWindow = document.querySelector('.betainfo');
+var popoverWindow = document.querySelector('.betainfo')
 // var betaButton = document.querySelector('.beta');
 
 function showPopover(event) {
-  console.log(event.target);
+  console.log(event.target)
   if (!event.target.matches('.beta')) {
-    return;
+    return
   }
-  popoverWindow.classList.toggle('show');
-  event.preventDefault();
+  popoverWindow.classList.toggle('show')
+  event.preventDefault()
 }
 
-document.addEventListener('click', showPopover);
+// betaButton.addEventListener('click', showPopover);
+document.addEventListener('click', showPopover)
 ```
 
 ## 1.16. DOM Scripting Methods Used
@@ -1535,7 +1553,7 @@ document.addEventListener('click', showPopover);
 The `matches()` method lets you check if an element would be selected by a particular selector. It returns true if the element is a match, and false when it’s not. It can be an alternative to using `element.classList.contains('.someclass')`.
 
 ```js
-var elem = document.querySelector('.click-me');
+var elem = document.querySelector('.click-me')
 
 // Match by an ID
 if (elem.matches('#first-button')) {
@@ -1591,14 +1609,14 @@ Adjust the line height property to center the ✖︎.
 Extend the showPopover function to include the new element script.
 
 ```js
-var popoverWindow = document.querySelector('.betainfo');
+var popoverWindow = document.querySelector('.betainfo')
 
 function showPopover(event) {
-  if (!event.target.matches('.beta, .closer')) return;
-  popoverWindow.classList.toggle('show');
+  if (!event.target.matches('.beta, .closer')) return
+  popoverWindow.classList.toggle('show')
 }
 
-document.addEventListener('click', showPopover);
+document.addEventListener('click', showPopover)
 ```
 
 Add a shader div after the body tag to block access to the page and make the window modal:
@@ -1624,16 +1642,16 @@ Add styling:
 Add it to the script:
 
 ```js
-var popoverWindow = document.querySelector('.betainfo');
-var shader = document.querySelector('.shader');
+var popoverWindow = document.querySelector('.betainfo')
+var shader = document.querySelector('.shader')
 
 function showPopover(event) {
-  if (!event.target.matches('.beta, .closer')) return;
-  popoverWindow.classList.toggle('show');
-  shader.classList.toggle('show');
+  if (!event.target.matches('.beta, .closer')) return
+  popoverWindow.classList.toggle('show')
+  shader.classList.toggle('show')
 }
 
-document.addEventListener('click', showPopover);
+document.addEventListener('click', showPopover)
 ```
 
 Test.
@@ -1721,15 +1739,15 @@ You can manipulate an element created with `createElement()` like you would any 
 In the browser's console:
 
 ```js
-var div = document.createElement('div');
-div.className = 'new-div';
-div.id = 'new-div';
-div.setAttribute('data-div', 'new');
-div.style.color = '#fff';
-div.style.backgroundColor = 'rebeccapurple';
+var div = document.createElement('div')
+div.className = 'new-div'
+div.id = 'new-div'
+div.setAttribute('data-div', 'new')
+div.style.color = '#fff'
+div.style.backgroundColor = 'rebeccapurple'
 // add some text
-div.textContent = 'Nice work, dude!';
-div;
+div.textContent = 'Nice work, dude!'
+div
 ```
 
 ### 1.17.2. Appending Content
@@ -1740,23 +1758,23 @@ First grab a target:`
 
 ```js
 // Get the element to add your new HTML element before, after, or within
-var target = document.querySelector('.content h2');
+var target = document.querySelector('.content h2')
 ```
 
 Then use the appropriate method:
 
 ```js
 // Inject the `div` element before the element
-target.before(div);
+target.before(div)
 
 // Inject the `div` element after the element
-target.after(div);
+target.after(div)
 
 // Inject the `div` element before the first item *inside* the element
-target.prepend(div);
+target.prepend(div)
 
 // Inject the `div` element after the first item *inside* the element
-target.append(div);
+target.append(div)
 ```
 
 Try it again with the `betainfo` class.
@@ -1764,18 +1782,18 @@ Try it again with the `betainfo` class.
 **Remove the `display: none` property from the betainfo css first.**
 
 ```js
-var div = document.createElement('div');
-div.className = 'betainfo';
-div.style.color = '#fff';
-div.style.backgroundColor = 'rebeccapurple';
+var div = document.createElement('div')
+div.className = 'betainfo'
+div.style.color = '#fff'
+div.style.backgroundColor = 'rebeccapurple'
 // add some text
-div.textContent = 'Nice work, dude!';
+div.textContent = 'Nice work, dude!'
 ```
 
 ```js
-div;
-var target = document.querySelector('header');
-target.before(div);
+div
+var target = document.querySelector('header')
+target.before(div)
 ```
 
 ### 1.17.3. innerHTML
@@ -1785,30 +1803,29 @@ The innerHTML property can be used to both get and set HTML content in an elemen
 In the console:
 
 ```js
-var elem = document.querySelector('.content');
-elem;
+var elem = document.querySelector('.content')
+elem
 // Get HTML content
-var html = elem.innerHTML;
-html;
+var html = elem.innerHTML
+html
 
 // Set HTML content
 elem.innerHTML =
-  '<p>We can dynamically change the HTML including HTML elements like <a href="#">this link</a>.</p>';
+  '<p>We can dynamically change the HTML including HTML elements like <a href="#">this link</a>.</p>'
 
 // Add += HTML to the end of an element's existing content
-elem.innerHTML =
-  elem.innerHTML + '<p>Add this after what is already there.</p>';
-elem.innerHTML += '<p>Add this after what is already there.</p>';
+elem.innerHTML = elem.innerHTML + '<p>Add this after what is already there.</p>'
+elem.innerHTML += '<p>Add this after what is already there.</p>'
 
 // Add HTML to the beginning of an element's existing content
-elem.innerHTML = '<p>We can add this to the beginning.</p>' + elem.innerHTML;
+elem.innerHTML = '<p>We can add this to the beginning.</p>' + elem.innerHTML
 ```
 
 Note: there is also an `innerText` property available. It works just like `innerHTML`, but only gets the text of an element and omits the markup.
 
 ```js
-var elem = document.querySelector('.content');
-elem.innerText = '<p>Welcome back my friends to the show that never ends.</p>';
+var elem = document.querySelector('.content')
+elem.innerText = '<p>Welcome back my friends to the show that never ends.</p>'
 ```
 
 Notice how it shows the HTML tags as text.
@@ -1828,86 +1845,54 @@ Since we are creating our div dynamically we deleted the 'hardcoded' div:
 Add to `index.js`:
 
 ```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
+var betaButton = document.querySelector('.beta')
+betaButton.addEventListener('click', makePopover)
 
 function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent =
-    '<h2>Beta Only!</h2><p>Information about the beta program.<p><div class="closer" href="#0"><div>✖︎</div></div>'; // NEW
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
+  var popover = document.createElement('div')
+  popover.classList.add('betainfo')
+  var popoverContent = `
+    <h2>In Beta</h2>
+    <p>Information about the beta program.<p>
+    <div class="closer" href="#0">
+    <div>✖︎</div>
+    </div>
+    `
+  popover.innerHTML = popoverContent
+  document.querySelector('body').append(popover)
 }
 ```
 
 Click on the beta button and note the div in the source html.
-
-Note the long line for the popoverContent variable. Fortunately we can use a template string instead.
-
-Note the use of back ticks:
-
-```js
-var popoverContent = `
-<h2>In Beta</h2>
-<p>Information about the beta program.<p>
-<div class="closer" href="#0">
-<div>✖︎</div>
-</div>
-`;
-```
-
-E.g.:
-
-## 1.18. DONE
-
-```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
-
-function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent = `
-  <h2>In Beta</h2>
-  <p>Information about the beta program.<p>
-  <div class="closer" href="#0">
-    <div>✖︎</div>
-  </div>
-  `;
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
-}
-```
 
 Examine the elements in the dev tools. We are creating multiple popovers.
 
 Now, let's add the close functionality ('destroyPopover') in. We cannot use `classList` to toggle the display property here so we will use the opposite of `append()` which is `remove()`:
 
 ```js
-var betaButton = document.querySelector('.beta');
-betaButton.addEventListener('click', makePopover);
+var betaButton = document.querySelector('.beta')
+betaButton.addEventListener('click', makePopover)
 
 function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement('div')
+  popover.classList.add('betainfo')
   var popoverContent = `
   <h2>In Beta</h2>
   <p>Information about the beta program.<p>
   <div class="closer" href="#0">
     <div>✖︎</div>
   </div>
-  `;
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
+  `
+  popover.innerHTML = popoverContent
+  document.querySelector('body').append(popover)
 
-  var popoverCloseButton = document.querySelector('.closer'); // NEW
-  popoverCloseButton.addEventListener('click', destroyPopover); // NEW
+  var popoverCloseButton = document.querySelector('.closer') // NEW
+  popoverCloseButton.addEventListener('click', destroyPopover) // NEW
 }
 // NEW
 function destroyPopover() {
-  document.querySelector('.betainfo').remove();
-  event.preventDefault();
+  document.querySelector('.betainfo').remove()
+  event.preventDefault()
 }
 ```
 
@@ -1932,10 +1917,10 @@ Replace the event listener and add a new function:
 
 ```js
 // betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', clickHandler);
+document.addEventListener('click', clickHandler)
 
 function clickHandler(event) {
-  console.log(event.target);
+  console.log(event.target)
 }
 ```
 
@@ -1943,31 +1928,13 @@ E.g.:
 
 ```js
 // betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', clickHandler);
+document.addEventListener('click', clickHandler)
 
 function clickHandler() {
-  console.log(event.target);
+  console.log(event.target)
 }
 
-function makePopover() {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  var popoverContent = `
-    <h2>In Beta</h2>
-    <p>Information about the beta program.<p>
-    <a class="closer" href="#0">✖︎</a>
-  `;
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
-
-  var popoverCloseButton = document.querySelector('.closer');
-  popoverCloseButton.addEventListener('click', destroyPopover);
-}
-
-function destroyPopover() {
-  document.querySelector('.betainfo').remove();
-  event.preventDefault();
-}
+...
 ```
 
 Note that you can see whatever you click on in the console.
@@ -1976,9 +1943,9 @@ Add an `if` statement to run `makePopover` if the item clicked on (`event.target
 
 ```js
 function clickHandler(event) {
-  console.log(event.target);
+  console.log(event.target)
   if (event.target.matches('.beta')) {
-    makePopover();
+    makePopover()
   }
 }
 ```
@@ -1986,38 +1953,38 @@ function clickHandler(event) {
 We can also add our shader div:
 
 ```js
-var betaButton = document.querySelector('.beta');
-document.addEventListener('click', clickHandler);
+document.addEventListener('click', clickHandler)
 
 function clickHandler(event) {
-  console.log(event.target);
   if (event.target.matches('.beta')) {
-    makePopover();
+    makePopover()
   }
 }
+
 function makePopover() {
   if (document.querySelector('.betainfo')) {
-    destroyPopover();
+    destroyPopover()
   }
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
+  var popover = document.createElement('div')
+  popover.classList.add('betainfo')
   var popoverContent = `
   <h2>In Beta</h2>
   <p>Information about the beta program.<p>
-  <a class="closer" href="#0">✖︎</a>
-  `;
-  popover.innerHTML = popoverContent;
-  document.querySelector('body').append(popover);
+  <div class="closer" href="#0">
+    <div>✖︎</div>
+  </div>
+  `
+  popover.innerHTML = popoverContent
+  document.querySelector('body').append(popover)
 
-  var popoverCloseButton = document.querySelector('.closer'); // NEW
-  popoverCloseButton.addEventListener('click', destroyPopover); // NEW
-  document.querySelector('.shader').classList.add('show');
+  var popoverCloseButton = document.querySelector('.closer')
+  popoverCloseButton.addEventListener('click', destroyPopover)
+  document.querySelector('.shader').classList.add('show') // NEW
 }
-
-function destroyPopover(event) {
-  document.querySelector('.betainfo').remove();
-  document.querySelector('.shader').classList.remove('show');
-  event.preventDefault();
+function destroyPopover() {
+  document.querySelector('.betainfo').remove()
+  document.querySelector('.shader').classList.remove('show') // NEW
+  event.preventDefault()
 }
 ```
 
@@ -2027,7 +1994,7 @@ Add a class `it` to each of the nav buttons:
 
 ```html
 <nav>
-  <p>Bonjour Monsieur Ferme</p>
+  <q><span class="quote">Bonjour Monsieur Ferme</span></q>
   <ul>
     <li class="nav-pickit"><a class="it" href="#">pick it</a></li>
     <li class="nav-cookit"><a class="it" href="#">cook it</a></li>
@@ -2043,12 +2010,12 @@ var betaContent = `
 <h2>In Beta</h2>
 <p>Information about the beta program.<p>
 <a class="closer" href="#0">✖︎</a>
-`;
+`
 var buttonContent = `
 <h2>Coming Soon</h2>
 <p>This feature coming soon.<p>
 <a class="closer" href="#0">✖︎</a>
-`;
+`
 ```
 
 Use the first new variable as the source for our popover content:
@@ -2065,14 +2032,14 @@ Now let's decide which item is clicked on and use that to determine the message:
 
 ```js
 function clickHandler(event) {
-  console.log(event.target);
+  console.log(event.target)
   if (event.target.matches('.beta')) {
-    makePopover(betaContent); // NEW
+    makePopover(betaContent) // NEW
   } else if (event.target.closest('nav ul')) {
     // NEW
-    makePopover(buttonContent); // NEW
+    makePopover(buttonContent) // NEW
   } else if (event.target.matches('.close')) {
-    destroyPopover();
+    destroyPopover()
   }
 }
 ```
@@ -2091,13 +2058,13 @@ And then making the contents of the popover dependent on the value of the variab
 
 ```js
 function makePopover(content) {
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  popover.innerHTML = content; // NEW
-  document.querySelector('body').append(popover);
+  var popover = document.createElement('div')
+  popover.classList.add('betainfo')
+  popover.innerHTML = content // NEW
+  document.querySelector('body').append(popover)
 
-  var popoverCloseButton = document.querySelector('.close');
-  popoverCloseButton.addEventListener('click', destroyPopover);
+  var popoverCloseButton = document.querySelector('.close')
+  popoverCloseButton.addEventListener('click', destroyPopover)
 }
 ```
 
@@ -2118,61 +2085,49 @@ var betaContent = `
 <p>Information about the beta program.<p>
 <a class="closer" href="#0">✖︎</a>
 
-`;
+`
 
 var buttonContent = `
 <h2>Coming Soon</h2>
 <p>This feature coming soon.<p>
 <a class="closer" href="#0">✖︎</a>
-`;
+`
 
-var betaButton = document.querySelector('.beta');
-document.addEventListener('click', clickHandler, false);
+var betaButton = document.querySelector('.beta')
+document.addEventListener('click', clickHandler, false)
 
 function clickHandler(event) {
-  console.log(event.target);
+  console.log(event.target)
   if (event.target.matches('.beta')) {
-    makePopover(betaContent);
+    makePopover(betaContent)
   } else if (event.target.closest('nav ul ')) {
-    makePopover(buttonContent);
+    makePopover(buttonContent)
   } else if (event.target.matches('.closer')) {
-    destroyPopover();
+    destroyPopover()
   } else {
-    return;
+    return
   }
 }
 
 function makePopover(content) {
   if (document.querySelector('.betainfo')) {
-    destroyPopover();
+    destroyPopover()
   }
-  var popover = document.createElement('div');
-  popover.classList.add('betainfo');
-  popover.innerHTML = content;
-  document.querySelector('body').append(popover);
-  document.querySelector('.shader').classList.add('show');
+  var popover = document.createElement('div')
+  popover.classList.add('betainfo')
+  popover.innerHTML = content
+  document.querySelector('body').append(popover)
+  document.querySelector('.shader').classList.add('show')
 }
 
 function destroyPopover(event) {
-  document.querySelector('.betainfo').remove();
-  document.querySelector('.shader').classList.remove('show');
-  event.preventDefault();
+  document.querySelector('.betainfo').remove()
+  document.querySelector('.shader').classList.remove('show')
+  event.preventDefault()
 }
 ```
 
 ## 1.20. Notes
-
-```js
-var API = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
-
-fetch(API)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    document.querySelector('.quote').innerText = data[0];
-  });
-```
 
 Template literals allow embedded expressions. You can use multi-line strings and string interpolation features with them. They were called "template strings" in prior editions of the ES2015 specification.
 
@@ -2233,10 +2188,10 @@ let recipe = `
     1 <abbr title="Pounds">lb</abbr> plain pasta
   </li>
 </ul>
-`;
+`
 
-const article = document.querySelector('article');
-article.innerHTML = recipe;
+const article = document.querySelector('article')
+article.innerHTML = recipe
 ```
 
 ## 1.21. Expressions
@@ -2244,8 +2199,8 @@ article.innerHTML = recipe;
 Any unit of code that can be evaluated to a value is an expression. Since expressions produce values, they can appear anywhere in a program where JavaScript expects a value.
 
 ```js
-10 + 13;
-'hello' + 'world';
+10 + 13
+'hello' + 'world'
 ```
 
 ## 1.22. Statements
@@ -2253,23 +2208,23 @@ Any unit of code that can be evaluated to a value is an expression. Since expres
 A statement is an instruction to perform a specific action - creating a variable or a function, looping through an array of elements, and evaluating code based on a specific condition.
 
 ```js
-var total = 0;
+var total = 0
 
 function greet(message) {
-  console.log(message);
+  console.log(message)
 }
 ```
 
 ```js
-let dirs = '';
+let dirs = ''
 
 function createDirections() {
   for (let i = 0; i < currRecipe.directions.length; i++) {
-    dirs += '<li>' + currRecipe.directions[i] + '</li>';
+    dirs += '<li>' + currRecipe.directions[i] + '</li>'
   }
 }
 
-createDirections();
+createDirections()
 ```
 
 ```js
@@ -2289,11 +2244,11 @@ ${currRecipe.directions.map(dir => `<li>${dir}</li>`).join('')}
 ONE
 
 ```js
-const recipeTitle = recipesData[0].name;
-console.log(recipeTitle);
-const figure = document.querySelector('h2');
-console.log(figure);
-figure.innerText = recipeTitle;
+const recipeTitle = recipesData[0].name
+console.log(recipeTitle)
+const figure = document.querySelector('h2')
+console.log(figure)
+figure.innerText = recipeTitle
 ```
 
 `<div id="app"></div>`
@@ -2301,10 +2256,10 @@ figure.innerText = recipeTitle;
 TWO
 
 ```js
-const recipe = recipesData[0];
-const recipeOne = '<h2 itemprop="name">' + recipe.name + '</h2>';
-const app = document.querySelector('#app');
-app.innerHTML = recipeOne;
+const recipe = recipesData[0]
+const recipeOne = '<h2 itemprop="name">' + recipe.name + '</h2>'
+const app = document.querySelector('#app')
+app.innerHTML = recipeOne
 ```
 
 `<div id="app"></div>`
@@ -2312,7 +2267,7 @@ app.innerHTML = recipeOne;
 THREE
 
 ```js
-const recipe = recipesData[0];
+const recipe = recipesData[0]
 const recipeOne =
   '<h2>' +
   recipe.name +
@@ -2328,34 +2283,34 @@ const recipeOne =
   '<figcaption>' +
   recipe.description +
   '</figcaption>' +
-  '</figure>';
+  '</figure>'
 
-const app = document.querySelector('#app');
-app.innerHTML = recipeOne;
+const app = document.querySelector('#app')
+app.innerHTML = recipeOne
 ```
 
 FOUR
 
 ```js
-const recipe = recipesData[0];
+const recipe = recipesData[0]
 const recipeOne = `<h2>${recipe.name}</h2>
   <figure >
   <picture>
     <img src="img/${recipe.photo}" alt="${recipe.name}" />
   </picture>
     <figcaption>${recipe.description}</figcaption>
-  </figure>`;
+  </figure>`
 
-console.log(recipeOne);
+console.log(recipeOne)
 
-const app = document.querySelector('#app');
-app.innerHTML = recipeOne;
+const app = document.querySelector('#app')
+app.innerHTML = recipeOne
 ```
 
 Concurrently:
 
 ```
-"start": "concurrently \"npm run sass\" \"npm run browser-sync start --server 'app' --files 'app' \"
+"start": "concurrently \"npm run sass\" \"npm run server \" "
 "start": "npm run server & npm run sass"
 ```
 
