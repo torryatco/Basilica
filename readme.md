@@ -24,7 +24,7 @@
     - [1.13.2. SASS Nesting](#1132-sass-nesting)
     - [1.13.3. SASS Partials](#1133-sass-partials)
   - [1.14. JavaScript](#114-javascript)
-    - [1.14.1. Aside: Node](#1141-aside-node)
+    - [1.14.1. Aside: Demo Arrays in Node](#1141-aside-demo-arrays-in-node)
     - [1.14.2. Add a Script](#1142-add-a-script)
   - [1.15. JavaScript Popover](#115-javascript-popover)
   - [1.16. DOM Scripting Methods Used](#116-dom-scripting-methods-used)
@@ -1267,7 +1267,7 @@ Note: switching branches at this point will delete styles.css from the css direc
 
 Let's ease into JavaScript with a demonstration and a simple DOM manipulation.
 
-### 1.14.1. Aside: Node
+### 1.14.1. Aside: Demo Arrays in Node
 
 Review Node:
 
@@ -1329,7 +1329,7 @@ console.log(randomItem(basilChef));
 $ node basilnode.js
 ```
 
-Call the randomItem function from within another function that uses [concatination](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Strings#Concatenating_strings):
+Call the randomItem function from within another function and use a [template string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) to construct a bit of HTML::
 
 ```js
 const randomNumber = require('random-number');
@@ -1347,41 +1347,17 @@ function randomItem(array) {
 }
 
 function makeBasil() {
-  return (
-    randomItem(basilChef) + "'s" + ' ' + randomItem(basilTexture) + ' basil'
-  );
+  return `<h2>${randomItem(basilChef)}'s ${randomItem(
+    basilTexture
+  )} basil</h2>`;
 }
 
 console.log(makeBasil());
 ```
 
-We could use concatenation to make an HTML element:
-
-```js
-function makeBasil() {
-  return (
-    '<h2>' +
-    randomItem(basilChef) +
-    "'s" +
-    ' ' +
-    randomItem(basilTexture) +
-    ' basil' +
-    '</h2>'
-  );
-}
-```
-
-But we'll use a [template string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) instead:
-
-```js
-function makeBasil() {
-  return `<h2>${randomItem(basilChef)}'s ${randomItem(
-    basilTexture
-  )} basil</h2>`;
-}
-```
-
 ### 1.14.2. Add a Script
+
+We'll do something similar to the node demo above in our app - replacing the recipe title with a random one.
 
 Note `index.js` in the `js` folder and link it to `index.html`:
 
@@ -1398,7 +1374,6 @@ function random() {
   const max = 3;
   // const randomIndex = Math.random();
   // const randomIndex = Math.random() * max;
-  // const randomIndex = Math.floor(Math.random() * max);
   const randomIndex = Math.floor(Math.random() * max);
   return randomIndex;
 }
@@ -1423,7 +1398,7 @@ console.log(name);
 
 We used the random number to select a name from the array and return it to the calling function.
 
-Add another variable and message the output to product a string:
+Add another variable `basilTexture` and massage the output to product a string:
 
 ```js
 const basilChefs = ['mama', 'papa', 'baby'];
@@ -1460,16 +1435,9 @@ function random(array) {
   return array[randomIndex];
 }
 
-var recipeName =
-  'My ' + random(basilChefs) + "'s " + random(basilTexture) + ' pesto';
+var recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`;
 
 el.innerHTML = recipeName;
-```
-
-Finally, will use a template string:
-
-```js
-var recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`;
 ```
 
 and format it in `_base.scss`:
@@ -1688,7 +1656,7 @@ Delete the betainfo div at the bottom of our page:
 </div> -->
 ```
 
-And remove the JavaScript related to it in `index.js`.
+And **remove the JavaScript related to it in `index.js`**.
 
 We will retain all the CSS in `_popovers.scss` for use in our new popover:
 
@@ -1843,7 +1811,7 @@ var elem = document.querySelector('.content');
 elem.innerText = '<p>Welcome back my friends to the show that never ends.</p>';
 ```
 
-Notice how it show the HTML tags as text.
+Notice how it shows the HTML tags as text.
 
 Since we are creating our div dynamically we deleted the 'hardcoded' div:
 
@@ -1943,7 +1911,7 @@ function destroyPopover() {
 }
 ```
 
-We can also run a check to ensure the a popover is not already on the screen:
+We should also run a check to ensure the a popover is not already on the screen:
 
 ```js
 function makePopover() {
@@ -1964,9 +1932,9 @@ Replace the event listener and add a new function:
 
 ```js
 // betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', decide, false);
+document.addEventListener('click', clickHandler);
 
-function decide() {
+function clickHandler(event) {
   console.log(event.target);
 }
 ```
@@ -1975,7 +1943,7 @@ E.g.:
 
 ```js
 // betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', clickHandler, false);
+document.addEventListener('click', clickHandler);
 
 function clickHandler() {
   console.log(event.target);
@@ -2007,7 +1975,7 @@ Note that you can see whatever you click on in the console.
 Add an `if` statement to run `makePopover` if the item clicked on (`event.target`) matches the beta button:
 
 ```js
-function clickHandler() {
+function clickHandler(event) {
   console.log(event.target);
   if (event.target.matches('.beta')) {
     makePopover();
@@ -2019,9 +1987,9 @@ We can also add our shader div:
 
 ```js
 var betaButton = document.querySelector('.beta');
-document.addEventListener('click', clickHandler, false);
+document.addEventListener('click', clickHandler);
 
-function clickHandler() {
+function clickHandler(event) {
   console.log(event.target);
   if (event.target.matches('.beta')) {
     makePopover();
@@ -2046,14 +2014,14 @@ function makePopover() {
   document.querySelector('.shader').classList.add('show');
 }
 
-function destroyPopover() {
+function destroyPopover(event) {
   document.querySelector('.betainfo').remove();
   document.querySelector('.shader').classList.remove('show');
   event.preventDefault();
 }
 ```
 
-As a demostration of the new functionality afforded by a dynamically generated popover, let's use our new popover to display a different message when the user clicks on any of the three nav buttons:
+As a demonstration of the new functionality afforded by a dynamically generated popover, let's use our new popover to display a different message when the user clicks on any of the three nav buttons:
 
 Add a class `it` to each of the nav buttons:
 
@@ -2096,7 +2064,7 @@ var popoverContent = betaContent; // NEW
 Now let's decide which item is clicked on and use that to determine the message::
 
 ```js
-function clickHandler() {
+function clickHandler(event) {
   console.log(event.target);
   if (event.target.matches('.beta')) {
     makePopover(betaContent); // NEW
@@ -2161,7 +2129,7 @@ var buttonContent = `
 var betaButton = document.querySelector('.beta');
 document.addEventListener('click', clickHandler, false);
 
-function clickHandler() {
+function clickHandler(event) {
   console.log(event.target);
   if (event.target.matches('.beta')) {
     makePopover(betaContent);
@@ -2185,7 +2153,7 @@ function makePopover(content) {
   document.querySelector('.shader').classList.add('show');
 }
 
-function destroyPopover() {
+function destroyPopover(event) {
   document.querySelector('.betainfo').remove();
   document.querySelector('.shader').classList.remove('show');
   event.preventDefault();
@@ -2193,6 +2161,18 @@ function destroyPopover() {
 ```
 
 ## 1.20. Notes
+
+```js
+var API = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
+
+fetch(API)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    document.querySelector('.quote').innerText = data[0];
+  });
+```
 
 Template literals allow embedded expressions. You can use multi-line strings and string interpolation features with them. They were called "template strings" in prior editions of the ES2015 specification.
 
@@ -2372,6 +2352,23 @@ const app = document.querySelector('#app');
 app.innerHTML = recipeOne;
 ```
 
-<!-- "start": "concurrently \"npm run sass:process -- --watch\" \"npm run cms:bundle -- --watch\" -->
+Concurrently:
+
+```
+"start": "concurrently \"npm run sass\" \"npm run browser-sync start --server 'app' --files 'app' \"
+"start": "npm run server & npm run sass"
+```
+
+```js
+  "scripts": {
+    "server": "browser-sync start --directory --server 'app' --files 'app'",
+    "sass": "sass  scss/styles.scss app/css/styles.css --watch --source-map",
+    "start": "concurrently \"npm run sass\" \"npm run server\" "
+  },
+```
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+
+```
+
+```
