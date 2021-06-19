@@ -1286,7 +1286,7 @@ fetch(API)
   })
 ```
 
-Add class "quote" to the lone paragraph in the navigation.
+Add class "quote" to the lone paragraph in the navigation. Use `aria-live="polite"`
 
 ## 1.14. JavaScript
 
