@@ -1,9 +1,6 @@
 # 1. Basilica!
 
-## 1.1. Table of Contents
-
 - [1. Basilica!](#1-basilica)
-  - [1.1. Table of Contents](#11-table-of-contents)
   - [1.2. Homework](#12-homework)
   - [1.3. Reading](#13-reading)
   - [1.4. Goals](#14-goals)
@@ -23,7 +20,7 @@
     - [1.13.1. SASS Variables](#1131-sass-variables)
     - [1.13.2. SASS Nesting](#1132-sass-nesting)
     - [1.13.3. SASS Partials](#1133-sass-partials)
-    - [A Note on Refactoring](#a-note-on-refactoring)
+    - [1.13.4. A Note on Refactoring](#1134-a-note-on-refactoring)
   - [1.14. JavaScript](#114-javascript)
     - [1.14.1. Aside: Demo Arrays in Node](#1141-aside-demo-arrays-in-node)
     - [1.14.2. Add a Script](#1142-add-a-script)
@@ -32,19 +29,13 @@
     - [1.16.1. matches](#1161-matches)
     - [1.16.2. Add Another Close Method](#1162-add-another-close-method)
   - [1.17. A Dynamic Popover](#117-a-dynamic-popover)
-    - [1.17.1. createElement](#1171-createelement)
-    - [1.17.2. Appending Content](#1172-appending-content)
-    - [1.17.3. innerHTML](#1173-innerhtml)
-  - [1.19. Event Delegation](#119-event-delegation)
-  - [1.20. Notes](#120-notes)
-  - [1.21. Expressions](#121-expressions)
-  - [1.22. Statements](#122-statements)
+  - [1.18. Notes](#118-notes)
+  - [1.19. Expressions](#119-expressions)
+  - [1.20. Statements](#120-statements)
 
 ## 1.2. Homework
 
-Complete your midterm assignment.
-
-<!-- Create separate popovers for each button in the navigations. The popovers should each have different messages. -->
+Create separate popovers for each button in the navigations. The popovers should each have different messages.
 
 ## 1.3. Reading
 
@@ -1264,7 +1255,7 @@ Finally, copy the font css into a new partial and change the paths:
 }
 ```
 
-### A Note on Refactoring
+### 1.13.4. A Note on Refactoring
 
 Once you have everything visually working and start using your template with live data you typically find issues with the design.
 
@@ -1468,26 +1459,25 @@ h2 {
 
 ## 1.15. JavaScript Popover
 
-Building the popover window.
-
-Create and style a div on the bottom of the html page (but before the script tag).
+Create a div on the bottom of the html page (but before the script tag).
 
 ```html
-<div class="betainfo">
-  <h2>In Beta</h2>
+<div class="modal">
+  <h3>Hi! I'm a Modal Window (ʘ‿ʘ)╯</h3>
   <p>Information about the beta program.</p>
 </div>
 ```
 
-In `_header.scss` (but not inside the nested area):
+Create `_modal_.scss` and add it to `styles.scss` (e.g. `@import 'imports/modal';`):
 
 ```css
-.betainfo {
-  max-width: 300px;
-  padding: 0 1rem 1rem 1rem;
-  background: #fff;
-  border: 2px solid var(--orange);
-  border-radius: $radius;
+.modal {
+  max-width: 600px;
+  min-width: 400px;
+  padding: 2rem;
+  border-radius: 5px;
+  min-height: 200px;
+  background: white;
   position: fixed;
   top: 30%;
   left: calc(50% - 150px);
@@ -1495,44 +1485,42 @@ In `_header.scss` (but not inside the nested area):
 }
 ```
 
-Uncomment `display: none` and add a `show` class:
+Uncomment `display: none` and add a `open` rule:
 
 ```css
-.show {
+.open {
   display: block;
 }
 ```
 
-Test by adding the class in the inspector and make any needed corrections.
+Test by adding the `open` class to the modal using the dev tool's inspector.
 
 Code the `.beta` button to show the window.
 
 Create a variable for the beta button, attach an event listener to it, and create a function to handle the event.
 
 ```js
-var popoverWindow = document.querySelector('.betainfo')
+var modal = document.querySelector('.modal')
 var betaButton = document.querySelector('.beta')
 
 function showPopover(event) {
-  popoverWindow.classList.toggle('show')
+  modal.classList.toggle('open')
   event.preventDefault()
 }
 
 betaButton.addEventListener('click', showPopover)
 ```
 
-Use event delegation:
+Refactor to use event delegation:
 
 ```js
-var popoverWindow = document.querySelector('.betainfo')
+var modal = document.querySelector('.modal')
 // var betaButton = document.querySelector('.beta');
 
 function showPopover(event) {
   console.log(event.target)
-  if (!event.target.matches('.beta')) {
-    return
-  }
-  popoverWindow.classList.toggle('show')
+  if (!event.target.matches('.beta')) return
+  modal.classList.toggle('open')
   event.preventDefault()
 }
 
@@ -1542,7 +1530,7 @@ document.addEventListener('click', showPopover)
 
 ## 1.16. DOM Scripting Methods Used
 
-- Use [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to find the first matching element on a page `var popoverWindow = document.querySelector('.betainfo');`
+- Use [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to find the first matching element on a page `var modal = document.querySelector('.modal');`
 - Use [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/querySelectorAll) to find all matching elements on a page
 - Use [addEventListener('event', function)](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener), to listen for events on an element. You can find a full list of available events on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Events)
 - Use [Functions](https://developer.mozilla.org/en-US/docs/Glossary/Function) to store and execute your commands
@@ -1553,8 +1541,6 @@ document.addEventListener('click', showPopover)
 The `matches()` method lets you check if an element would be selected by a particular selector. It returns true if the element is a match, and false when it’s not. It can be an alternative to using `element.classList.contains('.someclass')`.
 
 ```js
-var elem = document.querySelector('.click-me')
-
 // Match by an ID
 if (elem.matches('#first-button')) {
   // Do something...
@@ -1577,8 +1563,8 @@ if (elem.matches('.click-me, .button-submit')) {
 Add html to the betainfo:
 
 ```html
-<div class="betainfo">
-  <h2>In Beta</h2>
+<div class="modal">
+  <h3>Hi! I'm a Modal Window (ʘ‿ʘ)╯</h3>
   <p>Information about the beta program.</p>
   <!-- NEW -->
   <a class="closer" href="#0">✖︎</a>
@@ -1596,538 +1582,182 @@ Style it:
   height: 1.5rem;
   background: #fff;
   color: var(--orange);
-  border: 2px solid #eabc5a;
+  border: 4px solid var(--orange);
   border-radius: 50%;
   text-align: center;
   line-height: 1.5rem;
   cursor: pointer;
 }
 ```
-
-Adjust the line height property to center the ✖︎.
 
 Extend the showPopover function to include the new element script.
 
 ```js
-var popoverWindow = document.querySelector('.betainfo')
+var modal = document.querySelector('.modal')
 
 function showPopover(event) {
   if (!event.target.matches('.beta, .closer')) return
-  popoverWindow.classList.toggle('show')
+  modal.classList.toggle('open')
+  event.preventDefault()
 }
 
 document.addEventListener('click', showPopover)
 ```
 
-Add a shader div after the body tag to block access to the page and make the window modal:
+Note: you cannot animate between `display: none` and `display: block`.
+
+Add a wrapping div - `modal-outer` - around the modal:
 
 ```html
-<div class="shader"></div>
-```
-
-Add styling:
-
-```css
-.shader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  height: 100vh;
-  width: 100vw;
-  display: none;
-}
-```
-
-Add it to the script:
-
-```js
-var popoverWindow = document.querySelector('.betainfo')
-var shader = document.querySelector('.shader')
-
-function showPopover(event) {
-  if (!event.target.matches('.beta, .closer')) return
-  popoverWindow.classList.toggle('show')
-  shader.classList.toggle('show')
-}
-
-document.addEventListener('click', showPopover)
-```
-
-Test.
-
-Add `z-index`s to the header and popover as appropriate.
-
-Remove the popover css into its own partial.
-
-## 1.17. A Dynamic Popover
-
-We will recreate the popover HTML using JavaScript. One advantage of making our popover dynamic is that we will be able to reuse it elsewhere on our page.
-
-Delete the betainfo div at the bottom of our page:
-
-```html
-<!-- <div class="betainfo">
-    <h2>In Beta</h2>
-    <p>Information about the beta program.<p>
-    <a class="closer" href="#0">X</a>
-</div> -->
-```
-
-And **remove the JavaScript related to it in `index.js`**.
-
-We will retain all the CSS in `_popovers.scss` for use in our new popover:
-
-```css
-.betainfo {
-  max-width: 300px;
-  padding: 0 1rem 1rem 1rem;
-  background: #fff;
-  border: 2px solid var(--orange);
-  border-radius: $radius;
-  position: fixed;
-  z-index: 30;
-  top: 30%;
-  left: calc(50% - 150px);
-  // display: none;
-}
-
-.closer {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 1.5rem;
-  height: 1.5rem;
-  background: #fff;
-  color: var(--orange);
-  border: 2px solid #eabc5a;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 1.5rem;
-  cursor: pointer;
-}
-
-.shader {
-  position: absolute;
-  z-index: 20;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  height: 100vh;
-  width: 100vw;
-  display: none;
-}
-
-.show {
-  display: block;
-}
-```
-
-### 1.17.1. createElement
-
-You use the `document.createElement()` [method](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement) to create an HTML element.
-
-In the browser's console e.g.:
-
-```js
-> var div = document.createElement('div');
-> div
-```
-
-You can manipulate an element created with `createElement()` like you would any other element in the DOM. Add classes, attributes, styles, and more.
-
-In the browser's console:
-
-```js
-var div = document.createElement('div')
-div.className = 'new-div'
-div.id = 'new-div'
-div.setAttribute('data-div', 'new')
-div.style.color = '#fff'
-div.style.backgroundColor = 'rebeccapurple'
-// add some text
-div.textContent = 'Nice work, dude!'
-div
-```
-
-### 1.17.2. Appending Content
-
-After you create an element, you need a way to add it to your page. JavaScript provides a handful of methods you can use to add an element before, after, or within some other element in the DOM.
-
-First grab a target:`
-
-```js
-// Get the element to add your new HTML element before, after, or within
-var target = document.querySelector('.content h2')
-```
-
-Then use the appropriate method:
-
-```js
-// Inject the `div` element before the element
-target.before(div)
-
-// Inject the `div` element after the element
-target.after(div)
-
-// Inject the `div` element before the first item *inside* the element
-target.prepend(div)
-
-// Inject the `div` element after the first item *inside* the element
-target.append(div)
-```
-
-Try it again with the `betainfo` class.
-
-**Remove the `display: none` property from the betainfo css first.**
-
-```js
-var div = document.createElement('div')
-div.className = 'betainfo'
-div.style.color = '#fff'
-div.style.backgroundColor = 'rebeccapurple'
-// add some text
-div.textContent = 'Nice work, dude!'
-```
-
-```js
-div
-var target = document.querySelector('header')
-target.before(div)
-```
-
-### 1.17.3. innerHTML
-
-The innerHTML property can be used to both get and set HTML content in an element.
-
-In the console:
-
-```js
-var elem = document.querySelector('.content')
-elem
-// Get HTML content
-var html = elem.innerHTML
-html
-
-// Set HTML content
-elem.innerHTML =
-  '<p>We can dynamically change the HTML including HTML elements like <a href="#">this link</a>.</p>'
-
-// Add += HTML to the end of an element's existing content
-elem.innerHTML = elem.innerHTML + '<p>Add this after what is already there.</p>'
-elem.innerHTML += '<p>Add this after what is already there.</p>'
-
-// Add HTML to the beginning of an element's existing content
-elem.innerHTML = '<p>We can add this to the beginning.</p>' + elem.innerHTML
-```
-
-Note: there is also an `innerText` property available. It works just like `innerHTML`, but only gets the text of an element and omits the markup.
-
-```js
-var elem = document.querySelector('.content')
-elem.innerText = '<p>Welcome back my friends to the show that never ends.</p>'
-```
-
-Notice how it shows the HTML tags as text.
-
-Since we are creating our div dynamically we deleted the 'hardcoded' div:
-
-```html
-<div class="betainfo">
-  <h2>In Beta</h2>
-  <p>Information about the beta program.</p>
-  <p>
-    <a class="closer" href="#0">X</a>
-  </p>
+<div class="modal-outer">
+  <div class="modal">
+    <h3>Hi! I'm a Modal Window (ʘ‿ʘ)╯</h3>
+    <p>Information about the beta program.</p>
+    <a class="closer" href="#0">✖︎</a>
+  </div>
 </div>
 ```
 
-Add to `index.js`:
+Style it:
 
-```js
-var betaButton = document.querySelector('.beta')
-betaButton.addEventListener('click', makePopover)
+```css
+.modal-outer {
+  display: grid;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  /* Hide this until we need it */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
 
-function makePopover() {
-  var popover = document.createElement('div')
-  popover.classList.add('betainfo')
-  var popoverContent = `
-    <h2>In Beta</h2>
-    <p>Information about the beta program.<p>
-    <div class="closer" href="#0">
-    <div>✖︎</div>
-    </div>
-    `
-  popover.innerHTML = popoverContent
-  document.querySelector('body').append(popover)
+.modal-outer.open {
+  opacity: 1;
+  pointer-events: all;
 }
 ```
 
-Click on the beta button and note the div in the source html.
+Try: changing the opacity and pointer-events properties to 1 and all.
 
-Examine the elements in the dev tools. We are creating multiple popovers.
-
-Now, let's add the close functionality ('destroyPopover') in. We cannot use `classList` to toggle the display property here so we will use the opposite of `append()` which is `remove()`:
+Edit the script to select the outer div and apply the `open` class to it:
 
 ```js
-var betaButton = document.querySelector('.beta')
-betaButton.addEventListener('click', makePopover)
+var modal = document.querySelector('.modal')
+var modalOuter = document.querySelector('.modal-outer')
 
-function makePopover() {
-  var popover = document.createElement('div')
-  popover.classList.add('betainfo')
-  var popoverContent = `
-  <h2>In Beta</h2>
-  <p>Information about the beta program.<p>
-  <div class="closer" href="#0">
-    <div>✖︎</div>
-  </div>
-  `
-  popover.innerHTML = popoverContent
-  document.querySelector('body').append(popover)
-
-  var popoverCloseButton = document.querySelector('.closer') // NEW
-  popoverCloseButton.addEventListener('click', destroyPopover) // NEW
-}
-// NEW
-function destroyPopover() {
-  document.querySelector('.betainfo').remove()
+function showPopover(event) {
+  if (!event.target.matches('.beta, .closer')) return
+  modalOuter.classList.toggle('open')
   event.preventDefault()
 }
+
+document.addEventListener('click', showPopover)
 ```
 
-We should also run a check to ensure the a popover is not already on the screen:
+Now the modal wrapper will show when the button is clicked - but the modal will not.
 
-```js
-function makePopover() {
-  if (document.querySelector('.betainfo')) {
-    destroyPopover();
-  }
-  ...
+Edit styles for the interior modal:
+
+```css
+.modal {
+  max-width: 600px;
+  min-width: 400px;
+  padding: 2rem;
+  border-radius: 5px;
+  min-height: 200px;
+  border: 2px solid var(--orange);
+  background: white;
+  transform: translateY(200%);
+  transition: transform 1s;
 }
 ```
 
-Note that we do not create `var popoverCloseButton` or attach an event listener until we have created a popover. Otherwise we would get an error.
+Note that we are no longer using '`display: none` to hide the modal. The inner modal is becoming visible because its container, modal outer, is transitioning.
 
-## 1.19. Event Delegation
-
-We can use 'event delegation' in order to further abstract the click event so we can use it elsewhere on the page.
-
-Replace the event listener and add a new function:
+Edit the script to allow clicking on the overlay to close the modal.
 
 ```js
-// betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', clickHandler)
+var modalOuter = document.querySelector('.modal-outer')
 
-function clickHandler(event) {
-  console.log(event.target)
-}
-```
-
-E.g.:
-
-```js
-// betaButton.addEventListener('click', makePopover)
-document.addEventListener('click', clickHandler)
-
-function clickHandler() {
-  console.log(event.target)
-}
-
-...
-```
-
-Note that you can see whatever you click on in the console.
-
-Add an `if` statement to run `makePopover` if the item clicked on (`event.target`) matches the beta button:
-
-```js
-function clickHandler(event) {
-  console.log(event.target)
+function showPopover(event) {
   if (event.target.matches('.beta')) {
-    makePopover()
-  }
-}
-```
-
-We can also add our shader div:
-
-```js
-document.addEventListener('click', clickHandler)
-
-function clickHandler(event) {
-  if (event.target.matches('.beta')) {
-    makePopover()
-  }
-}
-
-function makePopover() {
-  if (document.querySelector('.betainfo')) {
-    destroyPopover()
-  }
-  var popover = document.createElement('div')
-  popover.classList.add('betainfo')
-  var popoverContent = `
-  <h2>In Beta</h2>
-  <p>Information about the beta program.<p>
-  <div class="closer" href="#0">
-    <div>✖︎</div>
-  </div>
-  `
-  popover.innerHTML = popoverContent
-  document.querySelector('body').append(popover)
-
-  var popoverCloseButton = document.querySelector('.closer')
-  popoverCloseButton.addEventListener('click', destroyPopover)
-  document.querySelector('.shader').classList.add('show') // NEW
-}
-function destroyPopover() {
-  document.querySelector('.betainfo').remove()
-  document.querySelector('.shader').classList.remove('show') // NEW
+    modalOuter.classList.add('open')
+  } else if (event.target.matches('.closer, .modal-outer')) {
+    modalOuter.classList.remove('open')
+  } else return
   event.preventDefault()
 }
+
+document.addEventListener('click', showPopover)
 ```
 
-As a demonstration of the new functionality afforded by a dynamically generated popover, let's use our new popover to display a different message when the user clicks on any of the three nav buttons:
+## 1.17. A Dynamic Popover
 
-Add a class `it` to each of the nav buttons:
-
-```html
-<nav>
-  <q><span class="quote">Bonjour Monsieur Ferme</span></q>
-  <ul>
-    <li class="nav-pickit"><a class="it" href="#">pick it</a></li>
-    <li class="nav-cookit"><a class="it" href="#">cook it</a></li>
-    <li class="nav-storeit"><a class="it" href="#">store it</a></li>
-  </ul>
-</nav>
-```
-
-Create two new variables with the text for our messages:
+We will use the popover for different purposes depending on which element is clicked.
 
 ```js
+var modalOuter = document.querySelector('.modal-outer')
+var modalInner = document.querySelector('.modal')
+
 var betaContent = `
-<h2>In Beta</h2>
-<p>Information about the beta program.<p>
-<a class="closer" href="#0">✖︎</a>
+<h3>Oooops!</h3>
+<p>Wow! Nothing works!<p>
+`
+
+function showPopover(event) {
+  if (event.target.matches('.beta')) {
+    modalInner.innerHTML = betaContent
+    modalOuter.classList.add('open')
+  } else if (event.target.matches('.closer, .modal-outer')) {
+    modalOuter.classList.remove('open')
+  } else return
+  event.preventDefault()
+}
+
+document.addEventListener('click', showPopover)
+```
+
+Let's use our new popover to display a different message when the user clicks on any of the three nav buttons.
+
+```js
+var modalOuter = document.querySelector('.modal-outer')
+var modalInner = document.querySelector('.modal')
+
+var betaContent = `
+<h3>Oooops!</h3>
+<p>Wow! Nothing works!<p>
 `
 var buttonContent = `
 <h2>Coming Soon</h2>
 <p>This feature coming soon.<p>
 <a class="closer" href="#0">✖︎</a>
 `
-```
 
-Use the first new variable as the source for our popover content:
-
-```js
-var popover = document.createElement('div');
-popover.classList.add('betainfo');
-var popoverContent = betaContent; // NEW
-...
-}
-```
-
-Now let's decide which item is clicked on and use that to determine the message::
-
-```js
-function clickHandler(event) {
-  console.log(event.target)
+function showPopover(event) {
   if (event.target.matches('.beta')) {
-    makePopover(betaContent) // NEW
+    modalInner.innerHTML = betaContent
+    modalOuter.classList.add('open')
   } else if (event.target.closest('nav ul')) {
-    // NEW
-    makePopover(buttonContent) // NEW
-  } else if (event.target.matches('.close')) {
-    destroyPopover()
-  }
-}
-```
-
-Note the use of [closest](https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/) above. The closest() method looks for the closest matching parent to an element that has a selector that you pass in.
-
-Let's use that by first passing it into the function as a variable:
-
-```js
-function makePopover(content) {
-  ...
-}
-```
-
-And then making the contents of the popover dependent on the value of the variable:
-
-```js
-function makePopover(content) {
-  var popover = document.createElement('div')
-  popover.classList.add('betainfo')
-  popover.innerHTML = content // NEW
-  document.querySelector('body').append(popover)
-
-  var popoverCloseButton = document.querySelector('.close')
-  popoverCloseButton.addEventListener('click', destroyPopover)
-}
-```
-
-Because we are using event delegation we can remove the following uneeded lines:
-
-```js
-// var popoverCloseButton = document.querySelector('.close')
-// popoverCloseButton.addEventListener('click', destroyPopover)
-```
-
-Here is the final script:
-
-```js
-// popovers
-
-var betaContent = `
-<h2>In Beta</h2>
-<p>Information about the beta program.<p>
-<a class="closer" href="#0">✖︎</a>
-
-`
-
-var buttonContent = `
-<h2>Coming Soon</h2>
-<p>This feature coming soon.<p>
-<a class="closer" href="#0">✖︎</a>
-`
-
-var betaButton = document.querySelector('.beta')
-document.addEventListener('click', clickHandler, false)
-
-function clickHandler(event) {
-  console.log(event.target)
-  if (event.target.matches('.beta')) {
-    makePopover(betaContent)
-  } else if (event.target.closest('nav ul ')) {
-    makePopover(buttonContent)
-  } else if (event.target.matches('.closer')) {
-    destroyPopover()
-  } else {
-    return
-  }
-}
-
-function makePopover(content) {
-  if (document.querySelector('.betainfo')) {
-    destroyPopover()
-  }
-  var popover = document.createElement('div')
-  popover.classList.add('betainfo')
-  popover.innerHTML = content
-  document.querySelector('body').append(popover)
-  document.querySelector('.shader').classList.add('show')
-}
-
-function destroyPopover(event) {
-  document.querySelector('.betainfo').remove()
-  document.querySelector('.shader').classList.remove('show')
+    modalInner.innerHTML = buttonContent
+    modalOuter.classList.add('open')
+  } else if (event.target.matches('.closer, .modal-outer')) {
+    modalOuter.classList.remove('open')
+  } else return
   event.preventDefault()
 }
+
+document.addEventListener('click', showPopover)
 ```
 
-## 1.20. Notes
+Note the use of [closest](https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/) above. The `closest()` method looks for the closest matching parent to an element that has a selector that you pass in.
+
+## 1.18. Notes
 
 Template literals allow embedded expressions. You can use multi-line strings and string interpolation features with them. They were called "template strings" in prior editions of the ES2015 specification.
 
@@ -2194,7 +1824,7 @@ const article = document.querySelector('article')
 article.innerHTML = recipe
 ```
 
-## 1.21. Expressions
+## 1.19. Expressions
 
 Any unit of code that can be evaluated to a value is an expression. Since expressions produce values, they can appear anywhere in a program where JavaScript expects a value.
 
@@ -2203,7 +1833,7 @@ Any unit of code that can be evaluated to a value is an expression. Since expres
 'hello' + 'world'
 ```
 
-## 1.22. Statements
+## 1.20. Statements
 
 A statement is an instruction to perform a specific action - creating a variable or a function, looping through an array of elements, and evaluating code based on a specific condition.
 
