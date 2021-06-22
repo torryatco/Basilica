@@ -1477,6 +1477,7 @@ Create `_modal_.scss` and add it to `styles.scss` (e.g. `@import 'imports/modal'
   padding: 2rem;
   border-radius: 5px;
   min-height: 200px;
+  border: 2px solid var(--orange);
   background: white;
   position: fixed;
   top: 30%;
@@ -1682,7 +1683,7 @@ Edit styles for the interior modal:
 }
 ```
 
-Note that we are no longer using '`display: none` to hide the modal. The inner modal is becoming visible because its container, modal outer, is transitioning.
+Note that we are no longer using '`display: none` to hide the modal. The inner modal is becoming visible because its container, modal outer, is transitioning opacity.
 
 Edit the script to allow clicking on the overlay to close the modal.
 
