@@ -1676,6 +1676,10 @@ Edit styles for the interior modal:
   transform: translateY(200%);
   transition: transform 1s;
 }
+
+.modal-outer.open .modal {
+  transform: translateY(0);
+}
 ```
 
 Note that we are no longer using '`display: none` to hide the modal. The inner modal is becoming visible because its container, modal outer, is transitioning.
