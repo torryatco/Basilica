@@ -1468,7 +1468,7 @@ Create a div on the bottom of the html page (but before the script tag).
 </div>
 ```
 
-Create `_modal_.scss` and add it to `styles.scss` (e.g. `@import 'imports/modal';`):
+Create `_modal.scss` and add it to `styles.scss` (e.g. `@import 'imports/modal';`):
 
 ```css
 .modal {
