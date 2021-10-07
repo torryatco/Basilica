@@ -35,7 +35,7 @@
 
 ## 1.2. Homework
 
-Create separate popovers for each button in the navigations. The popovers should each have different messages.
+Create separate popovers for each button in the navigation. The popovers should each have different messages.
 
 ## 1.3. Reading
 
@@ -83,15 +83,14 @@ Follow the instructions to create a remote and push the master branch and inclas
 
 ```bash
 $ npm init
-$ npm install browser-sync sass concurrently --save-dev
+$ npm install browser-sync sass concurrently prettier --save-dev
 ```
 
 Note:
 
-- sass, concurrently
-- package.json
+- package.json - sass, concurrently, prettier
 - package-lock.json
-- dependencies
+- dependencies vs devDependencies
 - node_modules folder
 - why the need for `.gitignore`?
 
@@ -115,9 +114,9 @@ In the terminal:
 
 Open `app/index.html` in VS Code and examine the HTML with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
 
-Here is an [article that addresses the recipe schemas](https://www.foodbloggerpro.com/blog/article/what-is-recipe-schema/) but note that there are [many different kinds](https://schema.org/docs/full.html).
+Note the [itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) attribute. There is a good example of using the recipe schema at the previous link.
 
-Have a look at a sample [recipe](https://www.allrecipes.com/recipe/20144/banana-banana-bread/) and note the schema in the inspector.
+Note - there are [many different kinds of schemas](https://schema.org/docs/full.html).
 
 Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
 
@@ -188,7 +187,7 @@ img {
 }
 ```
 
-You should always use `width: 100%` on images (and videos).
+You amost always use `width: 100%` on images (and videos) in conjunction with a flexible container to determine size.
 
 Replace the lone img tag in the HTML with `figure` and `figcaption` tags:
 
@@ -203,8 +202,6 @@ Replace the lone img tag in the HTML with `figure` and `figcaption` tags:
 </figure>
 ```
 
-A `<figure>` is an image, illustration, or diagram that is referenced in the main flow of a document, but that can be moved to another part of the document without affecting the main flow.
-
 We want to display identical image content, just larger or smaller depending on the device. The standard `<img>` element only lets you point the browser to a single source file. We will use two new attributes — `srcset` and `sizes` — to provide additional source images along with hints to help the browser pick the right one.
 
 - Upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/). Download the zip file and place the unzipped folder in the `img` directory.
@@ -213,22 +210,15 @@ Replace the `img` tag in index.html with a [picture tag](https://developer.mozil
 
 ```html
 <picture>
-  <img
-    sizes=" 
-    (max-width: 320px) 380px,
-    (max-width: 768px) 740px,
-    (max-width: 1024px) 980px, 
-    (max-width: 1280px) 100vw, 1280px"
-    srcset="
-      img/pesto/pesto_iodywc_c_scale,w_380.jpg   380w,
-      img/pesto/pesto_iodywc_c_scale,w_780.jpg   780w,
-      img/pesto/pesto_iodywc_c_scale,w_1069.jpg 1069w,
-      img/pesto/pesto_iodywc_c_scale,w_1337.jpg 1337w,
-      img/pesto/pesto_iodywc_c_scale,w_1380.jpg 1380w
-    "
-    src="img/pesto/pesto_iodywc_c_scale,w_1380.jpg"
-    alt="Italian pesto"
+  <source
+    srcset="img/pesto/pesto_iodywc_c_scale,w_1380.jpg"
+    media="(min-width: 1200px)"
   />
+  <source
+    srcset="img/pesto/pesto_iodywc_c_scale,w_780.jpg"
+    media="(min-width: 800px)"
+  />
+  <img src="img/pesto.jpg" />
 </picture>
 ```
 
@@ -296,7 +286,7 @@ Note: we _cannot_ use a CSS variable as a breakpoint:
 }
 ```
 
-A media query is not an element selector so it does not inherit styles.
+(A media query is not an element selector so it does not inherit styles.)
 
 We can use the flex property on the flex children to manipulate the columns:
 
@@ -311,7 +301,7 @@ We can use the flex property on the flex children to manipulate the columns:
 }
 ```
 
-The [flex property](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) is used on flex children only. We are using a shortcut here which includes `flex-grow, flex-shrink, and flex-basis`. Default is `Default is 0 1 auto`.
+The [flex property](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) is used on flex children only. We are using a shortcut here which includes `flex-grow, flex-shrink, and flex-basis`. The default is `0 1 auto`.
 
 Here is the long form:
 
@@ -395,7 +385,7 @@ header {
 }
 ```
 
-Note: this is one of the rare occasions that we will use the height property. We use it here because the header does not contain dynamic content.
+Note: this is one of the fex occasions that we will use the height property. We use it here because the header does not contain dynamic content.
 
 Add the custom font (top of the css file):
 
@@ -538,7 +528,7 @@ And add features for the large screen within a media query:
 }
 ```
 
-Additional tweaks for the small screen might include:
+Additional tweaks for the _small screen might_ include:
 
 - Removing the body margin top (and adding it back for the wide screen):
 
@@ -775,7 +765,7 @@ There is a complete CSS file available at [this gist](https://gist.github.com/Da
 
 ## 1.13. Sass
 
-Examine [this branch](https://github.com/front-end-foundations/Basilica/tree/sass-done) on the repo.
+Examine [a finished version of this project](https://github.com/front-end-foundations/Basilica/).
 Note the `scss` folder and its contents.
 
 Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass):
@@ -850,15 +840,14 @@ $radius: 0.25rem;
 
 $fonts: 'Source Sans Pro', Helvetica, Clean, sans-serif;
 
-$red: #f00;
+$test: #00ff00;
 ```
 
 Usage example:
 
 ```css
-$red: #f00;
 * {
-  color: $red !important;
+  color: $test !important;
 }
 ```
 
@@ -870,11 +859,19 @@ Add the sample SASS variables to a new file in a new folder `scss/imports/_varia
 
 Note the syntax differences between a native CSS import as well as the underscore in the file name. We will come back to that later.
 
-Test using the `$red` variable. Try changing it. Remove it.
+Test using the `$test` variable.
+
+```css
+* {
+  color: $test !important;
+}
+```
+
+Try changing it. Remove it.
 
 ### 1.13.2. SASS Nesting
 
-Sass will let you nest your CSS selectors in a way that mirrors the hierarchy of your HTML. Be aware that overly nested rules will result in over-qualified CSS that could prove hard to maintain and is generally considered bad practice.
+Sass will let you nest your CSS selectors in a way that mirrors the hierarchy of your HTML. Be aware that overly nested rules will result in long selectors  that could prove a maintainance headache and is generally considered bad practice.
 
 Nest the header related styles in `styles.scss`:
 
@@ -924,7 +921,7 @@ Create `imports/_header.scss` and cut and paste the nested header material from 
 @import 'imports/header';
 ```
 
-Note the underscore in the file name. If you add an underscore to the start of the file name, Sass won’t compile it. So, if you don’t want `header.scss` to compile to `header.css`, name the file with an undercore `_header.scss` instead. Files used this way are called partials in Sass.
+Note the underscore in the file name. If you adding an underscore to the start of the file name is a convention that indicates a sass partial. 
 
 Note: SASS allows you to use JavaScript style comments - `//`. These comments do not get compiled into the css file. Traditional CSS comments ( `/* ... */` ) do.
 
