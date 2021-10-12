@@ -991,7 +991,20 @@ Examine the CSS in the browser's inspector. Note the mapping.
 
 One of the best things about nesting in SASS is how it allows you to organize media queries and keep them aligned with the selector.
 
-Cut the body rule from the breakpoint and add the styling to the initial body rule as shown:
+_Cut_ the body rule from the responsive section of the CSS:
+
+```css
+
+@media (min-width: 640px) {
+  body {
+  }
+  ...
+}
+
+```
+
+
+ and add the responsive styling to the initial body rule as shown:
 
 ```css
 body {
@@ -1242,14 +1255,16 @@ Finally, copy the font css into a new partial and change the paths:
 ```css
 @font-face {
   font-family: 'FuturaStdLight';
-  src: url('futura/futurastd-light-webfont.eot');
-  src: url('futura/futurastd-light-webfont.eot?#iefix') format('embedded-opentype'),
-    url('futura/futurastd-light-webfont.woff') format('woff'),
-    url('futura/futurastd-light-webfont.ttf') format('truetype'), url('futura/futurastd-light-webfont.svg#FuturaStdLight')
-      format('svg');
+  src: url('font/futurastd-light-webfont.eot');
+  src: url('font/futurastd-light-webfont.eot?#iefix')
+      format('embedded-opentype'),
+    url('font/futurastd-light-webfont.woff') format('woff'),
+    url('font/futurastd-light-webfont.ttf') format('truetype'),
+    url('font/futurastd-light-webfont.svg#FuturaStdLight') format('svg');
   font-weight: normal;
   font-style: normal;
 }
+
 ```
 
 ### 1.13.4. A Note on Refactoring
@@ -1445,7 +1460,7 @@ var recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`
 el.innerHTML = recipeName
 ```
 
-and format it in `_base.scss`:
+and add it to the article block it in `_content.scss`:
 
 ```css
 h2 {
@@ -1604,6 +1619,8 @@ document.addEventListener('click', showPopover)
 
 Note: you cannot animate between `display: none` and `display: block`.
 
+### Adding Animation to the Modal
+
 Add a wrapping div - `modal-outer` - around the modal:
 
 ```html
@@ -1674,7 +1691,11 @@ Edit styles for the interior modal:
   transform: translateY(200%);
   transition: transform 1s;
 }
+```
 
+Add a transform that depends on the modal outer classes:
+
+```css
 .modal-outer.open .modal {
   transform: translateY(0);
 }
@@ -1685,6 +1706,7 @@ Note that we are no longer using '`display: none` to hide the modal. The inner m
 Edit the script to allow clicking on the overlay to close the modal.
 
 ```js
+// var modal = document.querySelector('.modal')
 var modalOuter = document.querySelector('.modal-outer')
 
 function showPopover(event) {
@@ -1939,7 +1961,28 @@ const app = document.querySelector('#app')
 app.innerHTML = recipeOne
 ```
 
-Concurrently:
+Concurrently & npm run all
+
+If you’re not using (or need to support Windows), you can simply add:
+
+```
+"start": "npm run server & npm run sass,
+```
+
+However, if you do need to support Windows, I recommend installing npm-run-all as a dev dependency with:
+
+```
+npm install npm-run-all --save-dev
+```
+
+Then you can use the following command instead:
+
+```
+"start": "npm-run-all --parallel server sass",
+
+```
+
+With concurrently:
 
 ```
 "start": "concurrently \"npm run sass\" \"npm run server \" "
