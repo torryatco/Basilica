@@ -28,6 +28,7 @@
   - [1.16. DOM Scripting Methods Used](#116-dom-scripting-methods-used)
     - [1.16.1. matches](#1161-matches)
     - [1.16.2. Add Another Close Method](#1162-add-another-close-method)
+    - [Adding Animation to the Modal](#adding-animation-to-the-modal)
   - [1.17. A Dynamic Popover](#117-a-dynamic-popover)
   - [1.18. Notes](#118-notes)
   - [1.19. Expressions](#119-expressions)
@@ -55,21 +56,22 @@ Create separate popovers for each button in the navigation. The popovers should 
 
 ## 1.5. Initialize GIT with .gitignore
 
+Download a zip file of this repo.
+
 ```sh
 $ git init
 $ git add .
 $ git commit -m 'initial commit'
 ```
 
-Create a branch:
+Create a branch in VS Code and merge it back.
 
 ```sh
 $ git branch inclass
 $ git checkout inclass
 $ touch .gitignore // edit to include 'node_modules'
+$ echo node_modules >> .gitignore
 ```
-
-Create a branch in VS Code and merge it back into another.
 
 Log into [Github](http://github.com) and create a new repo.
 
@@ -118,13 +120,17 @@ Note the [itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_at
 
 Note - there are [many different kinds of schemas](https://schema.org/docs/full.html).
 
+Test the page with [Rich Results Test](https://search.google.com/test/rich-results?utm_campaign=devsite&utm_medium=jsonld&utm_source=recipe) and add any missing attributes.
+
 Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
+
+Optional: add [Open Graph Metadata](https://ogp.me/) to the header.
 
 ### 1.7.1. Starter CSS
 
 Examine the starter CSS. Note the use of `max-width` on the body selector - we applied these to a div in the past.
 
-Note `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when they are proceeded by an `li`.
+Note `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the parent is an `li`.
 
 Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
 
@@ -147,16 +153,10 @@ html {
 CSS variables are applied as follows:
 
 ```css
-<property>: var(--<variable-name>);
-```
-
-For example:
-
-```css
 color: var(--basil-green);
 ```
 
-Note also: the transition property on the anchor selector. This is a shortcut for:
+Note also: the transition property on the anchors. This is a shortcut for:
 
 ```css
 transition-property: color;
@@ -166,9 +166,7 @@ transition-timing-function: linear;
 
 or `transition: color 0.2s linear;`
 
-Confine this effect to anchors within the content div.
-
-Replace the generic hover with:
+Confine this effect to anchors within the content div with:
 
 ```css
 .content a:hover {
@@ -178,7 +176,7 @@ Replace the generic hover with:
 
 ## 1.8. Responsive Images
 
-[Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) are a critical component of responsive design:
+[Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) work well on devices with widely differing screen sizes, resolutions, and other features:
 
 ```css
 img {
@@ -187,13 +185,13 @@ img {
 }
 ```
 
-You amost always use `width: 100%` on images (and videos) in conjunction with a flexible container to determine size.
+You frequently use `width: 100%` on images (and videos) in conjunction with a flexible container to determine size.
 
 Replace the lone img tag in the HTML with `figure` and `figcaption` tags:
 
 ```html
 <figure>
-  <img src="img/pesto.jpg" alt="Italian pesto" />
+  <img src="img/pesto.jpg" itemprop="image" alt="Italian pesto" />
   <figcaption>
     Classic, simple basil pesto recipe with fresh basil leaves, pine nuts,
     garlic, Romano or Parmesan cheese, extra virgin olive oil, and salt and
@@ -202,9 +200,21 @@ Replace the lone img tag in the HTML with `figure` and `figcaption` tags:
 </figure>
 ```
 
-We want to display identical image content, just larger or smaller depending on the device. The standard `<img>` element only lets you point the browser to a single source file. We will use two new attributes — `srcset` and `sizes` — to provide additional source images along with hints to help the browser pick the right one.
+We want to display identical image content, just larger or smaller depending on the device. The standard `<img>` element only lets you point the browser to a single source file. Two attributes — `srcset` and `sizes` — provide additional source images along with hints to help the browser pick the right one.
 
-- Upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/). Download the zip file and place the unzipped folder in the `img` directory.
+[srcset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset) defines a set of images we will allow the browser to choose between, and what size each image is.
+
+```html
+<div class="box">
+  <img
+    src="img/clock-demo-200px.png"
+    alt="Clock"
+    srcset="img/clock-demo-200px.png 1x, img/clock-demo-400px.png 2x"
+  />
+</div>
+```
+
+Try: Examine image use in a NY Times article.
 
 Replace the `img` tag in index.html with a [picture tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture):
 
@@ -218,40 +228,23 @@ Replace the `img` tag in index.html with a [picture tag](https://developer.mozil
     srcset="img/pesto/pesto_iodywc_c_scale,w_780.jpg"
     media="(min-width: 800px)"
   />
-  <img src="img/pesto.jpg" />
+  <img itemprop="image" src="img/pesto.jpg" />
 </picture>
 ```
 
-`srcset` defines the set of images we will allow the browser to choose between, and what size each image is.
-
-It consists of:
-
-1. Am image path / filename
-2. A space
-3. The image's inherent width (real size) in pixels using a `w` unit (not `px`).
-
-`sizes` defines a set of media conditions (e.g. screen widths) and indicates what image size would be best to choose, when certain media conditions are true. In this case, before each comma we write:
-
-1. A media condition e.g. `(max-width:480px)` - here "when the viewport width is 480 pixels or less"
-1. A space
-1. The width of the slot the image will fill when the media condition is true (440px.). You can get this from the inspector by inspecting the image at a variety of screen widths.
+The `<picture>` tag is used for cropping or modifying images for different media conditions _or_ offering different image formats when certain formats are not supported by all browsers. See the [example](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) on MDN.
 
 The browser ignores everything after the first matching condition, so be careful how you order the media conditions.
 
-With these attributes in place, the browser will:
-
-1. Look at its device width.
-1. Work out which media condition in the sizes list is the first one to be true.
-1. Look at the slot size given to that media query.
-1. Load the image referenced in the `srcset` list that most closely matches the chosen slot size.
-
-Using this technique can save a lot of bandwidth. Older browsers that don't support these features will just ignore them, and go ahead and load the image referenced in the `src` attribute.
+Using this technique can save a lot of bandwidth. Older browsers that don't support these features will just ignore them and load the image referenced in the `src` attribute.
 
 You can check the results of your work by viewing the Network tab in the inspector and noting which image was downloaded at a variety of screen sizes.
 
-The `<picture>` tag can be used for cropping or modifying images for different media conditions _or_ offering different image formats when certain formats are not supported by all browsers. See the [example](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) on MDN.
+You typically use a server with software such as [Sharp](https://www.npmjs.com/package/sharp) to output multiple image sizes and formats. The HTML is often [generated](https://www.npmjs.com/package/gatsby-plugin-image) as [well](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/image-component).
 
-You need a server to output multiple mage sizes and formats. There are specialized services such as Cloudinary available. At a bare minimum, should also run your images through a processor such as imageOptim.
+- Upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/). Download the zip file and place the unzipped folder in the `img` directory.
+
+There are specialized services such as Cloudinary available. At a bare minimum, should also run your images through a processor such as imageOptim.
 
 ```html
 <img
@@ -385,27 +378,29 @@ header {
 }
 ```
 
-Note: this is one of the fex occasions that we will use the height property. We use it here because the header does not contain dynamic content.
+Note: this is one of the few occasions that we use the height property. We use it here because the header does not contain dynamic content.
 
 Add the custom font (top of the css file):
 
 ```css
-@import url(futura/stylesheet.css);
+@import url(font/stylesheet.css);
 ```
 
-Note - To convert fonts to web formats see [Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator). This requires an additional call to the server to fetch the additional css when the browser renders the file.
+This requires an additional call to the server to fetch the additional css when the browser renders the file.
+
+Note - To convert fonts to web formats see [Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator).
 
 ```css
 header h1 {
   background: url(img/basil.png) no-repeat;
-  font-family: FuturaStdLight, sans-serif;
+  font-family: futura_stdlight, sans-serif;
   font-weight: normal;
   color: #fff;
   font-size: 5rem;
 }
 ```
 
-Note: when using custom fonts like this `font-weight: normal;` is necessary because by default header tags like h1 are bold and we do not have a bold version of the font here.
+Note: `font-weight: normal;` is necessary here because by default header tags are bold and we do not have a bold version of the font available.
 
 The background image is 272px by 170px.
 
@@ -423,24 +418,12 @@ We cannot see the text because we have added padding. Use transform to tweak the
 
 ```css
 header h1 {
-  transform: translateX(-100px);
-  transform: translateY(-80px);
-  ...;
-}
-```
-
-Note the transform in the inspector - there is an error.
-
-We have to use this format:
-
-```css
-header h1 {
   transform: translate(-100px, -80px);
   ...;
 }
 ```
 
-Note: transforms are an [important property](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transforms), especially when it comes to creating animations. We'll create an example now.
+Note: transforms are an [important property](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transforms), especially when it comes to creating animations.
 
 Note the beta link in the header:
 
@@ -451,7 +434,7 @@ Note the beta link in the header:
 </header>
 ```
 
-Absolutely position the beta element (we can do this in the context of the header because we apply `position: relative` to it earlier).
+Absolutely position the beta element:
 
 ```css
 header a.beta {
@@ -469,7 +452,7 @@ header a.beta {
 }
 ```
 
-Note: the use of `img/burst.svg` for the background image. Examine the it in the editor.
+Note: the use of `img/burst.svg` for the background image. Examine it in the editor.
 
 Note: the use of line-height to set the leading to the same height as the containing element. This allows the text to vertically center.
 
@@ -507,7 +490,7 @@ We will attempt a mobile first design strategy. Edit the css to display for smal
 ```css
 header h1 {
   background: url(img/basil.png) no-repeat;
-  font-family: FuturaStdLight, sans-serif;
+  font-family: futura_stdlight, sans-serif;
   font-weight: normal;
   color: #fff;
   font-size: 5rem;
@@ -706,7 +689,7 @@ Remove the flex statements and use a grid display, define columns, and set the s
 }
 ```
 
-Finally, by moving using display grid to the body selector, we can use [grid areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) to define our layout:
+Finally, by moving display grid to the body selector, we can use [grid areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) to define our layout:
 
 ```css
 @media (min-width: 600px) {
@@ -765,9 +748,6 @@ There is a complete CSS file available at [this gist](https://gist.github.com/Da
 
 ## 1.13. Sass
 
-Examine [a finished version of this project](https://github.com/front-end-foundations/Basilica/).
-Note the `scss` folder and its contents.
-
 Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass):
 
 `npm install sass --save-dev`
@@ -794,8 +774,8 @@ To run both scripts at the same time edit the scripts in package.json:
 ```
 
 1. Create a `scss` folder at the top level of our repo
-1. Copy `styles.css` into it
-1. Rename `scss/styles.css` to `scss/styles.scss`.
+2. Copy `styles.css` into it
+3. Rename `scss/styles.css` to `scss/styles.scss`.
 
 Run `npm start` (note: the word 'run' is optional when using start).
 
@@ -871,7 +851,7 @@ Try changing it. Remove it.
 
 ### 1.13.2. SASS Nesting
 
-Sass will let you nest your CSS selectors in a way that mirrors the hierarchy of your HTML. Be aware that overly nested rules will result in long selectors  that could prove a maintainance headache and is generally considered bad practice.
+Sass will let you nest your CSS selectors in a way that mirrors the hierarchy of your HTML. Be aware that overly nested rules will result in long selectors that could prove a maintainance headache and is generally considered bad practice.
 
 Nest the header related styles in `styles.scss`:
 
@@ -883,7 +863,7 @@ header {
 
   h1 {
     background: url(img/basil.png) no-repeat;
-    font-family: FuturaStdLight, sans-serif;
+    font-family: futura_stdlight, sans-serif;
     font-weight: normal;
     color: #fff;
     font-size: 5rem;
@@ -921,7 +901,7 @@ Create `imports/_header.scss` and cut and paste the nested header material from 
 @import 'imports/header';
 ```
 
-Note the underscore in the file name. If you adding an underscore to the start of the file name is a convention that indicates a sass partial. 
+Note the underscore in the file name. If you adding an underscore to the start of the file name is a convention that indicates a sass partial.
 
 Note: SASS allows you to use JavaScript style comments - `//`. These comments do not get compiled into the css file. Traditional CSS comments ( `/* ... */` ) do.
 
@@ -994,17 +974,14 @@ One of the best things about nesting in SASS is how it allows you to organize me
 _Cut_ the body rule from the responsive section of the CSS:
 
 ```css
-
 @media (min-width: 640px) {
   body {
   }
-  ...
+  ...;
 }
-
 ```
 
-
- and add the responsive styling to the initial body rule as shown:
+and add the responsive styling to the initial body rule as shown:
 
 ```css
 body {
@@ -1042,7 +1019,7 @@ header {
 
   h1 {
     background: url(img/basil.png) no-repeat;
-    font-family: FuturaStdLight, sans-serif;
+    font-family: futura_stdlight, sans-serif;
     font-weight: normal;
     color: #fff;
     font-size: 5rem;
@@ -1089,7 +1066,7 @@ Finally, create partials `_base.scss` and `_content.scss`.
 In `_base.scss`:
 
 ```css
-@import url(futura/stylesheet.css);
+@import url(font/stylesheet.css);
 
 html {
   --basil-green: #88a308;
@@ -1254,17 +1231,12 @@ Finally, copy the font css into a new partial and change the paths:
 
 ```css
 @font-face {
-  font-family: 'FuturaStdLight';
-  src: url('font/futurastd-light-webfont.eot');
-  src: url('font/futurastd-light-webfont.eot?#iefix')
-      format('embedded-opentype'),
-    url('font/futurastd-light-webfont.woff') format('woff'),
-    url('font/futurastd-light-webfont.ttf') format('truetype'),
-    url('font/futurastd-light-webfont.svg#FuturaStdLight') format('svg');
+  font-family: 'futura_stdlight';
+  src: url('font/futurastd-light-webfont-webfont.woff2') format('woff2'), url('font/futurastd-light-webfont-webfont.woff')
+      format('woff');
   font-weight: normal;
   font-style: normal;
 }
-
 ```
 
 ### 1.13.4. A Note on Refactoring
@@ -1293,7 +1265,7 @@ Add class "quote" to the lone paragraph in the navigation. Use `aria-live="polit
 
 ## 1.14. JavaScript
 
-Let's ease into JavaScript with a demonstration and a simple DOM manipulation.
+Let's ease back into JavaScript with a demonstration and a simple DOM manipulation.
 
 ### 1.14.1. Aside: Demo Arrays in Node
 
