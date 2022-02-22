@@ -410,7 +410,7 @@ Since background images fill the container we can manipulate it using padding:
 header h1 {
   padding-left: 260px;
   padding-top: 90px;
-  ...;
+  ...
 }
 ```
 
@@ -419,7 +419,7 @@ We cannot see the text because we have added padding. Use transform to tweak the
 ```css
 header h1 {
   transform: translate(-100px, -80px);
-  ...;
+  ...
 }
 ```
 
@@ -461,7 +461,7 @@ Note the use of position absolute. We will give this element a positioning conte
 ```css
 header {
   position: relative;
-  ...;
+  ...
 }
 ```
 
@@ -471,7 +471,7 @@ Add a hover, transform and animate:
 header a.beta {
   transform: rotate(20deg);
   transition: all 1s ease;
-  ...;
+  ...
 }
 ```
 
@@ -507,7 +507,7 @@ And add features for the large screen within a media query:
     transform: translate(-100px, -80px);
     background-position: top left;
   }
-  ...;
+  ...
 }
 ```
 
@@ -532,7 +532,7 @@ body {
     margin: 0 auto;
     margin-top: 24px;
   }
-  ...;
+  ...
 }
 ```
 
@@ -552,7 +552,7 @@ header {
   header {
     border-radius: 8px 8px 0px 0px;
   }
-  ...;
+  ...
 }
 ```
 
@@ -593,7 +593,7 @@ Remove it and add `justify-content` to the flex parent:
 nav {
   justify-content: space-between;
   flex-wrap: wrap;
-  ...;
+  ...
 }
 /* nav p {
   margin-right: auto; 
@@ -649,7 +649,7 @@ Make all the buttons the same width. Try with and without the `inline-block`.
 nav a {
   min-width: 120px;
   display: inline-block;
-  ...;
+  ...
 }
 ```
 
@@ -685,7 +685,7 @@ Remove the flex statements and use a grid display, define columns, and set the s
     background: var(--light-green);
     box-shadow: -4px 0px 4px #ddd;
   }
-  ...;
+  ...
 }
 ```
 
@@ -977,7 +977,7 @@ _Cut_ the body rule from the responsive section of the CSS:
 @media (min-width: 640px) {
   body {
   }
-  ...;
+  ...
 }
 ```
 
@@ -1031,7 +1031,7 @@ header {
       background-position: top left;
     }
   }
-  ...;
+  ...
 }
 ```
 
@@ -1055,7 +1055,7 @@ nav {
     grid-area: nav;
   }
 
-  ...;
+  ...
 }
 ```
 
