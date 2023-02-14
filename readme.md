@@ -100,7 +100,7 @@ Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
 
 ```js
 "scripts": {
-  "start": "browser-sync start --directory --server 'app' --files 'app'",
+  "start": "browser-sync app -w",
 },
 ```
 
