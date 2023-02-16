@@ -767,7 +767,7 @@ To run both scripts at the same time edit the scripts in package.json:
 
 ```js
   "scripts": {
-    "server": "browser-sync start --directory --server 'app' --files 'app'",
+    "server": "browser-sync app -w ",
     "sass": "sass  scss/styles.scss app/css/styles.css --watch --source-map",
     "start": "npm run server & npm run sass"
   },
@@ -1993,7 +1993,7 @@ With concurrently:
 
 ```js
   "scripts": {
-    "server": "browser-sync start --directory --server 'app' --files 'app'",
+    "server": "browser-sync app -w ",
     "sass": "sass  scss/styles.scss app/css/styles.css --watch --source-map",
     "start": "concurrently \"npm run sass\" \"npm run server\" "
   },
