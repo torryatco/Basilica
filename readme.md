@@ -58,30 +58,25 @@ Create separate popovers for each button in the navigation. The popovers should 
 
 Download a zip file of this repo.
 
+Initialize git:
+
 ```sh
 $ git init
 $ git add .
 $ git commit -m 'initial commit'
 ```
 
-Create a branch in VS Code and merge it back.
+Prepare for npm:
 
 ```sh
-$ git branch inclass
-$ git checkout inclass
 $ touch .gitignore // edit to include 'node_modules'
 $ echo node_modules >> .gitignore
 ```
 
-Log into [Github](http://github.com) and create a new repo.
-
-Follow the instructions to create a remote and push the master branch and inclass branch to the remote.
-
 ## 1.6. NPM Initialization and Installs
 
 - Create a manifest (package.json)
-- Install a package
-- set up a gitignore
+- Install packages
 
 ```bash
 $ npm init
@@ -104,7 +99,7 @@ Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
 },
 ```
 
-Remember, if the repo comes with a package.json file (aka 'manifest') run `npm install` to install.
+Remember, if the repo comes with a package.json file (aka 'manifest') run `npm install` to install before running the start command.
 
 In the terminal:
 
@@ -130,7 +125,7 @@ Optional: add [Open Graph Metadata](https://ogp.me/) to the header.
 
 Examine the starter CSS. Note the use of `max-width` on the body selector - we applied these to a div in the past.
 
-Note `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the parent is an `li`.
+Note `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the immediate parent is an `li`. Compare this to `li h4`.
 
 Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
 
@@ -186,6 +181,8 @@ img {
 ```
 
 You frequently use `width: 100%` on images (and videos) in conjunction with a flexible container to determine size.
+
+The problem with this can be observed by throttling the download speed, emptying cache and doing a hard refresh. This is known as [Cumulative Layout Shift](https://web.dev/cls/). (Here is a discussion on [how to best deal with CLS](https://web.dev/optimize-cls/).)
 
 Replace the lone img tag in the HTML with `figure` and `figcaption` tags:
 
@@ -244,7 +241,9 @@ You typically use a server with software such as [Sharp](https://www.npmjs.com/p
 
 - Upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/). Download the zip file and place the unzipped folder in the `img` directory.
 
-There are specialized services such as Cloudinary available. At a bare minimum, should also run your images through a processor such as imageOptim.
+There are specialized services such as Cloudinary available. At a bare minimum, should also run your images through a processor such as [imageOptim](https://imageoptim.com/mac).
+
+Samples of [Cloudinary](https://cloudinary.com/) image processing:
 
 ```html
 <img
@@ -404,13 +403,13 @@ Note: `font-weight: normal;` is necessary here because by default header tags ar
 
 The background image is 272px by 170px.
 
-Since background images fill the container we can manipulate it using padding:
+Since background images fill the background of their container we can manipulate them using padding:
 
 ```css
 header h1 {
   padding-left: 260px;
   padding-top: 90px;
-  ...
+  ...;
 }
 ```
 
@@ -419,7 +418,7 @@ We cannot see the text because we have added padding. Use transform to tweak the
 ```css
 header h1 {
   transform: translate(-100px, -80px);
-  ...
+  ...;
 }
 ```
 
@@ -438,7 +437,7 @@ Absolutely position the beta element:
 
 ```css
 header a.beta {
-  background: url('img/burst.svg') no-repeat;
+  background: url("img/burst.svg") no-repeat;
   color: #fff;
   font-size: 1.5rem;
   position: absolute;
@@ -461,7 +460,7 @@ Note the use of position absolute. We will give this element a positioning conte
 ```css
 header {
   position: relative;
-  ...
+  ...;
 }
 ```
 
@@ -471,7 +470,7 @@ Add a hover, transform and animate:
 header a.beta {
   transform: rotate(20deg);
   transition: all 1s ease;
-  ...
+  ...;
 }
 ```
 
@@ -507,7 +506,7 @@ And add features for the large screen within a media query:
     transform: translate(-100px, -80px);
     background-position: top left;
   }
-  ...
+  ...;
 }
 ```
 
@@ -517,8 +516,8 @@ Additional tweaks for the _small screen might_ include:
 
 ```css
 body {
-  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
-    'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
+    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   /* margin: 0 auto;
@@ -532,7 +531,7 @@ body {
     margin: 0 auto;
     margin-top: 24px;
   }
-  ...
+  ...;
 }
 ```
 
@@ -552,7 +551,7 @@ header {
   header {
     border-radius: 8px 8px 0px 0px;
   }
-  ...
+  ...;
 }
 ```
 
@@ -573,11 +572,12 @@ nav {
 
 nav ul {
   display: flex;
+  gap: 1rem;
 }
 
 nav li {
   list-style: none;
-  margin-right: 0.5rem;
+  /* margin-right: 0.5rem; */
 }
 
 nav p {
@@ -593,7 +593,7 @@ Remove it and add `justify-content` to the flex parent:
 nav {
   justify-content: space-between;
   flex-wrap: wrap;
-  ...
+  ...;
 }
 /* nav p {
   margin-right: auto; 
@@ -649,7 +649,7 @@ Make all the buttons the same width. Try with and without the `inline-block`.
 nav a {
   min-width: 120px;
   display: inline-block;
-  ...
+  ...;
 }
 ```
 
@@ -685,7 +685,7 @@ Remove the flex statements and use a grid display, define columns, and set the s
     background: var(--light-green);
     box-shadow: -4px 0px 4px #ddd;
   }
-  ...
+  ...;
 }
 ```
 
@@ -698,10 +698,10 @@ Finally, by moving display grid to the body selector, we can use [grid areas](ht
     margin-top: 1.5rem;
     display: grid;
     grid-template-areas:
-      'header'
-      'nav'
-      'content'
-      'footer';
+      "header"
+      "nav"
+      "content"
+      "footer";
   }
   header {
     border-radius: 8px 8px 0px 0px;
@@ -818,7 +818,7 @@ $break-one: 22.5em;
 
 $radius: 0.25rem;
 
-$fonts: 'Source Sans Pro', Helvetica, Clean, sans-serif;
+$fonts: "Source Sans Pro", Helvetica, Clean, sans-serif;
 
 $test: #00ff00;
 ```
@@ -834,7 +834,7 @@ Usage example:
 Add the sample SASS variables to a new file in a new folder `scss/imports/_variables.scss` and include it at the top of `styles.scss`:
 
 ```css
-@import 'imports/variables';
+@import "imports/variables";
 ```
 
 Note the syntax differences between a native CSS import as well as the underscore in the file name. We will come back to that later.
@@ -869,7 +869,7 @@ header {
     font-size: 5rem;
   }
   a.beta {
-    background: url('img/burst.svg') no-repeat;
+    background: url("img/burst.svg") no-repeat;
     color: #fff;
     font-size: 1.5rem;
     position: absolute;
@@ -898,7 +898,7 @@ Examples [Bootstrap](https://getbootstrap.com) and its [SASS roots](https://gith
 Create `imports/_header.scss` and cut and paste the nested header material from `_styles.scss` into it. Import it to the main stylesheet with:
 
 ```css
-@import 'imports/header';
+@import "imports/header";
 ```
 
 Note the underscore in the file name. If you adding an underscore to the start of the file name is a convention that indicates a sass partial.
@@ -977,7 +977,7 @@ _Cut_ the body rule from the responsive section of the CSS:
 @media (min-width: 640px) {
   body {
   }
-  ...
+  ...;
 }
 ```
 
@@ -985,8 +985,8 @@ and add the responsive styling to the initial body rule as shown:
 
 ```css
 body {
-  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
-    'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
+    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   @media (min-width: $break-two) {
@@ -994,10 +994,10 @@ body {
     margin-top: 1.5rem;
     display: grid;
     grid-template-areas:
-      'header'
-      'nav'
-      'content'
-      'footer';
+      "header"
+      "nav"
+      "content"
+      "footer";
   }
 }
 ```
@@ -1031,7 +1031,7 @@ header {
       background-position: top left;
     }
   }
-  ...
+  ...;
 }
 ```
 
@@ -1055,7 +1055,7 @@ nav {
     grid-area: nav;
   }
 
-  ...
+  ...;
 }
 ```
 
@@ -1091,8 +1091,8 @@ html {
 }
 
 body {
-  font: 100%/1.5 'Segoe UI', Candara, 'Bitstream Vera Sans', 'DejaVu Sans', 'Bitstream Vera Sans',
-    'Trebuchet MS', Verdana, 'Verdana Ref', sans-serif;
+  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
+    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   @media (min-width: $break-two) {
@@ -1100,10 +1100,10 @@ body {
     margin-top: 1.5rem;
     display: grid;
     grid-template-areas:
-      'header'
-      'nav'
-      'content'
-      'footer';
+      "header"
+      "nav"
+      "content"
+      "footer";
   }
 }
 
@@ -1196,11 +1196,11 @@ footer {
 And in `styles.scss` all you should need is:
 
 ```css
-@import 'imports/variables';
-@import 'imports/base';
-@import 'imports/header';
-@import 'imports/nav';
-@import 'imports/content';
+@import "imports/variables";
+@import "imports/base";
+@import "imports/header";
+@import "imports/nav";
+@import "imports/content";
 ```
 
 Test in the browser at various sizes.
@@ -1231,9 +1231,9 @@ Finally, copy the font css into a new partial and change the paths:
 
 ```css
 @font-face {
-  font-family: 'futura_stdlight';
-  src: url('font/futurastd-light-webfont-webfont.woff2') format('woff2'), url('font/futurastd-light-webfont-webfont.woff')
-      format('woff');
+  font-family: "futura_stdlight";
+  src: url("font/futurastd-light-webfont-webfont.woff2") format("woff2"), url("font/futurastd-light-webfont-webfont.woff")
+      format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -1250,15 +1250,15 @@ Note `index.js` in the `js` folder and link it to `index.html`:
 ```
 
 ```js
-var API = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes'
+var API = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
 
 fetch(API)
   .then(function (response) {
-    return response.json()
+    return response.json();
   })
   .then(function (data) {
-    document.querySelector('.quote').innerText = data[0]
-  })
+    document.querySelector(".quote").innerText = data[0];
+  });
 ```
 
 Add class "quote" to the lone paragraph in the navigation. Use `aria-live="polite"`
@@ -1284,17 +1284,17 @@ $ npm install random-number
 In `basilnode.js`:
 
 ```js
-const randomNumber = require('random-number')
+const randomNumber = require("random-number");
 
 const randomIndex = randomNumber({
   min: 0,
   max: 4,
   integer: true,
-})
+});
 
-console.log(randomIndex)
-console.log(typeof randomNumber)
-console.log(typeof randomIndex)
+console.log(randomIndex);
+console.log(typeof randomNumber);
+console.log(typeof randomIndex);
 ```
 
 At the command line:
@@ -1306,23 +1306,23 @@ $ node basilnode.js
 Add some additional variables - arrays:
 
 ```js
-const randomNumber = require('random-number')
+const randomNumber = require("random-number");
 
-const basilChef = ['mama', 'papa', 'baby']
+const basilChef = ["mama", "papa", "baby"];
 
 function randomItem(array) {
   const randomIndex = randomNumber({
     min: 0,
     max: array.length - 1,
     integer: true,
-  })
-  return array[randomIndex]
+  });
+  return array[randomIndex];
 }
 
-console.log(basilChef)
-console.log(basilChef[0])
-console.log(basilChef.length)
-console.log(randomItem(basilChef))
+console.log(basilChef);
+console.log(basilChef[0]);
+console.log(basilChef.length);
+console.log(randomItem(basilChef));
 ```
 
 ```sh
@@ -1332,25 +1332,55 @@ $ node basilnode.js
 Call the randomItem function from within another function and use a [template string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) to construct a bit of HTML::
 
 ```js
-const randomNumber = require('random-number')
+const randomNumber = require("random-number");
 
-const basilChef = ['mama', 'papa', 'baby']
-const basilTexture = ['greasy', 'frozen', 'spicy']
+const basilChef = ["mama", "papa", "baby"];
+const basilTexture = ["greasy", "frozen", "spicy"];
 
 function randomItem(array) {
   const randomIndex = randomNumber({
     min: 0,
     max: array.length - 1,
     integer: true,
-  })
-  return array[randomIndex]
+  });
+  return array[randomIndex];
 }
 
 function makeBasil() {
-  return `<h2>${randomItem(basilChef)}'s ${randomItem(basilTexture)} basil</h2>`
+  return `<h2>${randomItem(basilChef)}'s ${randomItem(
+    basilTexture
+  )} basil</h2>`;
 }
 
-console.log(makeBasil())
+console.log(makeBasil());
+```
+
+Here is the above without relying on the node module:
+
+```js
+function random() {
+  const max = 3;
+  // const randomIndex = Math.random();
+  // const randomIndex = Math.random() * max;
+  const randomIndex = Math.floor(Math.random() * max);
+  return randomIndex;
+}
+
+const basilChef = ["mama", "papa", "baby"];
+const basilTexture = ["greasy", "frozen", "spicy"];
+
+function randomItem(array) {
+  const randomIndex = random();
+  return array[randomIndex];
+}
+
+function makeBasil() {
+  return `<h2>${randomItem(basilChef)}'s ${randomItem(
+    basilTexture
+  )} basil</h2>`;
+}
+
+console.log(makeBasil());
 ```
 
 ### 1.14.2. Add a Script
@@ -1363,29 +1393,29 @@ Evolve a function that uses JavaScript's built-in [Math methods](https://develop
 
 ```js
 function random() {
-  const max = 3
+  const max = 3;
   // const randomIndex = Math.random();
   // const randomIndex = Math.random() * max;
-  const randomIndex = Math.floor(Math.random() * max)
-  return randomIndex
+  const randomIndex = Math.floor(Math.random() * max);
+  return randomIndex;
 }
 
-console.log(random())
+console.log(random());
 ```
 
 Now call our random function passing in an array.
 
 ```js
-const basilChefs = ['mama', 'papa', 'baby']
+const basilChefs = ["mama", "papa", "baby"];
 
 function random(array) {
-  const max = array.length
-  const randomIndex = Math.floor(Math.random() * max)
-  return array[randomIndex]
+  const max = array.length;
+  const randomIndex = Math.floor(Math.random() * max);
+  return array[randomIndex];
 }
 
-var name = random(basilChefs)
-console.log(name)
+var name = random(basilChefs);
+console.log(name);
 ```
 
 We used the random number to select a name from the array and return it to the calling function.
@@ -1393,43 +1423,43 @@ We used the random number to select a name from the array and return it to the c
 Add another variable `basilTexture` and massage the output to product a string:
 
 ```js
-const basilChefs = ['mama', 'papa', 'baby']
-const basilTexture = ['greasy', 'frozen', 'spicy']
+const basilChefs = ["mama", "papa", "baby"];
+const basilTexture = ["greasy", "frozen", "spicy"];
 
 function random(array) {
-  const max = array.length
-  const randomIndex = Math.floor(Math.random() * max)
-  return array[randomIndex]
+  const max = array.length;
+  const randomIndex = Math.floor(Math.random() * max);
+  return array[randomIndex];
 }
 
 var recipeName =
-  'My ' + random(basilChefs) + "'s " + random(basilTexture) + ' pesto'
-console.log(recipeName)
+  "My " + random(basilChefs) + "'s " + random(basilTexture) + " pesto";
+console.log(recipeName);
 ```
 
 Let's use the return value in our layout:
 
 ```js
-const el = document.querySelector('h2')
+const el = document.querySelector("h2");
 ```
 
 Test `el` in the console.
 
 ```js
-const el = document.querySelector('h2')
+const el = document.querySelector("h2");
 
-const basilChefs = ['mama', 'papa', 'baby']
-const basilTexture = ['greasy', 'frozen', 'spicy']
+const basilChefs = ["mama", "papa", "baby"];
+const basilTexture = ["greasy", "frozen", "spicy"];
 
 function random(array) {
-  const max = array.length
-  const randomIndex = Math.floor(Math.random() * max)
-  return array[randomIndex]
+  const max = array.length;
+  const randomIndex = Math.floor(Math.random() * max);
+  return array[randomIndex];
 }
 
-var recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`
+var recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`;
 
-el.innerHTML = recipeName
+el.innerHTML = recipeName;
 ```
 
 and add it to the article block it in `_content.scss`:
@@ -1485,32 +1515,32 @@ Code the `.beta` button to show the window.
 Create a variable for the beta button, attach an event listener to it, and create a function to handle the event.
 
 ```js
-var modal = document.querySelector('.modal')
-var betaButton = document.querySelector('.beta')
+var modal = document.querySelector(".modal");
+var betaButton = document.querySelector(".beta");
 
 function showPopover(event) {
-  modal.classList.toggle('open')
-  event.preventDefault()
+  modal.classList.toggle("open");
+  event.preventDefault();
 }
 
-betaButton.addEventListener('click', showPopover)
+betaButton.addEventListener("click", showPopover);
 ```
 
 Refactor to use event delegation:
 
 ```js
-var modal = document.querySelector('.modal')
+var modal = document.querySelector(".modal");
 // var betaButton = document.querySelector('.beta');
 
 function showPopover(event) {
-  console.log(event.target)
-  if (!event.target.matches('.beta')) return
-  modal.classList.toggle('open')
-  event.preventDefault()
+  console.log(event.target);
+  if (!event.target.matches(".beta")) return;
+  modal.classList.toggle("open");
+  event.preventDefault();
 }
 
 // betaButton.addEventListener('click', showPopover);
-document.addEventListener('click', showPopover)
+document.addEventListener("click", showPopover);
 ```
 
 ## 1.16. DOM Scripting Methods Used
@@ -1527,18 +1557,18 @@ The `matches()` method lets you check if an element would be selected by a parti
 
 ```js
 // Match by an ID
-if (elem.matches('#first-button')) {
+if (elem.matches("#first-button")) {
   // Do something...
 }
 
 // Match by a class
-if (elem.matches('.button-submit')) {
+if (elem.matches(".button-submit")) {
   // Do something...
 }
 
 // Match by one of several selectors
 // Returns true when element contains at least one of the selectors
-if (elem.matches('.click-me, .button-submit')) {
+if (elem.matches(".click-me, .button-submit")) {
   // Do something...
 }
 ```
@@ -1578,15 +1608,15 @@ Style it:
 Extend the showPopover function to include the new element script.
 
 ```js
-var modal = document.querySelector('.modal')
+var modal = document.querySelector(".modal");
 
 function showPopover(event) {
-  if (!event.target.matches('.beta, .closer')) return
-  modal.classList.toggle('open')
-  event.preventDefault()
+  if (!event.target.matches(".beta, .closer")) return;
+  modal.classList.toggle("open");
+  event.preventDefault();
 }
 
-document.addEventListener('click', showPopover)
+document.addEventListener("click", showPopover);
 ```
 
 Note: you cannot animate between `display: none` and `display: block`.
@@ -1635,16 +1665,16 @@ Try: changing the opacity and pointer-events properties to 1 and all.
 Edit the script to select the outer div and apply the `open` class to it:
 
 ```js
-var modal = document.querySelector('.modal')
-var modalOuter = document.querySelector('.modal-outer')
+var modal = document.querySelector(".modal");
+var modalOuter = document.querySelector(".modal-outer");
 
 function showPopover(event) {
-  if (!event.target.matches('.beta, .closer')) return
-  modalOuter.classList.toggle('open')
-  event.preventDefault()
+  if (!event.target.matches(".beta, .closer")) return;
+  modalOuter.classList.toggle("open");
+  event.preventDefault();
 }
 
-document.addEventListener('click', showPopover)
+document.addEventListener("click", showPopover);
 ```
 
 Now the modal wrapper will show when the button is clicked - but the modal will not.
@@ -1679,18 +1709,18 @@ Edit the script to allow clicking on the overlay to close the modal.
 
 ```js
 // var modal = document.querySelector('.modal')
-var modalOuter = document.querySelector('.modal-outer')
+var modalOuter = document.querySelector(".modal-outer");
 
 function showPopover(event) {
-  if (event.target.matches('.beta')) {
-    modalOuter.classList.add('open')
-  } else if (event.target.matches('.closer, .modal-outer')) {
-    modalOuter.classList.remove('open')
-  } else return
-  event.preventDefault()
+  if (event.target.matches(".beta")) {
+    modalOuter.classList.add("open");
+  } else if (event.target.matches(".closer, .modal-outer")) {
+    modalOuter.classList.remove("open");
+  } else return;
+  event.preventDefault();
 }
 
-document.addEventListener('click', showPopover)
+document.addEventListener("click", showPopover);
 ```
 
 ## 1.17. A Dynamic Popover
@@ -1698,57 +1728,57 @@ document.addEventListener('click', showPopover)
 We will use the popover for different purposes depending on which element is clicked.
 
 ```js
-var modalOuter = document.querySelector('.modal-outer')
-var modalInner = document.querySelector('.modal')
+var modalOuter = document.querySelector(".modal-outer");
+var modalInner = document.querySelector(".modal");
 
 var betaContent = `
 <h3>Oooops!</h3>
 <p>Wow! Nothing works!<p>
-`
+`;
 
 function showPopover(event) {
-  if (event.target.matches('.beta')) {
-    modalInner.innerHTML = betaContent
-    modalOuter.classList.add('open')
-  } else if (event.target.matches('.closer, .modal-outer')) {
-    modalOuter.classList.remove('open')
-  } else return
-  event.preventDefault()
+  if (event.target.matches(".beta")) {
+    modalInner.innerHTML = betaContent;
+    modalOuter.classList.add("open");
+  } else if (event.target.matches(".closer, .modal-outer")) {
+    modalOuter.classList.remove("open");
+  } else return;
+  event.preventDefault();
 }
 
-document.addEventListener('click', showPopover)
+document.addEventListener("click", showPopover);
 ```
 
 Let's use our new popover to display a different message when the user clicks on any of the three nav buttons.
 
 ```js
-var modalOuter = document.querySelector('.modal-outer')
-var modalInner = document.querySelector('.modal')
+var modalOuter = document.querySelector(".modal-outer");
+var modalInner = document.querySelector(".modal");
 
 var betaContent = `
 <h3>Oooops!</h3>
 <p>Wow! Nothing works!<p>
-`
+`;
 var buttonContent = `
 <h2>Coming Soon</h2>
 <p>This feature coming soon.<p>
 <a class="closer" href="#0">✖︎</a>
-`
+`;
 
 function showPopover(event) {
-  if (event.target.matches('.beta')) {
-    modalInner.innerHTML = betaContent
-    modalOuter.classList.add('open')
-  } else if (event.target.closest('nav ul')) {
-    modalInner.innerHTML = buttonContent
-    modalOuter.classList.add('open')
-  } else if (event.target.matches('.closer, .modal-outer')) {
-    modalOuter.classList.remove('open')
-  } else return
-  event.preventDefault()
+  if (event.target.matches(".beta")) {
+    modalInner.innerHTML = betaContent;
+    modalOuter.classList.add("open");
+  } else if (event.target.closest("nav ul")) {
+    modalInner.innerHTML = buttonContent;
+    modalOuter.classList.add("open");
+  } else if (event.target.matches(".closer, .modal-outer")) {
+    modalOuter.classList.remove("open");
+  } else return;
+  event.preventDefault();
 }
 
-document.addEventListener('click', showPopover)
+document.addEventListener("click", showPopover);
 ```
 
 Note the use of [closest](https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/) above. The `closest()` method looks for the closest matching parent to an element that has a selector that you pass in.
@@ -1814,10 +1844,10 @@ let recipe = `
     1 <abbr title="Pounds">lb</abbr> plain pasta
   </li>
 </ul>
-`
+`;
 
-const article = document.querySelector('article')
-article.innerHTML = recipe
+const article = document.querySelector("article");
+article.innerHTML = recipe;
 ```
 
 ## 1.19. Expressions
@@ -1825,8 +1855,8 @@ article.innerHTML = recipe
 Any unit of code that can be evaluated to a value is an expression. Since expressions produce values, they can appear anywhere in a program where JavaScript expects a value.
 
 ```js
-10 + 13
-'hello' + 'world'
+10 + 13;
+"hello" + "world";
 ```
 
 ## 1.20. Statements
@@ -1834,23 +1864,23 @@ Any unit of code that can be evaluated to a value is an expression. Since expres
 A statement is an instruction to perform a specific action - creating a variable or a function, looping through an array of elements, and evaluating code based on a specific condition.
 
 ```js
-var total = 0
+var total = 0;
 
 function greet(message) {
-  console.log(message)
+  console.log(message);
 }
 ```
 
 ```js
-let dirs = ''
+let dirs = "";
 
 function createDirections() {
   for (let i = 0; i < currRecipe.directions.length; i++) {
-    dirs += '<li>' + currRecipe.directions[i] + '</li>'
+    dirs += "<li>" + currRecipe.directions[i] + "</li>";
   }
 }
 
-createDirections()
+createDirections();
 ```
 
 ```js
@@ -1870,11 +1900,11 @@ ${currRecipe.directions.map(dir => `<li>${dir}</li>`).join('')}
 ONE
 
 ```js
-const recipeTitle = recipesData[0].name
-console.log(recipeTitle)
-const figure = document.querySelector('h2')
-console.log(figure)
-figure.innerText = recipeTitle
+const recipeTitle = recipesData[0].name;
+console.log(recipeTitle);
+const figure = document.querySelector("h2");
+console.log(figure);
+figure.innerText = recipeTitle;
 ```
 
 `<div id="app"></div>`
@@ -1882,10 +1912,10 @@ figure.innerText = recipeTitle
 TWO
 
 ```js
-const recipe = recipesData[0]
-const recipeOne = '<h2 itemprop="name">' + recipe.name + '</h2>'
-const app = document.querySelector('#app')
-app.innerHTML = recipeOne
+const recipe = recipesData[0];
+const recipeOne = '<h2 itemprop="name">' + recipe.name + "</h2>";
+const app = document.querySelector("#app");
+app.innerHTML = recipeOne;
 ```
 
 `<div id="app"></div>`
@@ -1893,44 +1923,44 @@ app.innerHTML = recipeOne
 THREE
 
 ```js
-const recipe = recipesData[0]
+const recipe = recipesData[0];
 const recipeOne =
-  '<h2>' +
+  "<h2>" +
   recipe.name +
-  '</h2>' +
-  '<figure>' +
-  '<picture>' +
-  '<img src=img/' +
+  "</h2>" +
+  "<figure>" +
+  "<picture>" +
+  "<img src=img/" +
   recipe.photo +
   ' alt="' +
   recipe.name +
   '" />' +
-  '</picture>' +
-  '<figcaption>' +
+  "</picture>" +
+  "<figcaption>" +
   recipe.description +
-  '</figcaption>' +
-  '</figure>'
+  "</figcaption>" +
+  "</figure>";
 
-const app = document.querySelector('#app')
-app.innerHTML = recipeOne
+const app = document.querySelector("#app");
+app.innerHTML = recipeOne;
 ```
 
 FOUR
 
 ```js
-const recipe = recipesData[0]
+const recipe = recipesData[0];
 const recipeOne = `<h2>${recipe.name}</h2>
   <figure >
   <picture>
     <img src="img/${recipe.photo}" alt="${recipe.name}" />
   </picture>
     <figcaption>${recipe.description}</figcaption>
-  </figure>`
+  </figure>`;
 
-console.log(recipeOne)
+console.log(recipeOne);
 
-const app = document.querySelector('#app')
-app.innerHTML = recipeOne
+const app = document.querySelector("#app");
+app.innerHTML = recipeOne;
 ```
 
 Concurrently & npm run all
