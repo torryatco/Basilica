@@ -11,11 +11,11 @@
   - [1.8. Responsive Images](#18-responsive-images)
   - [1.9. Flex Layout](#19-flex-layout)
     - [1.9.1. Review: Pseudo-elements vs Pseudo-classes](#191-review-pseudo-elements-vs-pseudo-classes)
-  - [1.10. The Branding Header](#110-the-branding-header)
-    - [1.10.1. Header: Responsive Design](#1101-header-responsive-design)
+  - [The Branding Header](#the-branding-header)
+    - [Header: Responsive Design](#header-responsive-design)
   - [1.11. Navigation](#111-navigation)
-    - [1.11.1. Button and Gradients](#1111-button-and-gradients)
-  - [1.12. CSS Grid](#112-css-grid)
+    - [Button and Gradients](#button-and-gradients)
+  - [CSS Grid](#css-grid)
   - [1.13. Sass](#113-sass)
     - [1.13.1. SASS Variables](#1131-sass-variables)
     - [1.13.2. SASS Nesting](#1132-sass-nesting)
@@ -83,15 +83,17 @@ $ npm init
 $ npm install browser-sync sass concurrently prettier --save-dev
 ```
 
-Note:
+Review:
 
 - package.json - sass, concurrently, prettier
 - package-lock.json
 - dependencies vs devDependencies
 - node_modules folder
-- why the need for `.gitignore`?
+- the need for `.gitignore`
 
 Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
+
+Add an npm command to the scripts section of `package.json`:
 
 ```js
 "scripts": {
@@ -99,9 +101,9 @@ Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
 },
 ```
 
-Remember, if the repo comes with a package.json file (aka 'manifest') run `npm install` to install before running the start command.
+Note: if the repo already contains a package.json file run `npm install` before running the start command.
 
-In the terminal:
+In VS Code's integrated terminal:
 
 `$ npm run start`
 
@@ -117,19 +119,22 @@ Note - there are [many different kinds of schemas](https://schema.org/docs/full.
 
 Test the page with [Rich Results Test](https://search.google.com/test/rich-results?utm_campaign=devsite&utm_medium=jsonld&utm_source=recipe) and add any missing attributes.
 
-Note the `<abbr>` tag and the absence of a wrapper div (even though the design shows a centered document).
+Note:
+
+- the `<abbr>` tag
+- the absence of a wrapper div (even though the design shows a centered document)
 
 Optional: add [Open Graph Metadata](https://ogp.me/) to the header.
 
 ### 1.7.1. Starter CSS
 
-Examine the starter CSS. Note the use of `max-width` on the body selector - we applied these to a div in the past.
+Examine the starter CSS.
 
-Note `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the immediate parent is an `li`. Compare this to `li h4`.
+Note
 
-Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
-
-Note the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
+- the use of `max-width` on the body selector - we applied these to a div in the past.
+- the `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the immediate parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
+- the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
 
 ```css
 html {
@@ -145,13 +150,17 @@ html {
 }
 ```
 
-CSS variables are applied as follows:
+CSS variables often created at a high level in the CSS (here, the html selector is used although you will often find `:root`). This ensures that all the elements inherit them and can make use of them.
+
+CSS variables are applied as follows, e.g.:
 
 ```css
-color: var(--basil-green);
+p {
+  color: var(--basil-green);
+}
 ```
 
-Note also: the transition property on the anchors. This is a shortcut for:
+Note also: the transition property on the anchors. `transition: color 0.2s linear;` is a shortcut for:
 
 ```css
 transition-property: color;
@@ -159,9 +168,7 @@ transition-duration: 1s;
 transition-timing-function: linear;
 ```
 
-or `transition: color 0.2s linear;`
-
-Confine this effect to anchors within the content div with:
+We begin by confining the animation to anchors within the content div with so as not to effect the navigation:
 
 ```css
 .content a:hover {
@@ -176,15 +183,16 @@ Confine this effect to anchors within the content div with:
 ```css
 img {
   width: 100%;
-  height: auto;
 }
 ```
 
-You frequently use `width: 100%` on images (and videos) in conjunction with a flexible container to determine size.
+You frequently use `width: 100%` on images (and videos) in conjunction with a flexible container to determine size. (CSS also provide control over [aspect ration](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) which is useful for videos.)
 
-The problem with this can be observed by throttling the download speed, emptying cache and doing a hard refresh. This is known as [Cumulative Layout Shift](https://web.dev/cls/). (Here is a discussion on [how to best deal with CLS](https://web.dev/optimize-cls/).)
+The problem with our responsive image as currently coded can be observed by [throttling the download speed](https://www.browserstack.com/guide/how-to-perform-network-throttling-in-chrome), emptying the browser cache (go to Settings > Privacy and Security > Clear browsing data) and doing a hard refresh. This is known as [Cumulative Layout Shift](https://web.dev/cls/). Here is a discussion on [how to best deal with CLS](https://web.dev/optimize-cls/).
 
-Replace the lone img tag in the HTML with `figure` and `figcaption` tags:
+Be sure to turn off throttling before continuing to work.
+
+Replace the lone img tag in the HTML with `<figure>` and `<figcaption>` tags:
 
 ```html
 <figure>
@@ -197,23 +205,48 @@ Replace the lone img tag in the HTML with `figure` and `figcaption` tags:
 </figure>
 ```
 
-We want to display identical image content, just larger or smaller depending on the device. The standard `<img>` element only lets you point the browser to a single source file. Two attributes — `srcset` and `sizes` — provide additional source images along with hints to help the browser pick the right one.
+The `<figure>` tag allows you to use an optional `<figcaption>` element within.
 
-[srcset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset) defines a set of images we will allow the browser to choose between, and what size each image is.
+We want to display identical image content, but the file size should be larger or smaller depending on the device and its capabilities - i.e. we want a smaller image for mobile users. The standard `<img>` element points the browser to a single source file. Two attributes — `srcset` and `sizes` — provide additional source images along with hints to help the browser pick the right one.
+
+[srcset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset) defines a set of images that allow the browser to choose which image size to use.
+
+Examine image use in a typical [NY Times article](https://www.nytimes.com/2023/06/04/nyregion/brooklyn-brownsville-no-police.html):
 
 ```html
-<div class="box">
-  <img
-    src="img/clock-demo-200px.png"
-    alt="Clock"
-    srcset="img/clock-demo-200px.png 1x, img/clock-demo-400px.png 2x"
-  />
-</div>
+<img
+  alt="A man in a purple hoodie talks to a group of teenagers. "
+  class="css-jb88yk"
+  src="https://static01.nyt.com/images/2023/06/01/multimedia/00ny-no-cops90-vkgl/00ny-no-cops90-vkgl-articleLarge.jpg?quality=75&amp;auto=webp&amp;disable=upscale"
+  srcset="
+    https://static01.nyt.com/images/2023/06/01/multimedia/00ny-no-cops90-vkgl/00ny-no-cops90-vkgl-articleLarge.jpg?quality=75&amp;auto=webp  600w,
+    https://static01.nyt.com/images/2023/06/01/multimedia/00ny-no-cops90-vkgl/00ny-no-cops90-vkgl-jumbo.jpg?quality=75&amp;auto=webp        1024w,
+    https://static01.nyt.com/images/2023/06/01/multimedia/00ny-no-cops90-vkgl/00ny-no-cops90-vkgl-superJumbo.jpg?quality=75&amp;auto=webp   2048w
+  "
+  sizes="100vw"
+  decoding="async"
+  width="600"
+  height="400"
+/>
 ```
 
-Try: Examine image use in a NY Times article.
-
 Replace the `img` tag in index.html with a [picture tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture):
+
+```html
+<img
+  alt="A bowl of pesto sitting on a table."
+  src="img/pesto.jpg"
+  srcset="
+    pesto_iodywc_c_scale,w_380.jpg             600w,
+    img/pesto/pesto_iodywc_c_scale,w_780.jpg  1024w,
+    img/pesto/pesto_iodywc_c_scale,w_1380.jpg 2048w
+  "
+  width="100%"
+  height="auto"
+/>
+```
+
+Note: you can also use a `<picture>` element:
 
 ```html
 <picture>
@@ -239,9 +272,9 @@ You can check the results of your work by viewing the Network tab in the inspect
 
 You typically use a server with software such as [Sharp](https://www.npmjs.com/package/sharp) to output multiple image sizes and formats. The HTML is often [generated](https://www.npmjs.com/package/gatsby-plugin-image) as [well](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/image-component).
 
-- Upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/). Download the zip file and place the unzipped folder in the `img` directory.
+To experiemnt with these techniques you could upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/), download the zip file and place the unzipped folder in the `img` directory.
 
-There are specialized services such as Cloudinary available. At a bare minimum, should also run your images through a processor such as [imageOptim](https://imageoptim.com/mac).
+There are specialized services such as Cloudinary which perform image processing on the fly.
 
 Samples of [Cloudinary](https://cloudinary.com/) image processing:
 
@@ -257,6 +290,8 @@ Samples of [Cloudinary](https://cloudinary.com/) image processing:
 />
 ```
 
+At a bare minimum, should also run your images through a processor such as [imageOptim](https://imageoptim.com/mac).
+
 ## 1.9. Flex Layout
 
 The two column view applies only to widescreen.
@@ -271,14 +306,15 @@ We will make the article and aside run side by side by applying flex to their pa
 }
 ```
 
-Note: we _cannot_ use a CSS variable as a breakpoint:
+Note: we _cannot_ use a CSS variable as a breakpoint, i.e.:
 
 ```css
 @media (min-width: var(--breakpoint)) {
+  /* ... */
 }
 ```
 
-(A media query is not an element selector so it does not inherit styles.)
+A media query is not an element selector so it does not inherit styles.
 
 We can use the flex property on the flex children to manipulate the columns:
 
@@ -365,7 +401,7 @@ e.g.: Selected text:
 }
 ```
 
-## 1.10. The Branding Header
+## The Branding Header
 
 Add the green background to the branding div.
 
@@ -377,9 +413,9 @@ header {
 }
 ```
 
-Note: this is one of the few occasions that we use the height property. We use it here because the header does not contain dynamic content.
+Note: this is one of the rare occasions that we use the height property. We use it here because the header does not contain dynamic content.
 
-Add the custom font (top of the css file):
+Add a custom font (top of the css file):
 
 ```css
 @import url(font/stylesheet.css);
@@ -399,11 +435,13 @@ header h1 {
 }
 ```
 
+Try: temporarily remove `no-repeat` from the `background` property and setting the height of the `<h1>` to 600px.
+
 Note: `font-weight: normal;` is necessary here because by default header tags are bold and we do not have a bold version of the font available.
 
-The background image is 272px by 170px.
+The background image is 272px by 170px. Recall the [final design goal](other/FINAL.png).
 
-Since background images fill the background of their container we can manipulate them using padding:
+Since background images fill the background of their container we can begin by manipulating padding:
 
 ```css
 header h1 {
@@ -413,7 +451,9 @@ header h1 {
 }
 ```
 
-We cannot see the text because we have added padding. Use transform to tweak the positioning:
+(We cannot see the text because it is white and we have added padding.)
+
+Use transform to tweak the positioning:
 
 ```css
 header h1 {
@@ -451,11 +491,11 @@ header a.beta {
 }
 ```
 
-Note: the use of `img/burst.svg` for the background image. Examine it in the editor.
+Note:
 
-Note: the use of line-height to set the leading to the same height as the containing element. This allows the text to vertically center.
-
-Note the use of position absolute. We will give this element a positioning context by applying position absolute to its containing element:
+- the use of `img/burst.svg` for the background image. Examine it in the editor.
+- the use of line-height to set the leading to the same height as the containing element. This allows the text to vertically center.
+- the use of position absolute. We will give this element a positioning context by applying position absolute to its containing element:
 
 ```css
 header {
@@ -474,15 +514,17 @@ header a.beta {
 }
 ```
 
+Create a hover state for the burst:
+
 ```css
 header a.beta:hover {
   transform: rotate(0deg) scale(1.2);
 }
 ```
 
-### 1.10.1. Header: Responsive Design
+### Header: Responsive Design
 
-Examine the site for problems in a narrow browser.
+Examine the page for problems in a narrow browser.
 
 We will attempt a mobile first design strategy. Edit the css to display for small screen first:
 
@@ -506,13 +548,13 @@ And add features for the large screen within a media query:
     transform: translate(-100px, -80px);
     background-position: top left;
   }
-  ...;
+  /* ...; */
 }
 ```
 
-Additional tweaks for the _small screen might_ include:
+Additional tweaks for the small screen:
 
-- Removing the body margin top (and adding it back for the wide screen):
+- Remove the body margin top (and adding it back for the wide screen):
 
 ```css
 body {
@@ -531,11 +573,11 @@ body {
     margin: 0 auto;
     margin-top: 24px;
   }
-  ...;
+  /* ...; */
 }
 ```
 
-- Removing the rounded corners on small screen (and adding it back on wide screens):
+- Removing the rounded corners on small screen:
 
 ```css
 header {
@@ -546,16 +588,18 @@ header {
 }
 ```
 
+Add it back on wide screens:
+
 ```css
 @media (min-width: 640px) {
   header {
     border-radius: 8px 8px 0px 0px;
   }
-  ...;
+  /* ...; */
 }
 ```
 
-Remember: there is no hover in touch screen devices.
+Always remember: there is no hover in touch screen devices. Use the Device Toggle in the developer tools set to a mobile viewport and tap on the burst.
 
 ## 1.11. Navigation
 
@@ -585,7 +629,10 @@ nav p {
 }
 ```
 
-Note the margin-right property on the paragraph and the effect it has on the positioning on the navigation links.
+Note:
+
+- we have two flex children, the `<ul>` and the lone `<p>` tag.
+- the margin-right property on the paragraph and the effect it has on the positioning on the navigation links.
 
 Remove it and add `justify-content` to the flex parent:
 
@@ -593,7 +640,7 @@ Remove it and add `justify-content` to the flex parent:
 nav {
   justify-content: space-between;
   flex-wrap: wrap;
-  ...;
+  /* ...; */
 }
 /* nav p {
   margin-right: auto; 
@@ -602,7 +649,7 @@ nav {
 
 Note: the flex-wrap property allows the paragraph to stack on small screens.
 
-### 1.11.1. Button and Gradients
+### Button and Gradients
 
 ```css
 nav a {
@@ -649,13 +696,13 @@ Make all the buttons the same width. Try with and without the `inline-block`.
 nav a {
   min-width: 120px;
   display: inline-block;
-  ...;
+  /* ...; */
 }
 ```
 
 Note: this is a setting which will likely need to be changed to accomodate small screens.
 
-## 1.12. CSS Grid
+## CSS Grid
 
 CSS Tricks offers a [guide to CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
@@ -685,7 +732,7 @@ Remove the flex statements and use a grid display, define columns, and set the s
     background: var(--light-green);
     box-shadow: -4px 0px 4px #ddd;
   }
-  ...;
+  /* ...; */
 }
 ```
 
@@ -736,7 +783,7 @@ Finally, by moving display grid to the body selector, we can use [grid areas](ht
 }
 ```
 
-Demo:
+Demo: with grid areas it become easy to reassign different sections of the page.
 
 ```css
 header {
@@ -779,7 +826,7 @@ To run both scripts at the same time edit the scripts in package.json:
 
 Run `npm start` (note: the word 'run' is optional when using start).
 
-Test it by re-adding the following to the top of `styles.scss`:
+Test it by re-adding the following to the top of the SASS file `styles.scss`:
 
 ```css
 * {
@@ -787,9 +834,13 @@ Test it by re-adding the following to the top of `styles.scss`:
 }
 ```
 
-Note that sass is less tolerant of errors than regular css. Try
+Note that sass is less tolerant of errors than regular css. Try omitting the full colon:
 
-`* { color red !important };`.
+```css
+* {
+  color red !important
+  };
+```
 
 ### 1.13.1. SASS Variables
 
