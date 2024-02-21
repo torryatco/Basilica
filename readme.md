@@ -131,11 +131,11 @@ Optional: add [Open Graph Metadata](https://ogp.me/) to the header.
 
 Examine the starter CSS.
 
-Note
+Note:
 
-- the use of `max-width` on the body selector - we applied these to a div in the past.
-- the `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the immediate parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
-- the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
+1 the use of `max-width` on the body selector - we applied these to a wrapper div in the past.
+2 the `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the immediate parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
+3 the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
 
 ```css
 html {
@@ -151,7 +151,7 @@ html {
 }
 ```
 
-CSS variables often created at a high level in the CSS (here, the html selector is used although you will often find `:root`). This ensures that all the elements inherit them and can make use of them.
+CSS variables are defined at a high level in the CSS (here, the html selector is used although you will often find `:root`). This ensures that all the elements inherit and make use of them.
 
 CSS variables are applied as follows, e.g.:
 
@@ -169,14 +169,6 @@ transition-duration: 1s;
 transition-timing-function: linear;
 ```
 
-We begin by confining the animation to anchors within the content div with so as not to effect the navigation:
-
-```css
-.content a:hover {
-  color: var(--basil-green);
-}
-```
-
 ## 1.8. Responsive Images
 
 [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) work well on devices with widely differing screen sizes, resolutions, and other features:
@@ -187,13 +179,15 @@ img {
 }
 ```
 
-You frequently use `width: 100%` on images (and videos) in conjunction with a flexible container to determine size. (CSS also provide control over [aspect ration](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) which is useful for videos.)
+You frequently use `width: 100%` on images (and videos) in conjunction with a container to determine the ultimate image size. (CSS also provides control over [aspect ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) which is useful for videos.)
 
-The problem with our responsive image as currently coded can be observed by [throttling the download speed](https://www.browserstack.com/guide/how-to-perform-network-throttling-in-chrome), emptying the browser cache (go to Settings > Privacy and Security > Clear browsing data) and doing a hard refresh. This is known as [Cumulative Layout Shift](https://web.dev/cls/). Here is a discussion on [how to best deal with CLS](https://web.dev/optimize-cls/).
+The problem with our responsive image as currently coded can be observed by [throttling the download speed](https://www.browserstack.com/guide/how-to-perform-network-throttling-in-chrome) and turning off Cache in the Network tab of the dev tools and doing a hard refresh by right clicking on the browser's refresh icon.
 
-Be sure to turn off throttling before continuing to work.
+Note the [Cumulative Layout Shift](https://web.dev/cls/) which occurs.
 
-Replace the lone img tag in the HTML with `<figure>` and `<figcaption>` tags:
+(Be sure to turn off throttling and enable cache before continuing.)
+
+Replace the lone `img` tag in the HTML with `<figure>` and `<figcaption>` tags:
 
 ```html
 <figure>

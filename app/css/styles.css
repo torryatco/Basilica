@@ -63,3 +63,7 @@ article ol {
 figcaption {
   font-size: 0.75rem;
 }
+
+.content a:hover {
+  color: var(--basil-green);
+}
