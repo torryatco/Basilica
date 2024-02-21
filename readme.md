@@ -36,14 +36,14 @@
 
 ## 1.2. Homework
 
-Create separate popovers for each button in the navigation. The popovers should each have different messages.
+Continue with the JS section on Front End Masters
 
-## 1.3. Reading
+<!-- ## 1.3. Reading
 
 - See how far you can get in [Grid Garden](http://cssgridgarden.com/)
 - MDN on [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)
 - The [Absolute Beginners Guide](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/) to NPM
-- [What is GIT?](https://guides.github.com/introduction/git-handbook/)
+- [What is GIT?](https://guides.github.com/introduction/git-handbook/) -->
 
 ## 1.4. Goals
 
@@ -66,17 +66,18 @@ $ git add .
 $ git commit -m 'initial commit'
 ```
 
-Prepare for npm:
+Prepare for npm by creating a `.gitignore` file with the text `node_modules` in it.
+
+<!-- You can also do this on the command line
 
 ```sh
 $ touch .gitignore // edit to include 'node_modules'
 $ echo node_modules >> .gitignore
-```
+``` -->
 
 ## 1.6. NPM Initialization and Installs
 
-- Create a manifest (package.json)
-- Install packages
+Create a manifest (package.json) and install packages.
 
 ```bash
 $ npm init
@@ -101,7 +102,7 @@ Add an npm command to the scripts section of `package.json`:
 },
 ```
 
-Note: if the repo already contains a package.json file run `npm install` before running the start command.
+Note: if the repo already contains a `package.json` file run `npm install` before running the start command.
 
 In VS Code's integrated terminal:
 
