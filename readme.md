@@ -11,9 +11,10 @@
   - [Aside - Image Optimization](#aside---image-optimization)
   - [Flex Layout](#flex-layout)
   - [The Branding Header](#the-branding-header)
+    - [Custom Fonts](#custom-fonts)
     - [Header: Responsive Design](#header-responsive-design)
   - [Navigation](#navigation)
-    - [Button and Gradients](#button-and-gradients)
+    - [Nav Links and Gradients](#nav-links-and-gradients)
   - [CSS Grid](#css-grid)
   - [Sass](#sass)
     - [SASS Variables](#sass-variables)
@@ -73,16 +74,17 @@ Create a manifest (package.json) and install packages.
 
 ```sh
 $ npm init
-$ npm install browser-sync sass concurrently prettier --save-dev
+$ npm install browser-sync sass concurrently --save-dev
 ```
 
 Review:
 
-- package.json - sass, concurrently, prettier
+- package.json 
+- [sass](https://www.npmjs.com/package/sass), [concurrently](https://www.npmjs.com/package/concurrently)
 - package-lock.json
-- dependencies vs devDependencies
+- hard [dependencies](https://www.npmjs.com/package/flickity) vs devDependencies
 - node_modules folder
-- the need for `.gitignore`
+- the need for a `.gitignore` file
 
 Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
 
@@ -120,9 +122,10 @@ Examine the starter CSS.
 
 Note:
 
-1 the use of `max-width` on the body selector - we applied these to a wrapper div in the past.
-2 the `li > h4` selector. [A child selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the _immediate_ parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
-3 the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
+1. The pseudo class `::selection`
+1. the use of `max-width` on the body selector - we applied these to a wrapper div in the past.
+2. the `li > h4` selector. [A child selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the _immediate_ parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
+3. the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
 
 ```css
 html {
@@ -138,7 +141,7 @@ html {
 }
 ```
 
-CSS variables are defined at a high level in the CSS (here the html selector is used although you will often find `:root`). This ensures that all the elements inherit and make use of them.
+CSS variables are defined at a high level in the CSS (here the `html` selector is used although you will often find `:root`). This ensures that all the elements inherit and make use of them.
 
 CSS variables are applied as follows, e.g.:
 
@@ -191,7 +194,7 @@ The `<figure>` tag allows you to use an optional `<figcaption>` element within.
 
 ## Aside - Image Optimization
 
-We want to display identical image content across devices but the dimensions should be larger or smaller depending on the device - e.g. a smaller image for mobile users. The standard `<img>` element points the browser to a single source file. Two attributes — `srcset` and `sizes` — provide additional source images along with hints to help the browser pick the right one.
+We want to display identical image content across devices but the dimensions should be larger or smaller depending on the device - e.g. a smaller image for mobile users. While the standard `<img>` element points the browser to a single source file, two attributes — `srcset` and `sizes` — provide additional source images along with hints to help the browser pick the right one.
 
 [srcset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset) defines a set of images that allow the browser to choose which image size to use.
 
@@ -221,7 +224,7 @@ Replace the `img` tag in index.html with:
   alt="A bowl of pesto sitting on a table."
   src="img/pesto.jpg"
   srcset="
-    pesto_iodywc_c_scale,w_380.jpg             600w,
+    img/pesto/pesto_iodywc_c_scale,w_380.jpg  600w,
     img/pesto/pesto_iodywc_c_scale,w_780.jpg  1024w,
     img/pesto/pesto_iodywc_c_scale,w_1380.jpg 2048w
   "
@@ -278,7 +281,7 @@ Demo: samples of [Cloudinary](https://cloudinary.com/) image processing:
 />
 ```
 
-The technique above are used primarily on high traffic websites. For smaller sites your should run your images through a processor such as [imageOptim](https://imageoptim.com/mac) before using them on your site.
+The techniques above are used primarily on high traffic websites. For smaller sites your should run your images through a processor such as [imageOptim](https://imageoptim.com/mac) before using them on your site.
 
 ## Flex Layout
 
@@ -346,6 +349,10 @@ Use a background color and box-shadow to color the aside:
 }
 ```
 
+Add a variable for light green:
+
+`--light-green: #fafdeb;`
+
 Add some padding to the two columns (_outside the media query_ so it applies to both large and small screens):
 
 ```css
@@ -380,6 +387,8 @@ header {
 
 Note: this is one of the rare occasions that we use the height property. We can use it here because the header does not contain dynamic content.
 
+### Custom Fonts
+
 Add a custom font (top of the css file):
 
 ```css
@@ -387,6 +396,18 @@ Add a custom font (top of the css file):
 ```
 
 This requires an additional call to the server to fetch the additional css when the browser renders the file.
+
+Copy the @font-face CSS from font/stylesheet.css into the top of styles.css and correct the file paths:
+
+```css
+@font-face {
+  font-family: 'futura_stdlight';
+  src: url('font/futurastd-light-webfont-webfont.woff2') format('woff2'),
+       url('font/futurastd-light-webfont-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+```
 
 Note - To convert fonts to web formats see [Font Squirrel](https://www.fontsquirrel.com/tools/webfont-generator).
 
@@ -400,9 +421,9 @@ header h1 {
 }
 ```
 
-Try: temporarily remove `no-repeat` from the `background` property and setting the height of the `<h1>` to 600px.
-
 Note: `font-weight: normal;` is necessary here because by default header tags are bold and we do not have a bold version of the font available.
+
+Try: temporarily remove `no-repeat` from the `background` property and setting the height of the `<h1>` to 600px.
 
 The background image is 272px by 170px. Recall the [final design goal](other/FINAL.png).
 
@@ -503,7 +524,7 @@ header h1 {
 }
 ```
 
-And add features for the large screen within a media query:
+And add features for the large screen within the media query:
 
 ```css
 @media (min-width: 640px) {
@@ -523,16 +544,9 @@ Additional tweaks for the small screen:
 
 ```css
 body {
-  font:
-    100%/1.5 "Segoe UI",
-    Candara,
-    "Bitstream Vera Sans",
-    "DejaVu Sans",
-    "Bitstream Vera Sans",
-    "Trebuchet MS",
-    Verdana,
-    "Verdana Ref",
-    sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  line-height: 1.5;
   color: var(--dark-gray);
   max-width: var(--max-width);
   /* margin: 0 auto;
@@ -604,6 +618,7 @@ nav p {
 
 Note:
 
+- the light gray needs to be lighter: `--light-gray: #e4e1d1;`
 - we have two flex children, the `<ul>` and the lone `<p>` tag.
 - the margin-right property on the paragraph and the effect it has on the positioning on the navigation links.
 
@@ -622,7 +637,7 @@ nav {
 
 Note: the flex-wrap property allows the paragraph to stack on small screens.
 
-### Button and Gradients
+### Nav Links and Gradients
 
 ```css
 nav a {
@@ -639,27 +654,35 @@ The [gradients](http://www.colorzilla.com/gradient-editor/) for the buttons:
 
 ```css
 .nav-storeit a {
-  background: linear-gradient(to bottom, #fcde41 1%, #dfa910 100%);
+  background-image: linear-gradient(to bottom, #fcde41 1%, #dfa910 100%);
 }
 
 .nav-storeit a:hover {
-  background: linear-gradient(to bottom, #dfa910 0%, #fcde41 100%);
+  background-image: linear-gradient(to bottom, #dfa910 0%, #fcde41 100%);
 }
 
 .nav-pickit a {
-  background: linear-gradient(to bottom, #abc841 0%, #6b861e 100%);
+  background-image: linear-gradient(to bottom, #abc841 0%, #6b861e 100%);
 }
 
 .nav-pickit a:hover {
-  background: linear-gradient(to bottom, #6b861e 1%, #abc841 100%);
+  background-image: linear-gradient(to bottom, #6b861e 1%, #abc841 100%);
 }
 
 .nav-cookit a {
-  background: linear-gradient(to bottom, #6f89c7 0%, #344e8b 100%);
+  background-image: linear-gradient(to bottom, #6f89c7 0%, #344e8b 100%);
 }
 
 .nav-cookit a:hover {
-  background: linear-gradient(to bottom, #344e8b 1%, #6f89c7 100%);
+  background-image: linear-gradient(to bottom, #344e8b 1%, #6f89c7 100%);
+}
+```
+
+The red color we've chosen for hovers is not visually pleasant here. We will use the CSS pseudo-class [`:not`](https://developer.mozilla.org/en-US/docs/Web/CSS/:not) to exclude the links in the nav bar:
+
+```css
+a:hover :not(nav) {
+  color: var(--red);
 }
 ```
 
@@ -709,7 +732,15 @@ Remove the flex statements and use a grid display, define columns, and set the s
 }
 ```
 
-Finally, by moving display grid to the body selector, we can use [grid areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) to define our layout:
+`grid-template-columns` can also be expressed as a series of fractions:
+
+`grid-template-columns: 1fr 1fr 1fr 1fr 1fr;`
+
+Or using shorthand:
+
+`grid-template-columns: repeat(5, 1fr);`
+
+By moving the `display: grid`  setting to the body selector, we can use [grid areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) to define our layout:
 
 ```css
 @media (min-width: 600px) {
@@ -766,9 +797,11 @@ header {
 
 ## Sass
 
-Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass):
+[Sass](https://sass-lang.com/) extends CSS by adding handy features to it. It is still used widely but native browser supported CSS is slowly incorporating Sass features. Five years ago CSS variables did not exist. The only way to use variables was to use Sass.
 
-`npm install sass --save-dev`
+Sass is a superset of CSS, which means all valid CSS is also valid SCSS. CSS is a subset of Sass.
+
+Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass). 
 
 Stop the server and add a script to package.json for processing:
 
@@ -779,9 +812,9 @@ Stop the server and add a script to package.json for processing:
 },
 ```
 
-Dart Sass command line [documentation](https://sass-lang.com/documentation/file.SASS_REFERENCE.html)
+Here's the Sass command line [documentation](https://sass-lang.com/documentation/cli/dart-sass/)
 
-To run both scripts at the same time edit the scripts in package.json:
+To run both scripts at the same time we could use two separate terminal instances. Instead, let's edit the scripts in package.json:
 
 ```js
   "scripts": {
@@ -810,12 +843,12 @@ Note that sass is less tolerant of errors than regular css. This is a good thing
 ```css
 * {
   color red !important
-  };
+};
 ```
 
 ### SASS Variables
 
-Sass has its own variables system, e.g.:
+As mentioned, Sass has its own variables system, e.g.:
 
 ```css
 $basil-green: #88a308;
@@ -855,11 +888,17 @@ Usage example:
 
 Add the sample SASS variables to a new file in a new `imports` folder `scss/imports/_variables.scss` and include it at the top of `styles.scss`:
 
+Note the syntax differences between a native CSS import as well as the underscore in the file name. We will come back to that later.
+
 ```css
 @import "imports/variables";
 ```
 
-Note the syntax differences between a native CSS import as well as the underscore in the file name. We will come back to that later.
+v.s.
+
+```css
+@import url(font/stylesheet.css);
+```
 
 Test using the `$test` variable.
 
@@ -869,7 +908,7 @@ Test using the `$test` variable.
 }
 ```
 
-Try changing it. Remove it.
+Remove it.
 
 ### SASS Nesting
 
@@ -927,7 +966,9 @@ Note the underscore in the file name. If you adding an underscore to the start o
 
 Note: SASS allows you to use JavaScript style comments - `//`. These comments do not get compiled into the css file. Traditional CSS comments ( `/* ... */` ) do.
 
-Create a nested block for the nav in styles.scss:
+Remove all the `nav` related CSS from `styles.scss`. 
+
+Create a partial `_nav.scss` in the imports folder and cut and paste the nested nav block below into it. 
 
 ```css
 nav {
@@ -985,13 +1026,13 @@ nav {
 }
 ```
 
-Create a partial `_nav.scss` in the imports folder and cut and paste the nested nav block into it. Import the partial back into `styles.scss` with:
+Import the partial into `styles.scss` afer the other imports with:
 
 `@import 'imports/nav';`
 
 Examine the CSS in the browser's inspector. Note the mapping.
 
-One of the best things about nesting in SASS is how it allows you to organize media queries and keep them aligned with the selector.
+One of the best things about nesting in Sass is how it allows you to organize media queries and keep them aligned with the selector.
 
 _Cut_ the body rule from the responsive section of the CSS:
 
@@ -1007,18 +1048,14 @@ and add the responsive styling to the initial body rule as shown:
 
 ```css
 body {
-  font:
-    100%/1.5 "Segoe UI",
-    Candara,
-    "Bitstream Vera Sans",
-    "DejaVu Sans",
-    "Bitstream Vera Sans",
-    "Trebuchet MS",
-    Verdana,
-    "Verdana Ref",
-    sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  line-height: 1.5;
   color: var(--dark-gray);
   max-width: var(--max-width);
+  margin: 0 auto;
+  margin-top: 24px;
+
   @media (min-width: $break-two) {
     margin: 0 auto;
     margin-top: 1.5rem;
@@ -1032,9 +1069,9 @@ body {
 }
 ```
 
-Note: since SASS is a transpiler we can use SASS variables - `$break-two` - for break points.
+Note: since Sass is a transpiler we can use Sass variables - `$break-two` - for break points. We could not do this with CSS variables.
 
-Perform a similar action for the header partial use nesting for the media queries:
+We will use nesting for the header related CSS as well. Remove the `header` related CSS from the media query and add them to the `header` partial:
 
 ```css
 header {
@@ -1065,11 +1102,11 @@ header {
 }
 ```
 
-- Add it to the imports folder and import it back into `styles.scss` with:
+<!-- - Add it to the imports folder and import it back into `styles.scss` with:
 
-`@import 'imports/header';`
+`@import 'imports/header';` -->
 
-Nest the media query for the nav:
+Remove the media query for the nav and add it to the partial:
 
 ```css
 nav {
@@ -1264,19 +1301,6 @@ a {
 ```
 
 Note: switching branches at this point will delete styles.css from the css directory. Stop the processes running in the console before switching branches.
-
-Finally, copy the font css into a new partial and change the paths:
-
-```css
-@font-face {
-  font-family: "futura_stdlight";
-  src:
-    url("font/futurastd-light-webfont-webfont.woff2") format("woff2"),
-    url("font/futurastd-light-webfont-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-```
 
 ### A Note on Refactoring
 
