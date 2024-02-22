@@ -7,7 +7,7 @@
   - [NPM Initialization and Installs](#npm-initialization-and-installs)
   - [Starter HTML](#starter-html)
     - [Starter CSS](#starter-css)
-  - [Responsive Images](#responsive-images)
+  - [Images](#images)
   - [Aside - Image Optimization](#aside---image-optimization)
   - [Flex Layout](#flex-layout)
   - [The Branding Header](#the-branding-header)
@@ -65,14 +65,7 @@ $ git add .
 $ git commit -m 'initial commit'
 ```
 
-Prepare for npm by creating a `.gitignore` file with the text `node_modules` in it.
-
-<!-- You can also do this on the command line
-
-```sh
-$ touch .gitignore // edit to include 'node_modules'
-$ echo node_modules >> .gitignore
-``` -->
+Note: the project is prepared for npm. It has a `.gitignore` file with the text `node_modules` in it.
 
 ## NPM Initialization and Installs
 
@@ -101,7 +94,7 @@ Add an npm command to the scripts section of `package.json`:
 },
 ```
 
-In VS Code's integrated terminal:
+In VSCode's integrated terminal:
 
 `$ npm run start`
 
@@ -109,20 +102,17 @@ In VS Code's integrated terminal:
 
 ![Image of Basilica](other/FINAL.png)
 
-Open `app/index.html` in VSCode and examine the HTML with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html). A schema is a semantic vocabulary of tags (or microdata) that you can add to your HTML to improve the way search engines read and represent your page in search engine result pages. There are [many different kinds of schemas](https://schema.org/docs/full.html).
+Open `app/index.html` in VSCode and examine the HTML with regards to the [recipe schema](https://schema.org/Recipe). A schema is a semantic vocabulary of tags (or microdata) that you can add to your HTML to improve the way search engines read and represent your page in search engine result pages. There are [many different kinds of schemas](https://schema.org/docs/full.html).
 
 Note the [itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) attribute. There is a good example of [using the recipe schema](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope#representing_structured_data_for_a_recipe).
 
 Demo: test the HTML with [Rich Results Test](https://search.google.com/test/rich-results?utm_campaign=devsite&utm_medium=jsonld&utm_source=recipe) and add any missing attributes.
 
-Note:
-
-- the `<abbr>` tag
-- the absence of a wrapper div (even though the design shows a centered document)
-
 There are other types of metadata that enrichness HTML. A popular one for sharing data is [Open Graph Metadata](https://ogp.me/).
 
 Inspect the head of [this recipe page](https://www.epicurious.com/ingredients/our-best-basil-recipes-gallery) and note the `og:` metadata.
+
+Note the `<abbr>` tag.
 
 ### Starter CSS
 
@@ -131,8 +121,8 @@ Examine the starter CSS.
 Note:
 
 1 the use of `max-width` on the body selector - we applied these to a wrapper div in the past.
-2 the `li > h4` selector. [A child selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the immediate parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
-3 the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
+2 the `li > h4` selector. [A child selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the _immediate_ parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
+3 the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
 
 ```css
 html {
@@ -166,7 +156,7 @@ transition-duration: 1s;
 transition-timing-function: linear;
 ```
 
-## Responsive Images
+## Images
 
 [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) work well on devices with widely differing screen sizes, resolutions, and other features:
 
@@ -552,8 +542,16 @@ Additional tweaks for the small screen:
 
 ```css
 body {
-  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
-    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+  font:
+    100%/1.5 "Segoe UI",
+    Candara,
+    "Bitstream Vera Sans",
+    "DejaVu Sans",
+    "Bitstream Vera Sans",
+    "Trebuchet MS",
+    Verdana,
+    "Verdana Ref",
+    sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   /* margin: 0 auto;
@@ -1028,8 +1026,16 @@ and add the responsive styling to the initial body rule as shown:
 
 ```css
 body {
-  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
-    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+  font:
+    100%/1.5 "Segoe UI",
+    Candara,
+    "Bitstream Vera Sans",
+    "DejaVu Sans",
+    "Bitstream Vera Sans",
+    "Trebuchet MS",
+    Verdana,
+    "Verdana Ref",
+    sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   @media (min-width: $break-two) {
@@ -1134,8 +1140,16 @@ html {
 }
 
 body {
-  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
-    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+  font:
+    100%/1.5 "Segoe UI",
+    Candara,
+    "Bitstream Vera Sans",
+    "DejaVu Sans",
+    "Bitstream Vera Sans",
+    "Trebuchet MS",
+    Verdana,
+    "Verdana Ref",
+    sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   @media (min-width: $break-two) {
@@ -1275,8 +1289,9 @@ Finally, copy the font css into a new partial and change the paths:
 ```css
 @font-face {
   font-family: "futura_stdlight";
-  src: url("font/futurastd-light-webfont-webfont.woff2") format("woff2"), url("font/futurastd-light-webfont-webfont.woff")
-      format("woff");
+  src:
+    url("font/futurastd-light-webfont-webfont.woff2") format("woff2"),
+    url("font/futurastd-light-webfont-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -2043,7 +2058,3 @@ With concurrently:
 ```
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
-
-```
-
-```
