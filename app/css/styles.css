@@ -13,6 +13,11 @@ html {
   padding: 0;
 }
 
+::selection {
+  background: var(--basil-green);
+  color: #fff;
+}
+
 body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;

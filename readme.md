@@ -232,6 +232,8 @@ Replace the `img` tag in index.html with:
 
 Hard reload the page at various widths and look in the Sources panel of the developer tools to see the image that was displayed.
 
+---
+
 Note: you might also see a [picture tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) used on occasion:
 
 ```html
@@ -247,6 +249,8 @@ Note: you might also see a [picture tag](https://developer.mozilla.org/en-US/doc
   <img itemprop="image" src="img/pesto.jpg" />
 </picture>
 ```
+
+---
 
 The `<picture>` tag is used for cropping or modifying images for different media conditions _or_ offering different image formats when certain formats are not supported by all browsers. See the [example](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) on MDN.
 
@@ -359,29 +363,6 @@ footer {
   padding: 1rem;
   border-radius: 0 0 4px 4px;
   margin-bottom: 2rem;
-}
-```
-
-Recall our earlier discussion of pseudo elements / classes.
-
-```txt
-Pseudo-elements:    Pseudo-classes:
-::first-letter      :hover
-::first-line        :visited
-::before            :link
-::after             :active
-::selection         :target
-                    :focus
-```
-
-Some additional [ideas](https://css-tricks.com/pseudo-element-roundup/) for using pseudo-elements.
-
-e.g.: Selected text:
-
-```css
-::selection {
-  background: var(--basil-green);
-  color: #fff;
 }
 ```
 
