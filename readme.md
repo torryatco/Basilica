@@ -1,39 +1,39 @@
-# 1. Basilica!
+# Basilica!
 
-- [1. Basilica!](#1-basilica)
-  - [1.2. Homework](#12-homework)
-  - [1.4. Goals](#14-goals)
-  - [1.5. Initialize GIT with .gitignore](#15-initialize-git-with-gitignore)
-  - [1.6. NPM Initialization and Installs](#16-npm-initialization-and-installs)
-  - [1.7. Starter HTML](#17-starter-html)
-    - [1.7.1. Starter CSS](#171-starter-css)
-  - [1.8. Responsive Images](#18-responsive-images)
+- [Basilica!](#basilica)
+  - [Homework](#homework)
+  - [Goals](#goals)
+  - [Initialize GIT with .gitignore](#initialize-git-with-gitignore)
+  - [NPM Initialization and Installs](#npm-initialization-and-installs)
+  - [Starter HTML](#starter-html)
+    - [Starter CSS](#starter-css)
+  - [Responsive Images](#responsive-images)
   - [Aside - Image Optimization](#aside---image-optimization)
-  - [1.9. Flex Layout](#19-flex-layout)
+  - [Flex Layout](#flex-layout)
   - [The Branding Header](#the-branding-header)
     - [Header: Responsive Design](#header-responsive-design)
-  - [1.11. Navigation](#111-navigation)
+  - [Navigation](#navigation)
     - [Button and Gradients](#button-and-gradients)
   - [CSS Grid](#css-grid)
   - [Sass](#sass)
     - [SASS Variables](#sass-variables)
     - [SASS Nesting](#sass-nesting)
-    - [1.13.3. SASS Partials](#1133-sass-partials)
-    - [1.13.4. A Note on Refactoring](#1134-a-note-on-refactoring)
-  - [1.14. JavaScript](#114-javascript)
-    - [1.14.1. Aside: Demo Arrays in Node](#1141-aside-demo-arrays-in-node)
-    - [1.14.2. Add a Script](#1142-add-a-script)
-  - [1.15. JavaScript Popover](#115-javascript-popover)
-  - [1.16. DOM Scripting Methods Used](#116-dom-scripting-methods-used)
-    - [1.16.1. matches](#1161-matches)
-    - [1.16.2. Add Another Close Method](#1162-add-another-close-method)
+    - [SASS Partials](#sass-partials)
+    - [A Note on Refactoring](#a-note-on-refactoring)
+  - [JavaScript](#javascript)
+    - [Aside: Demo Arrays in Node](#aside-demo-arrays-in-node)
+    - [Add a Script](#add-a-script)
+  - [JavaScript Popover](#javascript-popover)
+  - [DOM Scripting Methods Used](#dom-scripting-methods-used)
+    - [Matches](#matches)
+    - [Add Another Close Method](#add-another-close-method)
     - [Adding Animation to the Modal](#adding-animation-to-the-modal)
-  - [1.17. A Dynamic Popover](#117-a-dynamic-popover)
-  - [1.18. Notes](#118-notes)
-  - [1.19. Expressions](#119-expressions)
-  - [1.20. Statements](#120-statements)
+  - [A Dynamic Popover](#a-dynamic-popover)
+  - [Notes](#notes)
+  - [Expressions](#expressions)
+  - [Statements](#statements)
 
-## 1.2. Homework
+## Homework
 
 Continue with the JS section on Front End Masters
 
@@ -44,7 +44,7 @@ Continue with the JS section on Front End Masters
 - The [Absolute Beginners Guide](https://nodesource.com/blog/an-absolute-beginners-guide-to-using-npm/) to NPM
 - [What is GIT?](https://guides.github.com/introduction/git-handbook/) -->
 
-## 1.4. Goals
+## Goals
 
 - Continue working with Flexbox and introduce CSS Grids
 - Understand and set up a CSS toolchain using SASS
@@ -53,7 +53,7 @@ Continue with the JS section on Front End Masters
 - Review GIT and Github set up and branching
 - Review NPM set up and installing
 
-## 1.5. Initialize GIT with .gitignore
+## Initialize GIT with .gitignore
 
 Download a zip file of this repo and `cd` into the directory.
 
@@ -74,7 +74,7 @@ $ touch .gitignore // edit to include 'node_modules'
 $ echo node_modules >> .gitignore
 ``` -->
 
-## 1.6. NPM Initialization and Installs
+## NPM Initialization and Installs
 
 Create a manifest (package.json) and install packages.
 
@@ -105,7 +105,7 @@ In VS Code's integrated terminal:
 
 `$ npm run start`
 
-## 1.7. Starter HTML
+## Starter HTML
 
 ![Image of Basilica](other/FINAL.png)
 
@@ -120,11 +120,11 @@ Note:
 - the `<abbr>` tag
 - the absence of a wrapper div (even though the design shows a centered document)
 
-There are other types of metadata that enrichness HTML. A popular one for sharing data is [Open Graph Metadata](https://ogp.me/). 
+There are other types of metadata that enrichness HTML. A popular one for sharing data is [Open Graph Metadata](https://ogp.me/).
 
 Inspect the head of [this recipe page](https://www.epicurious.com/ingredients/our-best-basil-recipes-gallery) and note the `og:` metadata.
 
-### 1.7.1. Starter CSS
+### Starter CSS
 
 Examine the starter CSS.
 
@@ -144,7 +144,7 @@ html {
   --light-orange: #ebbd4e;
   --red: #f00;
   --max-width: 840px;
-  --radius: 4px
+  --radius: 4px;
 }
 ```
 
@@ -166,7 +166,7 @@ transition-duration: 1s;
 transition-timing-function: linear;
 ```
 
-## 1.8. Responsive Images
+## Responsive Images
 
 [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) work well on devices with widely differing screen sizes, resolutions, and other features:
 
@@ -286,7 +286,7 @@ Demo: samples of [Cloudinary](https://cloudinary.com/) image processing:
 
 The technique above are used primarily on high traffic websites. For smaller sites your should run your images through a processor such as [imageOptim](https://imageoptim.com/mac) before using them on your site.
 
-## 1.9. Flex Layout
+## Flex Layout
 
 The two column view applies only to widescreen.
 
@@ -352,7 +352,7 @@ Use a background color and box-shadow to color the aside:
 }
 ```
 
-Add some padding to the two columns (*outside the media query* so it applies to both large and small screens):
+Add some padding to the two columns (_outside the media query_ so it applies to both large and small screens):
 
 ```css
 article,
@@ -595,7 +595,7 @@ Add it back on wide screens:
 
 Always remember: there is no hover in touch screen devices. Use the Device Toggle in the developer tools set to a mobile viewport and tap on the burst.
 
-## 1.11. Navigation
+## Navigation
 
 Add the code below:
 
@@ -932,7 +932,7 @@ header {
 }
 ```
 
-### 1.13.3. SASS Partials
+### SASS Partials
 
 Sass partials allow you to create separate function or feature specific style sheets using [imports](https://sass-lang.com/guide#topic-4) and helps maintain a large code base.
 
@@ -1282,7 +1282,7 @@ Finally, copy the font css into a new partial and change the paths:
 }
 ```
 
-### 1.13.4. A Note on Refactoring
+### A Note on Refactoring
 
 Once you have everything visually working and start using your template with live data you typically find issues with the design.
 
@@ -1306,11 +1306,11 @@ fetch(API)
 
 Add class "quote" to the lone paragraph in the navigation. Use `aria-live="polite"`
 
-## 1.14. JavaScript
+## JavaScript
 
 Let's ease back into JavaScript with a demonstration and a simple DOM manipulation.
 
-### 1.14.1. Aside: Demo Arrays in Node
+### Aside: Demo Arrays in Node
 
 Review Node:
 
@@ -1426,7 +1426,7 @@ function makeBasil() {
 console.log(makeBasil());
 ```
 
-### 1.14.2. Add a Script
+### Add a Script
 
 We'll do something similar to the node demo above in our app - replacing the recipe title with a random one.
 
@@ -1514,7 +1514,7 @@ h2 {
 }
 ```
 
-## 1.15. JavaScript Popover
+## JavaScript Popover
 
 Create a div on the bottom of the html page (but before the script tag).
 
@@ -1586,7 +1586,7 @@ function showPopover(event) {
 document.addEventListener("click", showPopover);
 ```
 
-## 1.16. DOM Scripting Methods Used
+## DOM Scripting Methods Used
 
 - Use [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to find the first matching element on a page `var modal = document.querySelector('.modal');`
 - Use [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/querySelectorAll) to find all matching elements on a page
@@ -1594,7 +1594,7 @@ document.addEventListener("click", showPopover);
 - Use [Functions](https://developer.mozilla.org/en-US/docs/Glossary/Function) to store and execute your commands
 - Use [classList](https://plainjs.com/javascript/attributes/adding-removing-and-testing-for-classes-9/) to add, remove, toggle, list and test for classes
 
-### 1.16.1. matches
+### Matches
 
 The `matches()` method lets you check if an element would be selected by a particular selector. It returns true if the element is a match, and false when it’s not. It can be an alternative to using `element.classList.contains('.someclass')`.
 
@@ -1616,7 +1616,7 @@ if (elem.matches(".click-me, .button-submit")) {
 }
 ```
 
-### 1.16.2. Add Another Close Method
+### Add Another Close Method
 
 Add html to the betainfo:
 
@@ -1766,7 +1766,7 @@ function showPopover(event) {
 document.addEventListener("click", showPopover);
 ```
 
-## 1.17. A Dynamic Popover
+## A Dynamic Popover
 
 We will use the popover for different purposes depending on which element is clicked.
 
@@ -1826,7 +1826,7 @@ document.addEventListener("click", showPopover);
 
 Note the use of [closest](https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/) above. The `closest()` method looks for the closest matching parent to an element that has a selector that you pass in.
 
-## 1.18. Notes
+## Notes
 
 Template literals allow embedded expressions. You can use multi-line strings and string interpolation features with them. They were called "template strings" in prior editions of the ES2015 specification.
 
@@ -1893,7 +1893,7 @@ const article = document.querySelector("article");
 article.innerHTML = recipe;
 ```
 
-## 1.19. Expressions
+## Expressions
 
 Any unit of code that can be evaluated to a value is an expression. Since expressions produce values, they can appear anywhere in a program where JavaScript expects a value.
 
@@ -1902,7 +1902,7 @@ Any unit of code that can be evaluated to a value is an expression. Since expres
 "hello" + "world";
 ```
 
-## 1.20. Statements
+## Statements
 
 A statement is an instruction to perform a specific action - creating a variable or a function, looping through an array of elements, and evaluating code based on a specific condition.
 
