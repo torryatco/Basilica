@@ -2,23 +2,22 @@
 
 - [1. Basilica!](#1-basilica)
   - [1.2. Homework](#12-homework)
-  - [1.3. Reading](#13-reading)
   - [1.4. Goals](#14-goals)
   - [1.5. Initialize GIT with .gitignore](#15-initialize-git-with-gitignore)
   - [1.6. NPM Initialization and Installs](#16-npm-initialization-and-installs)
-  - [1.7. Basilica Project](#17-basilica-project)
+  - [1.7. Starter HTML](#17-starter-html)
     - [1.7.1. Starter CSS](#171-starter-css)
   - [1.8. Responsive Images](#18-responsive-images)
+  - [Aside - Image Optimization](#aside---image-optimization)
   - [1.9. Flex Layout](#19-flex-layout)
-    - [1.9.1. Review: Pseudo-elements vs Pseudo-classes](#191-review-pseudo-elements-vs-pseudo-classes)
   - [The Branding Header](#the-branding-header)
     - [Header: Responsive Design](#header-responsive-design)
   - [1.11. Navigation](#111-navigation)
     - [Button and Gradients](#button-and-gradients)
   - [CSS Grid](#css-grid)
-  - [1.13. Sass](#113-sass)
-    - [1.13.1. SASS Variables](#1131-sass-variables)
-    - [1.13.2. SASS Nesting](#1132-sass-nesting)
+  - [Sass](#sass)
+    - [SASS Variables](#sass-variables)
+    - [SASS Nesting](#sass-nesting)
     - [1.13.3. SASS Partials](#1133-sass-partials)
     - [1.13.4. A Note on Refactoring](#1134-a-note-on-refactoring)
   - [1.14. JavaScript](#114-javascript)
@@ -47,18 +46,18 @@ Continue with the JS section on Front End Masters
 
 ## 1.4. Goals
 
-- Review GIT and Github set up and branching
-- Review NPM set up and installing
 - Continue working with Flexbox and introduce CSS Grids
 - Understand and set up a CSS toolchain using SASS
 - Review basic DOM manipulation techiques
 - Understand how to create an element and insert it into the DOM
+- Review GIT and Github set up and branching
+- Review NPM set up and installing
 
 ## 1.5. Initialize GIT with .gitignore
 
-Download a zip file of this repo.
+Download a zip file of this repo and `cd` into the directory.
 
-Initialize git:
+Initialize a new git repository:
 
 ```sh
 $ git init
@@ -79,7 +78,7 @@ $ echo node_modules >> .gitignore
 
 Create a manifest (package.json) and install packages.
 
-```bash
+```sh
 $ npm init
 $ npm install browser-sync sass concurrently prettier --save-dev
 ```
@@ -96,36 +95,34 @@ Browser Sync [CLI documentation](https://www.browsersync.io/docs/command-line)
 
 Add an npm command to the scripts section of `package.json`:
 
-```js
+```json
 "scripts": {
-  "start": "browser-sync app -w",
+  "start": "browser-sync app -w"
 },
 ```
-
-Note: if the repo already contains a `package.json` file run `npm install` before running the start command.
 
 In VS Code's integrated terminal:
 
 `$ npm run start`
 
-## 1.7. Basilica Project
+## 1.7. Starter HTML
 
 ![Image of Basilica](other/FINAL.png)
 
-Open `app/index.html` in VS Code and examine the HTML with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html).
+Open `app/index.html` in VSCode and examine the HTML with regards to the [recipe schema](https://schema.org/Recipe) at [schema.org](http://schema.org/docs/gs.html). A schema is a semantic vocabulary of tags (or microdata) that you can add to your HTML to improve the way search engines read and represent your page in search engine result pages. There are [many different kinds of schemas](https://schema.org/docs/full.html).
 
-Note the [itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) attribute. There is a good example of using the recipe schema at the previous link.
+Note the [itemscope](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope) attribute. There is a good example of [using the recipe schema](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemscope#representing_structured_data_for_a_recipe).
 
-Note - there are [many different kinds of schemas](https://schema.org/docs/full.html).
-
-Test the page with [Rich Results Test](https://search.google.com/test/rich-results?utm_campaign=devsite&utm_medium=jsonld&utm_source=recipe) and add any missing attributes.
+Demo: test the HTML with [Rich Results Test](https://search.google.com/test/rich-results?utm_campaign=devsite&utm_medium=jsonld&utm_source=recipe) and add any missing attributes.
 
 Note:
 
 - the `<abbr>` tag
 - the absence of a wrapper div (even though the design shows a centered document)
 
-Optional: add [Open Graph Metadata](https://ogp.me/) to the header.
+There are other types of metadata that enrichness HTML. A popular one for sharing data is [Open Graph Metadata](https://ogp.me/). 
+
+Inspect the head of [this recipe page](https://www.epicurious.com/ingredients/our-best-basil-recipes-gallery) and note the `og:` metadata.
 
 ### 1.7.1. Starter CSS
 
@@ -134,7 +131,7 @@ Examine the starter CSS.
 Note:
 
 1 the use of `max-width` on the body selector - we applied these to a wrapper div in the past.
-2 the `li > h4` selector. It is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the immediate parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
+2 the `li > h4` selector. [A child selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the immediate parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
 3 the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
 
 ```css
@@ -147,11 +144,11 @@ html {
   --light-orange: #ebbd4e;
   --red: #f00;
   --max-width: 840px;
-  --breakpoint: 640px;
+  --radius: 4px
 }
 ```
 
-CSS variables are defined at a high level in the CSS (here, the html selector is used although you will often find `:root`). This ensures that all the elements inherit and make use of them.
+CSS variables are defined at a high level in the CSS (here the html selector is used although you will often find `:root`). This ensures that all the elements inherit and make use of them.
 
 CSS variables are applied as follows, e.g.:
 
@@ -202,7 +199,9 @@ Replace the lone `img` tag in the HTML with `<figure>` and `<figcaption>` tags:
 
 The `<figure>` tag allows you to use an optional `<figcaption>` element within.
 
-We want to display identical image content, but the file size should be larger or smaller depending on the device and its capabilities - i.e. we want a smaller image for mobile users. The standard `<img>` element points the browser to a single source file. Two attributes — `srcset` and `sizes` — provide additional source images along with hints to help the browser pick the right one.
+## Aside - Image Optimization
+
+We want to display identical image content across devices but the dimensions should be larger or smaller depending on the device - e.g. a smaller image for mobile users. The standard `<img>` element points the browser to a single source file. Two attributes — `srcset` and `sizes` — provide additional source images along with hints to help the browser pick the right one.
 
 [srcset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/srcset) defines a set of images that allow the browser to choose which image size to use.
 
@@ -225,7 +224,7 @@ Examine image use in a typical [NY Times article](https://www.nytimes.com/2023/0
 />
 ```
 
-Replace the `img` tag in index.html with a [picture tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture):
+Replace the `img` tag in index.html with:
 
 ```html
 <img
@@ -241,7 +240,9 @@ Replace the `img` tag in index.html with a [picture tag](https://developer.mozil
 />
 ```
 
-Note: you can also use a `<picture>` element:
+Hard reload the page at various widths and look in the Sources panel of the developer tools to see the image that was displayed.
+
+Note: you might also see a [picture tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture) used on occasion:
 
 ```html
 <picture>
@@ -261,17 +262,15 @@ The `<picture>` tag is used for cropping or modifying images for different media
 
 The browser ignores everything after the first matching condition, so be careful how you order the media conditions.
 
-Using this technique can save a lot of bandwidth. Older browsers that don't support these features will just ignore them and load the image referenced in the `src` attribute.
+Using either technique can save a lot of bandwidth. Older browsers that don't support these features will just ignore them and load the image referenced in the `src` attribute.
 
-You can check the results of your work by viewing the Network tab in the inspector and noting which image was downloaded at a variety of screen sizes.
+You typically automate the process using software such as [Sharp](https://www.npmjs.com/package/sharp) to create multiple image sizes and formats. The HTML is often [automatically generated](https://www.npmjs.com/package/gatsby-plugin-image) as well.
 
-You typically use a server with software such as [Sharp](https://www.npmjs.com/package/sharp) to output multiple image sizes and formats. The HTML is often [generated](https://www.npmjs.com/package/gatsby-plugin-image) as [well](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/image-component).
+To experiment with these techniques I uploaded `pesto.jpg` to [responsivebreakpoints.com](https://www.responsivebreakpoints.com/), downloaded the zip file and place the unzipped folder in the `img` directory.
 
-To experiemnt with these techniques you could upload `pesto.jpg` to a generator such as [responsivebreakpoints.com](https://www.responsivebreakpoints.com/), download the zip file and place the unzipped folder in the `img` directory.
+There are also specialized image only hosting services such as [Cloudinary](https://cloudinary.com/) which perform image processing.
 
-There are specialized services such as Cloudinary which perform image processing on the fly.
-
-Samples of [Cloudinary](https://cloudinary.com/) image processing:
+Demo: samples of [Cloudinary](https://cloudinary.com/) image processing:
 
 ```html
 <img
@@ -285,7 +284,7 @@ Samples of [Cloudinary](https://cloudinary.com/) image processing:
 />
 ```
 
-At a bare minimum, should also run your images through a processor such as [imageOptim](https://imageoptim.com/mac).
+The technique above are used primarily on high traffic websites. For smaller sites your should run your images through a processor such as [imageOptim](https://imageoptim.com/mac) before using them on your site.
 
 ## 1.9. Flex Layout
 
@@ -353,7 +352,7 @@ Use a background color and box-shadow to color the aside:
 }
 ```
 
-Add some padding to the two columns outside the media query so it applies to both large and small screens:
+Add some padding to the two columns (*outside the media query* so it applies to both large and small screens):
 
 ```css
 article,
@@ -373,7 +372,7 @@ footer {
 }
 ```
 
-### 1.9.1. Review: Pseudo-elements vs Pseudo-classes
+Recall our earlier discussion of pseudo elements / classes.
 
 ```txt
 Pseudo-elements:    Pseudo-classes:
@@ -385,7 +384,7 @@ Pseudo-elements:    Pseudo-classes:
                     :focus
 ```
 
-Some [ideas](https://css-tricks.com/pseudo-element-roundup/) for using pseudo-elements.
+Some additional [ideas](https://css-tricks.com/pseudo-element-roundup/) for using pseudo-elements.
 
 e.g.: Selected text:
 
@@ -408,7 +407,7 @@ header {
 }
 ```
 
-Note: this is one of the rare occasions that we use the height property. We use it here because the header does not contain dynamic content.
+Note: this is one of the rare occasions that we use the height property. We can use it here because the header does not contain dynamic content.
 
 Add a custom font (top of the css file):
 
@@ -457,7 +456,7 @@ header h1 {
 }
 ```
 
-Note: transforms are an [important property](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transforms), especially when it comes to creating animations.
+Note: [transforms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transforms) are an important property, especially when it comes to creating animations.
 
 Note the beta link in the header:
 
@@ -598,7 +597,7 @@ Always remember: there is no hover in touch screen devices. Use the Device Toggl
 
 ## 1.11. Navigation
 
-Add the code below one rule at a time:
+Add the code below:
 
 ```css
 nav {
@@ -786,9 +785,7 @@ header {
 }
 ```
 
-There is a complete CSS file available at [this gist](https://gist.github.com/DannyBoyNYC/4e0065e7b1f542c67a13899f0541bdb6)
-
-## 1.13. Sass
+## Sass
 
 Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass):
 
@@ -803,7 +800,7 @@ Stop the server and add a script to package.json for processing:
 },
 ```
 
-Dart Sass CLI [documentation](https://sass-lang.com/documentation/file.SASS_REFERENCE.html)
+Dart Sass command line [documentation](https://sass-lang.com/documentation/file.SASS_REFERENCE.html)
 
 To run both scripts at the same time edit the scripts in package.json:
 
@@ -829,7 +826,7 @@ Test it by re-adding the following to the top of the SASS file `styles.scss`:
 }
 ```
 
-Note that sass is less tolerant of errors than regular css. Try omitting the full colon:
+Note that sass is less tolerant of errors than regular css. This is a good thing. Try omitting the full colon:
 
 ```css
 * {
@@ -837,7 +834,7 @@ Note that sass is less tolerant of errors than regular css. Try omitting the ful
   };
 ```
 
-### 1.13.1. SASS Variables
+### SASS Variables
 
 Sass has its own variables system, e.g.:
 
@@ -877,7 +874,7 @@ Usage example:
 }
 ```
 
-Add the sample SASS variables to a new file in a new folder `scss/imports/_variables.scss` and include it at the top of `styles.scss`:
+Add the sample SASS variables to a new file in a new `imports` folder `scss/imports/_variables.scss` and include it at the top of `styles.scss`:
 
 ```css
 @import "imports/variables";
@@ -895,7 +892,7 @@ Test using the `$test` variable.
 
 Try changing it. Remove it.
 
-### 1.13.2. SASS Nesting
+### SASS Nesting
 
 Sass will let you nest your CSS selectors in a way that mirrors the hierarchy of your HTML. Be aware that overly nested rules will result in long selectors that could prove a maintainance headache and is generally considered bad practice.
 
