@@ -1026,7 +1026,7 @@ nav {
 }
 ```
 
-Import the partial into `styles.scss` afer the other imports with:
+Import the partial into `styles.scss` after the other imports with:
 
 `@import 'imports/nav';`
 
