@@ -79,7 +79,7 @@ $ npm install browser-sync sass concurrently --save-dev
 
 Review:
 
-- package.json 
+- package.json
 - [sass](https://www.npmjs.com/package/sass), [concurrently](https://www.npmjs.com/package/concurrently)
 - package-lock.json
 - hard [dependencies](https://www.npmjs.com/package/flickity) vs devDependencies
@@ -123,9 +123,9 @@ Examine the starter CSS.
 Note:
 
 1. The pseudo class `::selection`
-1. the use of `max-width` on the body selector - we applied these to a wrapper div in the past.
-2. the `li > h4` selector. [A child selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) is used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the _immediate_ parent is an `li`. Compare this to `li h4`. Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
-3. the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
+1. the use of `max-width` on the body selector
+1. the `li > h4` [child selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_combinator) used to select elements with a _specific parent_. In this case it will select `h4` tags _only_ when the _immediate_ parent is an `li` (compare this to `li h4`). Here's a [complete listing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Combinators) of selector types in CSS.
+1. the [css variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*):
 
 ```css
 html {
@@ -141,9 +141,9 @@ html {
 }
 ```
 
-CSS variables are defined at a high level in the CSS (here the `html` selector is used although you will often find `:root`). This ensures that all the elements inherit and make use of them.
+CSS variables are defined at a high level in the CSS (here the `html` selector is used ) to ensure that all the elements inherit and can use them.
 
-CSS variables are applied as follows, e.g.:
+CSS variables are applied as follows:
 
 ```css
 p {
@@ -161,7 +161,7 @@ transition-timing-function: linear;
 
 ## Images
 
-[Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) work well on devices with widely differing screen sizes, resolutions, and other features:
+[Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) work well on devices with different screen sizes and resolutions. Add:
 
 ```css
 img {
@@ -169,9 +169,9 @@ img {
 }
 ```
 
-You frequently use `width: 100%` on images (and videos) in conjunction with a container to determine the ultimate image size. (CSS also provides control over [aspect ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) which is useful for videos.)
+Use `width: 100%` on images and videos to set the width to whatever the image's container's width is. CSS also provides control over [aspect ratio](https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio) which is especially useful for videos.
 
-The problem with our responsive image as currently coded can be observed by [throttling the download speed](https://www.browserstack.com/guide/how-to-perform-network-throttling-in-chrome) and turning off Cache in the Network tab of the dev tools and doing a hard refresh by right clicking on the browser's refresh icon.
+The problem with our responsive image as currently coded can be observed by [throttling the download speed](https://www.browserstack.com/guide/how-to-perform-network-throttling-in-chrome), turning off Cache in the Network tab of the dev tools and doing a hard refresh by right clicking on the browser's refresh icon.
 
 Note the [Cumulative Layout Shift](https://web.dev/cls/) which occurs.
 
@@ -181,7 +181,11 @@ Replace the lone `img` tag in the HTML with `<figure>` and `<figcaption>` tags:
 
 ```html
 <figure>
-  <img src="img/pesto.jpg" itemprop="image" alt="Italian pesto" />
+  <img
+    src="img/pesto.jpg"
+    itemprop="image"
+    alt="a bold of pesto with a wooden spoon in it"
+  />
   <figcaption>
     Classic, simple basil pesto recipe with fresh basil leaves, pine nuts,
     garlic, Romano or Parmesan cheese, extra virgin olive oil, and salt and
@@ -190,7 +194,7 @@ Replace the lone `img` tag in the HTML with `<figure>` and `<figcaption>` tags:
 </figure>
 ```
 
-The `<figure>` tag allows you to use an optional `<figcaption>` element within.
+The `<figure>` tag allows an optional `<figcaption>` element.
 
 ## Aside - Image Optimization
 
@@ -217,14 +221,16 @@ Examine image use in a typical [NY Times article](https://www.nytimes.com/2023/0
 />
 ```
 
-Replace the `img` tag in index.html with:
+Note the width and heigth attributes to prevent layout shift.
+
+Replace the `img` tag in `index.html` with:
 
 ```html
 <img
-  alt="A bowl of pesto sitting on a table."
+  alt="a bold of pesto with a wooden spoon in it"
   src="img/pesto.jpg"
   srcset="
-    img/pesto/pesto_iodywc_c_scale,w_380.jpg  600w,
+    img/pesto/pesto_iodywc_c_scale,w_380.jpg   600w,
     img/pesto/pesto_iodywc_c_scale,w_780.jpg  1024w,
     img/pesto/pesto_iodywc_c_scale,w_1380.jpg 2048w
   "
@@ -233,7 +239,7 @@ Replace the `img` tag in index.html with:
 />
 ```
 
-Hard reload the page at various widths and look in the Sources panel of the developer tools to see the image that was displayed.
+Hard reload the page at various widths and look in the Sources panel of the developer tools to see the image that was chosen by the browser.
 
 ---
 
@@ -281,7 +287,7 @@ Demo: samples of [Cloudinary](https://cloudinary.com/) image processing:
 />
 ```
 
-The techniques above are used primarily on high traffic websites. For smaller sites your should run your images through a processor such as [imageOptim](https://imageoptim.com/mac) before using them on your site.
+The techniques above are used primarily on high traffic websites. For smaller sites just run your images through a processor such as [imageOptim](https://imageoptim.com/mac) before deploying them on your site.
 
 ## Flex Layout
 
@@ -290,7 +296,7 @@ The two column view applies only to widescreen.
 We will make the article and aside run side by side by applying flex to their parent container within a mobile first breakpoint:
 
 ```css
-@media (min-width: 640px) {
+@media (width > 640px) {
   .content {
     display: flex;
   }
@@ -305,12 +311,12 @@ Note: we _cannot_ use a CSS variable as a breakpoint, i.e.:
 }
 ```
 
-A media query is not an element selector so it does not inherit styles.
+A media query is not an element selector so it does not inherit.
 
 We can use the flex property on the flex children to manipulate the columns:
 
 ```css
-@media (min-width: 640px) {
+@media (width > 640px) {
   .content {
     display: flex;
   }
@@ -335,7 +341,7 @@ article {
 Use a background color and box-shadow to color the aside:
 
 ```css
-@media (min-width: 640px) {
+@media (width > 640px) {
   .content {
     display: flex;
   }
@@ -351,9 +357,11 @@ Use a background color and box-shadow to color the aside:
 
 Add a variable for light green:
 
-`--light-green: #fafdeb;`
+```css
+--light-green: #fafdeb;
+```
 
-Add some padding to the two columns (_outside the media query_ so it applies to both large and small screens):
+Add some padding to the two columns for both large and small screens:
 
 ```css
 article,
@@ -389,21 +397,13 @@ Note: this is one of the rare occasions that we use the height property. We can 
 
 ### Custom Fonts
 
-Add a custom font (top of the css file):
-
-```css
-@import url(font/stylesheet.css);
-```
-
-This requires an additional call to the server to fetch the additional css when the browser renders the file.
-
-Copy the @font-face CSS from font/stylesheet.css into the top of styles.css and correct the file paths:
+Add a custom font (top of the css file). Copy the `@font-face` CSS from `font/stylesheet.css` into the top of `styles.css` and correct the file paths:
 
 ```css
 @font-face {
-  font-family: 'futura_stdlight';
-  src: url('font/futurastd-light-webfont-webfont.woff2') format('woff2'),
-       url('font/futurastd-light-webfont-webfont.woff') format('woff');
+  font-family: "futura_stdlight";
+  src: url("font/futurastd-light-webfont-webfont.woff2") format("woff2"), url("font/futurastd-light-webfont-webfont.woff")
+      format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -449,6 +449,28 @@ header h1 {
 ```
 
 Note: [transforms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transforms) are an important property, especially when it comes to creating animations.
+
+## CSS Nesting
+
+In order to simplify your CSS and maintain order you can nest one CSS rule inside another:
+
+```css
+header {
+  height: 120px;
+  background: var(--basil-green);
+  border-radius: 8px 8px 0px 0px;
+  h1 {
+    background: url(img/basil.png) no-repeat;
+    font-family: futura_stdlight, sans-serif;
+    font-weight: normal;
+    color: #fff;
+    font-size: 5rem;
+    padding-left: 260px;
+    padding-top: 90px;
+    transform: translate(-100px, -80px);
+  }
+}
+```
 
 Note the beta link in the header:
 
@@ -508,6 +530,46 @@ header a.beta:hover {
 }
 ```
 
+Finally, nest the beta element inside the header CSS:
+
+```css
+header {
+  height: 120px;
+  background: var(--basil-green);
+  border-radius: 8px 8px 0px 0px;
+  position: relative;
+
+  h1 {
+    background: url(img/basil.png) no-repeat;
+    font-family: futura_stdlight, sans-serif;
+    font-weight: normal;
+    color: #fff;
+    font-size: 5rem;
+    padding-left: 260px;
+    padding-top: 90px;
+    transform: translate(-100px, -80px);
+  }
+  a.beta {
+    background: url("img/burst.svg") no-repeat;
+    color: #fff;
+    font-size: 1.5rem;
+    position: absolute;
+    top: -20px;
+    right: 10px;
+    width: 85px;
+    height: 85px;
+    line-height: 85px;
+    text-align: center;
+    text-transform: uppercase;
+    transform: rotate(20deg);
+    transition: all 1s ease;
+  }
+  a.beta:hover {
+    transform: rotate(0deg) scale(1.2);
+  }
+}
+```
+
 ### Header: Responsive Design
 
 Examine the page for problems in a narrow browser.
@@ -515,13 +577,15 @@ Examine the page for problems in a narrow browser.
 We will attempt a mobile first design strategy. Edit the css to display for small screen first:
 
 ```css
-header h1 {
-  background: url(img/basil.png) no-repeat;
-  font-family: futura_stdlight, sans-serif;
-  font-weight: normal;
-  color: #fff;
-  font-size: 5rem;
-}
+header {
+  ...
+  h1 {
+    background: url(img/basil.png) no-repeat;
+    font-family: futura_stdlight, sans-serif;
+    font-weight: normal;
+    color: #fff;
+    font-size: 5rem;
+  }
 ```
 
 And add features for the large screen within the media query:
@@ -536,6 +600,12 @@ And add features for the large screen within the media query:
   }
   /* ...; */
 }
+```
+
+We can also nest our media queries:
+
+```css
+
 ```
 
 Additional tweaks for the small screen:
@@ -740,7 +810,7 @@ Or using shorthand:
 
 `grid-template-columns: repeat(5, 1fr);`
 
-By moving the `display: grid`  setting to the body selector, we can use [grid areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) to define our layout:
+By moving the `display: grid` setting to the body selector, we can use [grid areas](https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas) to define our layout:
 
 ```css
 @media (min-width: 600px) {
@@ -801,7 +871,7 @@ header {
 
 Sass is a superset of CSS, which means all valid CSS is also valid SCSS. CSS is a subset of Sass.
 
-Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass). 
+Earlier we used NPM to install [Sass](https://www.npmjs.com/package/sass).
 
 Stop the server and add a script to package.json for processing:
 
@@ -966,9 +1036,9 @@ Note the underscore in the file name. If you adding an underscore to the start o
 
 Note: SASS allows you to use JavaScript style comments - `//`. These comments do not get compiled into the css file. Traditional CSS comments ( `/* ... */` ) do.
 
-Remove all the `nav` related CSS from `styles.scss`. 
+Remove all the `nav` related CSS from `styles.scss`.
 
-Create a partial `_nav.scss` in the imports folder and cut and paste the nested nav block below into it. 
+Create a partial `_nav.scss` in the imports folder and cut and paste the nested nav block below into it.
 
 ```css
 nav {
@@ -1158,16 +1228,8 @@ html {
 }
 
 body {
-  font:
-    100%/1.5 "Segoe UI",
-    Candara,
-    "Bitstream Vera Sans",
-    "DejaVu Sans",
-    "Bitstream Vera Sans",
-    "Trebuchet MS",
-    Verdana,
-    "Verdana Ref",
-    sans-serif;
+  font: 100%/1.5 "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans",
+    "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
   color: var(--dark-gray);
   max-width: var(--max-width);
   @media (min-width: $break-two) {
