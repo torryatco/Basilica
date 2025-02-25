@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "browser-sync": "^3.0.3"
+  },
+  "name": "basilica",
+  "version": "1.0.0",
+  "description": "a recipe",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "browser-sync app -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torryatco/Basilica.git"
+  },
+  "author": "Torr Yatco",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/torryatco/Basilica/issues"
+  },
+  "homepage": "https://github.com/torryatco/Basilica#readme"
+}
