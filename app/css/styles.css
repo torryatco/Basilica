@@ -1,9 +1,19 @@
+@font-face {
+  font-family: "futura_stdlight";
+  src:
+    url("font/futurastd-light-webfont-webfont.woff2") format("woff2"),
+    url("font/futurastd-light-webfont-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 html {
     --basil-green: #88a308;
     --dark-gray: #333333;
     --light-gray: #999999;
     --orange: #f90;
     --red: #f00;
+    --light-green: #fafdeb;
     --max-width: 840px;
     --breakpoint: 640px;
   }
@@ -53,6 +63,57 @@ html {
   li > h4 {
     margin-top: 12px;
   }
+
+  header {
+    height: 120px;
+    background: var(--basil-green);
+    border-radius: 8px 8px 0px 0px;
+    position: relative;
+
+    h1 {
+      background: url(img/basil.png) no-repeat;
+      font-family: futura_stdlight, sans-serif;
+      font-weight: normal;
+      color: #fff;
+      font-size: 5rem;
+      padding-left: 260px;
+      padding-top: 90px;
+      transform: translate(-100px, -80px)
+    }
+
+    a.beta {
+      background: url("img/burst.svg") no-repeat;
+      color: #fff;
+      font-size: 1.5rem;
+      position: absolute;
+      top: -20px;
+      right: 10px;
+      width: 85px;
+      height: 85px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      transform: rotate(20deg);
+      transition: all 1s ease;
+      &:hover {
+        transform: rotate(0deg) scale(1.2);
+      }
+
+
+    }
+  }
+
+
+
+  
+  
+
+  
+
+  article, aside {
+    padding: 1rem;
+  }
   
   aside li {
     list-style: none;
@@ -67,4 +128,24 @@ html {
 img {
   width: 100%;
 }
+
+footer {
+  background-color: var(--basil-green);
+  padding: 1rem;
+  border-radius: 0 0 4px 4px;
+  margin-bottom: 2rem;
+}
+
+@media (width > 640px) {
+  .content {
+    display: flex;
+  }
+  article {
+    flex: 1 0 60%;
+  }
+  aside {
+    background: var(--light-green);
+    box-shadow: -4px 0px 4px #ddd;
+  }
   
+}
